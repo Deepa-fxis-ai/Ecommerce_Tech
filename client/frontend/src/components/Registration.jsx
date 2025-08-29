@@ -7,7 +7,6 @@ const Registration=()=>{
 
     const getUserData=async (e)=>{
         const userData={username,email,password}
-        e.preventDefault();
         const url="http://127.0.0.1:8000/api/auth/register"
         const options={
             method:"POST",
