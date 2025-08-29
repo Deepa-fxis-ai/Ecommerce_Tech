@@ -1,0 +1,38 @@
+.headerContainer{
+    height: 15vh;
+    background-color: white;
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+    box-sizing: border-box;
+}
+.logo{
+    color: cornflowerblue;
+}
+.headings{
+    font-size: 22px;
+    font-style:italic;
+    font-weight: bolder;
+    color: rgb(28, 31, 75);
+    display: inline;
+}
+.letter{
+    color: cornflowerblue;
+}
+.logoContainer{
+    width: 15vw;
+    height: 4vh;
+}
+.optionsContainer{
+    width: 40vw;
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.button{
+    background-color: cornflowerblue;
+    color: white;
+    border-radius: 10px;
+    margin: 6px;
+    padding: 10px;
+}

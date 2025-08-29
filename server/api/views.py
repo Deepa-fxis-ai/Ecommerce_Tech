@@ -32,7 +32,7 @@ class LoginView(generics.GenericAPIView):
                 'user':user_serializer.data
             })
         else:
-            return Response({"detail": "Invalid credentials"}, status=401)
+            return Response({"detail": "User does not exist"}, status=401)
         
 class  AdminDashboardView(APIView):
     permission_classes=(IsAuthenticated,HasRole)
