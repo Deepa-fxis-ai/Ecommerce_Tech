@@ -5,18 +5,46 @@ const Home=()=>{
     return(
     <div className='HomeContainer'>
         <Header />
-        <div className='card'>
-           <p className='cardparagraph'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cumque est ea iusto tempore iste. At dolore aspernatur, voluptatum enim necessitatibus minima, beatae quidem eaque velit, eveniet quod? Aut, vel magnam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, voluptatum tempore animi a rerum nemo quos suscipit dicta. Aliquid ea odio quam voluptatibus omnis eum sapiente quibusdam sequi minima nobis? Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis tempore nulla animi commodi nemo praesentium ipsa excepturi consequuntur quibusdam minima placeat modi alias culpa iste, dolorem beatae esse, officia dolore.</p>
-           <img src="https://static.vecteezy.com/system/resources/previews/000/670/449/original/woman-online-shopping-with-laptop-and-e-commerce-elements-vector.jpg" alt="shopping-image" className='image'/>
+        <div className='banner'>
+            <h1 className='majorHeading'>FIND CLOTHES THAT MATCHES YOUR STYLE</h1>
+            <p className='cardparagraph'>
+              Browse through our diverse range of meticulously crafted garments, designed to bring out your individuality and cater to your sense of style.
+            </p>
+            <button className='shopButton'>Shop Now</button>
+            <div className="bannerpopularity">
+                <div className='bannerBox'>
+                   <h1 className='values'>200+</h1>
+                   <p className='valueDescription'>International Brands</p>
+                </div>
+                <div className='bannerBox'>
+                   <h1 className='values'>2,000+</h1>
+                   <p className='valueDescription'>High Quality Products</p>
+                </div>
+                <div className='bannerBox'>
+                   <h1 className='values'>30,000+</h1>
+                   <p className='valueDescription'>Happy Customers</p>
+                </div>
+            </div>  
+        </div> 
+        <div className='brands'>
+             <h1 className='versace'>VERSACE</h1>
+             <h1 className='zara'>ZARA</h1>
+             <h1 className='gucci'>GUCCI</h1>  
+             <h1 className='prada'>PRADA</h1> 
+             <h1 className='ck'>Calvin Klein</h1>
         </div>
-        <div className='card'>
-            <img src="https://static.vecteezy.com/system/resources/previews/015/501/183/original/woman-ordering-items-from-cart-in-online-shopping-website-illustration-vector.jpg" alt="shopping-image" className='image'/>
-           <p className='cardparagraph'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cumque est ea iusto tempore iste. At dolore aspernatur, voluptatum enim necessitatibus minima, beatae quidem eaque velit, eveniet quod? Aut, vel magnam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, voluptatum tempore animi a rerum nemo quos suscipit dicta. Aliquid ea odio quam voluptatibus omnis eum sapiente quibusdam sequi minima nobis? Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis tempore nulla animi commodi nemo praesentium ipsa excepturi consequuntur quibusdam minima placeat modi alias culpa iste, dolorem beatae esse, officia dolore.</p>
-           
-        </div>
-        <div className='card'>
-           <p className='cardparagraph'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cumque est ea iusto tempore iste. At dolore aspernatur, voluptatum enim necessitatibus minima, beatae quidem eaque velit, eveniet quod? Aut, vel magnam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, voluptatum tempore animi a rerum nemo quos suscipit dicta. Aliquid ea odio quam voluptatibus omnis eum sapiente quibusdam sequi minima nobis? Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis tempore nulla animi commodi nemo praesentium ipsa excepturi consequuntur quibusdam minima placeat modi alias culpa iste, dolorem beatae esse, officia dolore.</p>
-           <img src="https://www.creativefabrica.com/wp-content/uploads/2022/11/29/Online-Shopping-Illustration-Graphics-49309593-1.jpg" alt="shopping-image" className='image'/>
+        <div className='dressType'>
+            <h1 className='dressTypeBasedHeading'>BROWSE BY DRESS STYLE</h1>
+            <div className='casual'>
+                <p className='dressTypeParagraph'>
+                    CASUAL
+                </p>
+            </div>
+            <img src="https://res.cloudinary.com/dlfl0nfin/image/upload/v1756732322/Frame_62_yv5yko.png" className='formal'/>
+            <img src="https://res.cloudinary.com/dlfl0nfin/image/upload/v1756732545/Frame_64_fcxmmw.png"
+            className='party'/>
+            <img src="https://res.cloudinary.com/dlfl0nfin/image/upload/v1756732705/Frame_63_hdilyk.png"
+            className='gym'/>
         </div>
     </div>
     )

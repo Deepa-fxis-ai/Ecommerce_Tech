@@ -1,6 +1,11 @@
 import {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 import './RegistrationAndLogin.css'
+import { FaUser } from "react-icons/fa";
+import { RiLockPasswordLine } from "react-icons/ri";
+import { IoMdMail } from "react-icons/io";
+
+
 
 const Registration=()=>{
     const [username,setUserName]=useState("")
@@ -39,7 +44,7 @@ const Registration=()=>{
         <h1 className='heading'>Register here!!</h1>
         <form onSubmit={getUserData} className='formContainer'>
             <div className='inputAndLabelContainer'>
-                <label htmlFor="username">Username:</label>
+                <label htmlFor="username"><FaUser/></label>
                 <input 
                 type="text" 
                 id="username" 
@@ -49,7 +54,7 @@ const Registration=()=>{
                 className='input'/>
             </div>
             <div className='inputAndLabelContainer'>
-                <label htmlFor="email">Email:</label>
+                <label htmlFor="email"><IoMdMail/></label>
                 <input 
                 type="text" 
                 id="email" 
@@ -60,7 +65,7 @@ const Registration=()=>{
                 />
             </div>
             <div className='inputAndLabelContainer'>
-                <label htmlFor="username">Password:</label>
+                <label htmlFor="username"><RiLockPasswordLine/></label>
                 <input 
                 type="password" 
                 id="password" 
