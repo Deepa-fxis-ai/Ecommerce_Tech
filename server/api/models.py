@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator,MinValueValidator
 
 # Create your models here.
 class Role(models.Model):
@@ -14,3 +15,10 @@ class UserRole(models.Model):
 
     class Meta:
         unique_together=('user','role')
+
+class Product(models.Model):
+    product_name=models.CharField(max_length=255,default='Unknown')
+    price=models.DecimalField(max_digits=10,decimal_places=2)
+    description=models.TextField()
+    image_url=models.URLField(max_length=500,blank=True,null=True)
+    ratings=models.IntegerField(validators=[MinValueValidator(1),MaxValueValidator(5)],blank=True,null=True)

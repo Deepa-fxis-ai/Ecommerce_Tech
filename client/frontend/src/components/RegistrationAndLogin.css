@@ -1,5 +1,5 @@
 .registerOrLoginMainContainer{
-    background-color: cornflowerblue;
+    background-color: rgb(30, 34, 41);
     background-size: cover;
     height: 100vh;
     width: 100vw;
@@ -10,31 +10,35 @@
     margin:0;
 }
 .formContainer{
-    height: 30vh;
+    height: 35vh;
     width: 40vw;
-    background-color: white;
+    background-color: rgb(30, 34, 41);
     display:flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     padding:20px;
-    color:cornflowerblue;
+    color:rgb(115, 118, 124);
     border-radius: 10px;
 }
 .inputAndLabelContainer{
-    width:25vw;
+    width:20vw;
     display:flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    background-color: white;
+    align-items: center;
+    padding: 5px;
 }
 .input{
-    border-color: cornflowerblue;
+    border-width: 0;
     width:15vw;
-    border-radius: 10px;
-    border-width: 1px;
     padding:5px;
 }
+.input:focus{
+    outline: none;
+}
 .button{
-    background-color: cornflowerblue;
+    background-color: rgb(10, 10, 10);
     color: white;
     border-radius: 10px;
     margin: 6px;

@@ -2,6 +2,10 @@ import {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 import './RegistrationAndLogin.css'
 import Cookies from 'js-cookie'
+import { FaUser } from "react-icons/fa";
+import { RiLockPasswordLine } from "react-icons/ri";
+
+
 
 const Login=()=>{
     const [username,setUserName]=useState("")
@@ -45,7 +49,7 @@ const Login=()=>{
         <h1 className='heading'>Login here!!</h1>
         <form onSubmit={getUserData} className='formContainer'>
             <div className='inputAndLabelContainer'>
-                <label htmlFor="username">Username:</label>
+                <label htmlFor="username"><FaUser/></label>
                 <input 
                 type="text" 
                 id="username" 
@@ -55,7 +59,7 @@ const Login=()=>{
                 className='input'/>
             </div>
             <div className='inputAndLabelContainer'>
-                <label htmlFor="password">Password:</label>
+                <label htmlFor="password"><RiLockPasswordLine/> </label>
                 <input 
                 type="password" 
                 id="password" 
