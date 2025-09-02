@@ -1,0 +1,16 @@
+.newArrival{
+    position: absolute;
+    width: 403px;
+    height: 58px;
+    left: calc(50% - 403px/2 - 0.5px);
+    top: 991px;
+    font-family: 'Integral CF';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 58px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #000000;
+}

@@ -1,14 +1,14 @@
 from rest_framework import generics,status
 from rest_framework.permissions import AllowAny
 from django.contrib.auth.models import User
-from .serializers import RegisterSerializer,LoginSerializer,UserSerializer,ProductSerializer
+from .serializers import RegisterSerializer,LoginSerializer,UserSerializer,ProductSerializer,ReviewSerializer
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from .permissions import HasRole
-from .models import Product
+from .models import Product,CustomerReview
 from django.shortcuts import get_object_or_404
 
 
@@ -93,3 +93,15 @@ class ProductUpdateDeleteView(APIView):
         product.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
+class UserReviewCreate(generics.CreateAPIView):
+    queryset=CustomerReview.objects.all()
+    serializer_class=ReviewSerializer
+
+class UserReviewGet(APIView):
+    permission_classes=(IsAuthenticated,)
+    def get(self,request):
+        customer=CustomerReview.objects.all()
+        serialized_data=ReviewSerializer(customer,many=True)
+        return Response({
+           'user': serialized_data.data,
+        },200)
