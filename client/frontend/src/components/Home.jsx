@@ -1,4 +1,5 @@
 import Header from './Header.jsx'
+import TopSellingAndArrival from './topSellingAndArrival.jsx';
 import './Home.css'
 
 const Home=()=>{
@@ -33,6 +34,7 @@ const Home=()=>{
              <h1 className='prada'>PRADA</h1> 
              <h1 className='ck'>Calvin Klein</h1>
         </div>
+        
         <div className='dressType'>
             <h1 className='dressTypeBasedHeading'>BROWSE BY DRESS STYLE</h1>
             <div className='casual'>

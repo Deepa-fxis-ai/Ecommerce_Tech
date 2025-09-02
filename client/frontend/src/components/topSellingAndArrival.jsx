@@ -1,9 +1,8 @@
 import { useState , useEffect} from 'react'
-import Header from './Header.jsx'
 import Cookies from 'js-cookie'
-import './product.css'
+import './topSellingAndArrival.css'
 
-const Product=()=>{
+const TopSellingAndArrival=()=>{
     const [productList,setProductList]=useState({user:[]});
     const token=Cookies.get('jwt_token')
 
@@ -38,24 +37,19 @@ const Product=()=>{
     },[]);
      
     return(
-        <div className='productContainer'>
-            <Header/>
-            <div className='productSection'>
+        <div>
+            <h1 className="newArrival">NEW ARRIVALS</h1>
                 {productList.user&&productList.user.length>0?
-                productList.user.map((each,id)=>(
-                    <div key={id} className='productCard'>
-                        <img src={each.image_url} className='productImage'/>
-                        <div>
-                            <h4>{each.product_name}</h4>
-                            <p>{each.ratings}</p>
-                            <p>{each.price}</p>
-                        </div>
-                    </div> 
-                ))
-                :<p>No Product Available</p>} 
-           </div>
+                <ul>
+                  {productList.user.map((each,id)=>(
+                    <li key={id}>{each.product_name}</li> 
+                  ))}
+                </ul>
+            :null}
+            
+           
         </div>
     )
 }
 
-export default Product
+export default TopSellingAndArrival

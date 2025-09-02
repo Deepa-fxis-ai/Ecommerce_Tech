@@ -2,3 +2,27 @@
     height: 100vh;
     width: 100vw;
 }
+.productSection{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height: auto;
+    width: 100vw;
+    flex-wrap: wrap;
+}
+.productCard{
+    height: 50vh;
+    width: 20vw;
+    margin: 50px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    border-radius: 20px;
+}
+.productImage{
+    width: 15vw;
+    height: 25vh;
+    border-radius: 20px;
+    margin-top: 15px;
+}

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Role,UserRole,Product
+from .models import Role,UserRole,Product,CustomerReview
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -32,4 +32,9 @@ class LoginSerializer(serializers.Serializer):
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model=Product
-        fields=('product_name','price','description','image_url','ratings')
+        fields=('product_name','price','description','image_url','ratings','size')
+
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=CustomerReview
+        fields=('customer_rating','customer_name','review')
