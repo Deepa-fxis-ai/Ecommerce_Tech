@@ -10,6 +10,6 @@ class SizeAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display=('product_name','price','description','image_url','ratings')
+    list_display=('product_name','price','description','image_url','ratings','dressType')
     filter_horizontal=("size",) 
 

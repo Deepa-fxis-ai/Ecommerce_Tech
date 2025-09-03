@@ -29,8 +29,19 @@ class Product(models.Model):
     image_url=models.URLField(max_length=500,blank=True,null=True)
     ratings=models.IntegerField(validators=[MinValueValidator(1),MaxValueValidator(5)],blank=True,null=True)
     size=models.ManyToManyField(Size,blank=True)
+    dressType=models.CharField(max_length=20,choices=[('C','Casual'),('F','Formal'),('P','Party'),('G','Gym',)],default=('C','Casual'))
 
 class CustomerReview(models.Model):
     customer_rating=models.IntegerField(validators=[MinValueValidator(1),MaxValueValidator(5)],blank=True,null=True)
     customer_name=models.CharField(max_length=20,unique=True)
     review=models.TextField()
+
+class Cart(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    product=models.ForeignKey(Product,on_delete=models.CASCADE)
+    quantity=models.PositiveIntegerField(default=1)
+    added_at=models.DateTimeField(auto_now_add=True)
+    
+    @property
+    def total_price(self):
+        return self.product.price * self.quantity
