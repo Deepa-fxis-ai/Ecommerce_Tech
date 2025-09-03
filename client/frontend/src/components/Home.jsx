@@ -7,6 +7,7 @@ const Home=()=>{
     <div className='HomeContainer'>
         <Header />
         <div className='banner'>
+            <div className='bannerContent'>
             <h1 className='majorHeading'>FIND CLOTHES THAT MATCHES YOUR STYLE</h1>
             <p className='cardparagraph'>
               Browse through our diverse range of meticulously crafted garments, designed to bring out your individuality and cater to your sense of style.
@@ -25,7 +26,8 @@ const Home=()=>{
                    <h1 className='values'>30,000+</h1>
                    <p className='valueDescription'>Happy Customers</p>
                 </div>
-            </div>  
+            </div> 
+            </div> 
         </div> 
         <div className='brands'>
              <h1 className='versace'>VERSACE</h1>

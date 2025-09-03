@@ -17,7 +17,7 @@ const Login=()=>{
 
     const submitSuccess=(jwtToken)=>{
         Cookies.set('jwt_token',jwtToken,{expires:30})
-        navigate("/")
+        navigate(`/product`)
     }
 
     const getUserData=async (e)=>{

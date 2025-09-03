@@ -1,14 +1,14 @@
 from rest_framework import generics,status
 from rest_framework.permissions import AllowAny
 from django.contrib.auth.models import User
-from .serializers import RegisterSerializer,LoginSerializer,UserSerializer,ProductSerializer,ReviewSerializer
+from .serializers import RegisterSerializer,LoginSerializer,UserSerializer,ProductSerializer,ReviewSerializer,CartSerializer
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from .permissions import HasRole
-from .models import Product,CustomerReview
+from .models import Product,CustomerReview,Cart
 from django.shortcuts import get_object_or_404
 
 
@@ -35,7 +35,7 @@ class LoginView(generics.GenericAPIView):
         else:
             return Response({"detail": "User does not exist"}, status=401)
         
-class  AdminDashboardView(APIView):
+class AdminDashboardView(APIView):
     permission_classes=(IsAuthenticated,HasRole)
     required_role='admin'
     def get(self,request):
@@ -46,7 +46,7 @@ class  AdminDashboardView(APIView):
             'user': user_serializer.data
         },200)
     
-class  DashboardView(APIView):
+class DashboardView(APIView):
     permission_classes=(IsAuthenticated)
     def get(self,request):
         user=request.user
@@ -57,11 +57,12 @@ class  DashboardView(APIView):
         },200)
     
 class ProductCreateView(generics.CreateAPIView):
+    permission_classes=(IsAuthenticated,HasRole)
+    required_role='admin'
     queryset=Product.objects.all()
-    serializer_class=ProductSerializer
+    serializer_class=ProductSerializer(many=True)
 
 class ProductGetView(APIView):
-    permission_classes=(IsAuthenticated,)
     def get(self,request):
         product=Product.objects.all()
         serialized_data=ProductSerializer(product,many=True)
@@ -70,8 +71,6 @@ class ProductGetView(APIView):
         },200)
 
 class ProductUpdateDeleteView(APIView):
-    permission_classes=(IsAuthenticated,)
-
     def get_product(self,pk):
         return get_object_or_404(Product, pk=pk)
     
@@ -105,3 +104,22 @@ class UserReviewGet(APIView):
         return Response({
            'user': serialized_data.data,
         },200)
+    
+class CartView(generics.ListCreateAPIView):
+    serializer_class=CartSerializer
+    permission_classes=(IsAuthenticated,)
+    def get_queryset(self):
+        return Cart.objects.filter(user=self.request.user) 
+    def perform_create(self,serializer):
+        serializer.save(user=self.request.user)
+
+class CartDeleteView(APIView):
+    def get_cart(self,pk):
+        return get_object_or_404(Cart, pk=pk)
+    
+    def delete(self,request,pk):
+        product=self.get_cart(pk)
+        product.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+   

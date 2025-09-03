@@ -1,11 +1,11 @@
 import { useState , useEffect} from 'react'
+import {useNavigate} from 'react-router-dom'
 import Header from './Header.jsx'
-import Cookies from 'js-cookie'
 import './product.css'
 
 const Product=()=>{
     const [productList,setProductList]=useState({user:[]});
-    const token=Cookies.get('jwt_token')
+    const navigate=useNavigate()
 
     const getProductData=async ()=>{ 
         const url="http://127.0.0.1:8000/product/get/";
@@ -13,9 +13,7 @@ const Product=()=>{
             method:"GET",
             headers:{
                 "Content-Type":"application/json",
-                "Authorization": `Bearer ${token}`
             },
-            credentials: 'include'
         }
         try{
           const response=await fetch(url,options)
@@ -36,21 +34,25 @@ const Product=()=>{
     useEffect(()=>{
         getProductData();
     },[]);
+
+    const handleNavigation=(id)=>{
+        navigate(`/product/${id}`)
+    }
      
     return(
         <div className='productContainer'>
             <Header/>
             <div className='productSection'>
                 {productList.user&&productList.user.length>0?
-                productList.user.map((each,id)=>(
-                    <div key={id} className='productCard'>
+                productList.user.map((each,index)=>(
+                      <div key={index} className='productCard' onClick={()=>handleNavigation(each.id)}>
                         <img src={each.image_url} className='productImage'/>
                         <div>
                             <h4>{each.product_name}</h4>
                             <p>{each.ratings}</p>
                             <p>{each.price}</p>
                         </div>
-                    </div> 
+                      </div> 
                 ))
                 :<p>No Product Available</p>} 
            </div>

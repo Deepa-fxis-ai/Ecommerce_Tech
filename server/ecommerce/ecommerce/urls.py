@@ -20,7 +20,7 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
-from api.views import RegisterView,LoginView,DashboardView,AdminDashboardView,ProductCreateView,ProductGetView,ProductUpdateDeleteView,UserReviewCreate,UserReviewGet
+from api.views import RegisterView,LoginView,DashboardView,AdminDashboardView,ProductCreateView,ProductGetView,ProductUpdateDeleteView,UserReviewCreate,UserReviewGet,CartView,CartDeleteView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,7 +32,9 @@ urlpatterns = [
     path('api/admindashboard/',AdminDashboardView.as_view(),name="admin_dashboard"),
     path('product/create/',ProductCreateView.as_view(),name="product_create"),
     path('product/get/',ProductGetView.as_view(),name="product_list"),
-    path('product/detail/<int:pk>',ProductUpdateDeleteView.as_view(),name="product_update_delete"),
+    path('product/detail/<int:pk>/',ProductUpdateDeleteView.as_view(),name="product_update_delete"),
     path('user/review/create',UserReviewCreate.as_view(),name="review_create"),
-    path('user/review/get',UserReviewGet.as_view(),name="review_get")
+    path('user/review/get',UserReviewGet.as_view(),name="review_get"),
+    path('cart/',CartView.as_view(),name="cart_get"),
+    path('deletecart/<int:pk>',CartDeleteView.as_view(),name="cart_delete")
 ]

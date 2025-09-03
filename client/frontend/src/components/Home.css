@@ -1,26 +1,32 @@
+body{
+    overflow-x:hidden;
+}
 .HomeContainer{
     height: 100vh;
     width: 100vw;
+    box-sizing: border-box;
 }
 .banner{
     background-image: url("https://res.cloudinary.com/dlfl0nfin/image/upload/v1756726913/Rectangle_2_d0yyup.png");
-    position: absolute;
-    width: 1440px;
-    height: 663px;
-    left: 0px;
-    top: 134px;
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+    padding-left:30px;
+}
+.bannerContent{
+    width:50vw;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 .majorHeading{
-    position: absolute;
     width: 577px;
-    left: 92px;
     font-family: 'Integral CF';
     font-style: normal;
     font-weight: 700;
     font-size: 64px;
     line-height: 64px;
-    display: flex;
-    align-items: center;
     color: #000000;
 }
 .bannerContents{
@@ -32,11 +38,9 @@
 }
 
 .cardparagraph{
-    position: absolute;
     width: 545px;
     height: 33px;
-    left: 100px;
-    top: 242px;
+    left: 92px;
     font-family: 'Satoshi';
     font-style: normal;
     font-weight: 400;
@@ -51,11 +55,9 @@
     align-items: center;
     padding: 16px 54px;
     gap: 12px;
-    position: absolute;
     width: 210px;
     height: 52px;
     left: 100px;
-    top: 347px;
     background: #000000;
     border-radius: 62px;
     color:white;
@@ -66,11 +68,9 @@
     align-items: center;
     padding: 0px;
     gap: 32px;
-    position: absolute;
     width: 596px;
     height: 74px;
     left: 100px;
-    top: 457px;
 }
 .bannerBox{
     display: flex;
@@ -114,14 +114,13 @@
 }
 .brands{
     position: absolute;
-    width: 1440px;
+    width: 100vw;
     height: 122px;
-    left: 0px;
     background: #000000;
-    top: 797px;
     color: #FFFFFF;
     display: flex;
     justify-content: space-around;
+    box-sizing: border-box;
 }
 .versace{
     font-family: 'Courier New', Courier, monospace;
@@ -140,9 +139,8 @@
 }
 .dressType{
     position: absolute;
-    width: 1239px;
+    width: 100vw;
     height: 866px;
-    left: 100px;
     top: 1017px;
     background: #F0F0F0;
     border-radius: 40px;
