@@ -1,6 +1,10 @@
 import {useState,useEffect} from 'react'
 import { useParams ,useNavigate} from 'react-router-dom'
+import { FaMinus, FaPlus } from "react-icons/fa6";
+import { FiMinus } from "react-icons/fi";
+import Header from './Header.jsx'
 import Cookies from 'js-cookie'
+import './productDetails.css'
 
 const ProductDetail=()=>{
     const [productDetail,setProductDetail]=useState(null)
@@ -63,19 +67,43 @@ const ProductDetail=()=>{
         }    
     }
 
+    const handleDecrement=()=>{
+        setCartQuantity(prev=>prev-1)
+    }
+    const handleIncrement=()=>{
+        setCartQuantity(prev=>prev+1)
+    }
+
     useEffect(()=>{
         getProductData()
     },[id]);
 
     return(
-       <div>
+       <div className='mainContainer'>
+            <Header/>
             {!productDetail ? (
             <p>Loading...</p>
             ) : (
-                <div>
-                  <p>{productDetail.product_name}</p>
-                  <input type="number" min="1" value={cartQuantity} onChange={(e)=>setCartQuantity(parseInt(e.target.value))}/>
-                  <button onClick={()=>{handleCartData(productDetail.id)}}>Add to Cart</button>
+                <div className='SingleProductDetail'>
+                  <img src={productDetail.image_url} className='productSingleImage'/>
+                  <div>
+                    <h3>{productDetail.product_name}</h3>
+                    <p>{productDetail.ratings}</p>
+                    <p>Rs.{productDetail.price}</p>
+                    <p>{productDetail.description}</p>
+                    <div>
+                        <p>Small</p>
+                        <p>Medium</p>
+                        <p>Large</p>
+                        <p>Extra Large</p>
+                    </div>
+                    <div className='quantity'>
+                        <button onClick={handleDecrement}><FaMinus /></button>
+                        {cartQuantity}
+                        <button onClick={handleIncrement}><FaPlus /></button>
+                    </div>
+                    <button onClick={()=>{handleCartData(productDetail.id)}}>Add to Cart</button>
+                  </div>
                 </div>
             )}
      </div>

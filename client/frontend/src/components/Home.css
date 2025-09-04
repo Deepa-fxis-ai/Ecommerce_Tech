@@ -113,7 +113,6 @@ body{
     flex-grow: 0;
 }
 .brands{
-    position: absolute;
     width: 100vw;
     height: 122px;
     background: #000000;
@@ -138,19 +137,18 @@ body{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 .dressType{
-    position: absolute;
     width: 100vw;
     height: 866px;
-    top: 1017px;
     background: #F0F0F0;
     border-radius: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .dressTypeBasedHeading{
-    position: absolute;
     width: 687px;
     height: 58px;
     left: calc(50% - 687px/2);
-    top: 70px;
     font-family: 'Integral CF';
     font-style: normal;
     font-weight: 700;
@@ -162,20 +160,18 @@ body{
     color: #000000;
 }
 .casual{
-    position: absolute;
-    width: 407px;
+    width: 30vw;
     height: 289px;
     left: 64px;
-    top: 192px;
     background-image: url('https://res.cloudinary.com/dlfl0nfin/image/upload/v1756731714/image_11_ldhdsv.png');
     border-radius: 20px;
+    display: inline;
+    margin: 10px;
 }
 .dressTypeParagraph{
-    position: absolute;
     width: 114px;
     height: 49px;
     left: 36px;
-    top: 25px;
     font-family: 'Satoshi';
     font-style: normal;
     font-weight: 700;
@@ -186,29 +182,30 @@ body{
     color: #000000;
 }
 .formal{
-    position: absolute;
-    width: 684px;
+    width: 584px;
     height: 289px;
     left: 491px;
-    top: 192px;
     background: #FFFFFF;
     border-radius: 20px;
 }
 .party{
-    position: absolute;
     width: 684px;
     height: 289px;
     left: 64px;
-    top: 501px;
     background: #FFFFFF;
     border-radius: 20px;
 }
 .gym{
-    position: absolute;
-    width: 407px;
+    width: 307px;
     height: 289px;
     left: 768px;
-    top: 501px;
     background: #FFFFFF;
     border-radius: 20px;
+}
+.dressPictures{
+    display: flex;
+    flex-wrap: wrap;
+    height: 60vh;
+    width: 80vw;
+    justify-content: space-around;
 }

@@ -5,15 +5,14 @@
 .productSection{
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    height: auto;
-    width: 100vw;
+    height: 40vh;
+    width: 60vw;
     flex-wrap: wrap;
 }
 .productCard{
-    height: 50vh;
-    width: 20vw;
-    margin: 50px; 
+    height: auto;
+    width: 15vw;
+    margin: 5px; 
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -24,5 +23,36 @@
     width: 15vw;
     height: 25vh;
     border-radius: 20px;
-    margin-top: 15px;
+}
+.filterSection{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px 24px;
+    gap: 24px;
+    width: 295px;
+    height: 1220px;
+    left: 75px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+}
+.bothFilterAndProductContainer{
+    display: flex;
+    width: 100vw;
+    justify-content: space-around;
+} 
+.filterHeading{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px;
+    gap: 20px;
+    width: 247px;
+    height: 27px;
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
 }

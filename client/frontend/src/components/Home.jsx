@@ -36,19 +36,21 @@ const Home=()=>{
              <h1 className='prada'>PRADA</h1> 
              <h1 className='ck'>Calvin Klein</h1>
         </div>
-        
+        <TopSellingAndArrival/>
         <div className='dressType'>
             <h1 className='dressTypeBasedHeading'>BROWSE BY DRESS STYLE</h1>
-            <div className='casual'>
-                <p className='dressTypeParagraph'>
-                    CASUAL
-                </p>
+            <div className='dressPictures'>
+                <div className='casual'>
+                    <p className='dressTypeParagraph'>
+                        CASUAL
+                    </p>
+                </div>
+                <img src="https://res.cloudinary.com/dlfl0nfin/image/upload/v1756732322/Frame_62_yv5yko.png" className='formal'/>
+                <img src="https://res.cloudinary.com/dlfl0nfin/image/upload/v1756732545/Frame_64_fcxmmw.png"
+                className='party'/>
+                <img src="https://res.cloudinary.com/dlfl0nfin/image/upload/v1756732705/Frame_63_hdilyk.png"
+                className='gym'/>
             </div>
-            <img src="https://res.cloudinary.com/dlfl0nfin/image/upload/v1756732322/Frame_62_yv5yko.png" className='formal'/>
-            <img src="https://res.cloudinary.com/dlfl0nfin/image/upload/v1756732545/Frame_64_fcxmmw.png"
-            className='party'/>
-            <img src="https://res.cloudinary.com/dlfl0nfin/image/upload/v1756732705/Frame_63_hdilyk.png"
-            className='gym'/>
         </div>
     </div>
     )
