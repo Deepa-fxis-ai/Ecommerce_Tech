@@ -1,0 +1,18 @@
+.mainContainer{
+    width: 100vw;
+}
+.SingleProductDetail{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.productSingleImage{
+    width: 444px;
+    height: 530px;
+    left: 266px;
+    background: #F0EEED;
+    border-radius: 20px;
+}
+.quantity{
+    display: flex;
+}

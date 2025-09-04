@@ -56,7 +56,7 @@ const Cart=()=>{
         <div className='cartContainer'>
             <Header/>
               {cartData.map(each=>(
-                  <div key={each.id}>
+                  <div key={each.id} className='cartList'>
                     <p>Product ID: {each.product}</p>
                     <p>Quantity: {each.quantity}</p>
                     <p>Total Price: ₹{each.total_price}</p>
