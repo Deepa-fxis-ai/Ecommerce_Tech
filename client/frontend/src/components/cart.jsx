@@ -1,6 +1,7 @@
 import { useState ,useEffect} from 'react'
 import Cookies from 'js-cookie'
 import Header from './Header.jsx'
+import { MdOutlineDeleteOutline } from "react-icons/md";
 import './cart.css'
 
 const Cart=()=>{
@@ -55,14 +56,27 @@ const Cart=()=>{
     return(
         <div className='cartContainer'>
             <Header/>
-              {cartData.map(each=>(
-                  <div key={each.id} className='cartList'>
-                    <p>Product ID: {each.product}</p>
-                    <p>Quantity: {each.quantity}</p>
-                    <p>Total Price: ₹{each.total_price}</p>
-                    <button onClick={()=>handleCartDelete(each.id)}>Delete</button>
-                  </div>
+            <table>
+                <tr className='cartList'>
+                    <th>Product ID</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                    <th>Cancel Cart</th>
+                </tr>
+                     {cartData.map(each=>(
+                        <tr key={each.id} className='cartList'>
+                            <td>{each.product}</td>
+                            <td>{each.quantity}</td>
+                            <td>₹{each.total_price}</td>
+                            <button onClick={()=>handleCartDelete(each.id)}><MdOutlineDeleteOutline/></button>
+                        </tr>
               ))}
+                
+            </table>
+
+
+
+             
         </div>
     )
 }

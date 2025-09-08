@@ -1,7 +1,6 @@
 import {useState,useEffect} from 'react'
 import { useParams ,useNavigate} from 'react-router-dom'
 import { FaMinus, FaPlus } from "react-icons/fa6";
-import { FiMinus } from "react-icons/fi";
 import Header from './Header.jsx'
 import Cookies from 'js-cookie'
 import './productDetails.css'
@@ -109,5 +108,6 @@ const ProductDetail=()=>{
      </div>
         )
 }
+98.
 
 export default ProductDetail
