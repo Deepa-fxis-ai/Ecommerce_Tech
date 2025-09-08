@@ -115,7 +115,7 @@ const Product=()=>{
                         <h5>Size</h5>
                         <TbRulerMeasure/>
                     </div>
-                    <div class="filterAlignment">
+                    <div className="filterAlignment">
                         {dressSize.map(each=>(
                             <label key={each.code}>
                                 <input type="radio" name="dressSize" value={each.code} checked={selectedDressSize===each.code} onChange={handleSizeChange}/>
