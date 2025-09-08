@@ -100,7 +100,7 @@ const Product=()=>{
                         <h5>Dress Type</h5>
                         <PiDressDuotone/>
                     </div>
-                    <div class="filterAlignment">
+                    <div className="filterAlignment">
                         {dressTypes.map(each=>(
                                 <label key={each.code}>
                                 <input id={each} type="radio" name="dressType" value={each.code} checked={selectedDressType===each.code} onChange={handleTypeChange}/>
