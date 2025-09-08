@@ -56,3 +56,21 @@
     align-self: stretch;
     flex-grow: 0;
 }
+.filterAlignment{
+    display: flex;
+    flex-direction: column;
+}
+.searchContainer{
+    width:20vw;
+    height: 5vh;
+    background-color: rgb(212, 206, 206);
+    border-radius: 20px;
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px;
+    align-items: center;
+    border: 0px;
+}
+.searchContainer:hover{
+    border: 0px;
+}

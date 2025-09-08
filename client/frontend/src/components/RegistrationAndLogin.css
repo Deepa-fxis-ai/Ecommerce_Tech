@@ -61,3 +61,24 @@
     font-style: "Roboto";
     color: red;
 }
+
+
+@media screen and (max-width:740px) {
+
+.inputAndLabelContainer{
+    width:45vw;
+}
+.input{
+    border-width: 0;
+    width:35vw;
+    padding:5px;
+}
+.heading{
+    font-size: 26px;
+}
+.paragraph{
+    font-size: 8px;
+    font-weight: lighter;
+    font-style: "Roboto";
+}
+}
