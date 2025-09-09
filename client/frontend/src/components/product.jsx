@@ -124,7 +124,7 @@ const Product=()=>{
                         ))}
                     </div>
                 </div>
-                <button onClick={handleFilter}>Apply Filter</button>
+                <button onClick={handleFilter} className='applyButton'>Apply Filter</button>
                 
                </div>
 

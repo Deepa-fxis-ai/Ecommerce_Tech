@@ -1,4 +1,5 @@
 import Header from './Header.jsx'
+import { Link } from 'react-router-dom';
 import TopSellingAndArrival from './topSellingAndArrival.jsx';
 import './Home.css'
 
@@ -12,7 +13,10 @@ const Home=()=>{
             <p className='cardparagraph'>
               Browse through our diverse range of meticulously crafted garments, designed to bring out your individuality and cater to your sense of style.
             </p>
-            <button className='shopButton'>Shop Now</button>
+            <Link to="/product">
+               <button className='shopButton'>Shop Now</button>
+            </Link>
+            
             <div className="bannerpopularity">
                 <div className='bannerBox'>
                    <h1 className='values'>200+</h1>
@@ -27,6 +31,7 @@ const Home=()=>{
                    <p className='valueDescription'>Happy Customers</p>
                 </div>
             </div> 
+            <img src="https://res.cloudinary.com/dlfl0nfin/image/upload/v1757402954/mob_nfebng.png" className='bannerMobileImage'/>
             </div> 
         </div> 
         <div className='brands'>
