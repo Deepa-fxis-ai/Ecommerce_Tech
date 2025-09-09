@@ -6,6 +6,9 @@
     align-items: center;
     box-sizing: border-box;
 }
+.mobileContainer{
+    display: none;
+}
 a{
     color: #000;
 }
@@ -41,4 +44,48 @@ a{
     border-radius: 10px;
     margin: 6px;
     padding: 10px;
+}
+
+@media screen and (max-width:740px){
+    .headerContainer{
+        display: none;
+}
+.mobileContainer{
+    height: 10vh;
+    width: 100vw;
+    background-color: white;
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.optionContainer{
+    height: 30vh;
+    width: 40vw;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    color: #000;
+    justify-self: flex-end;
+    background-color: rgb(206, 209, 212);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    position: absolute;
+}
+.logoContainer{
+    height: 4vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.button{
+    background-color: rgb(10, 10, 10);
+    color: white;
+    border-radius: 10px;
+    margin: 6px;
+    padding: 10px;
+}
+    
 }

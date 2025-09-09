@@ -74,3 +74,10 @@
 .searchContainer:hover{
     border: 0px;
 }
+.applyButton{
+    background-color: rgb(10, 10, 10);
+    color: white;
+    border-radius: 10px;
+    margin: 6px;
+    padding: 10px;
+}

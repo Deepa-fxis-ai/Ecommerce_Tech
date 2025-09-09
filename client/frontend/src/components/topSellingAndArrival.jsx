@@ -99,7 +99,7 @@ const TopSellingAndArrival=()=>{
  
                 productList.user&&productList.user.length>0?
                 productList.user.map((each,index)=>{
-                   if((index<4) & (each.ratings>3)){
+                   if((index<4) && (each.ratings>3)){
                     return(
                       <div key={index} className='productArrival' onClick={()=>handleNavigation(each.id)}>
                         <img src={each.image_url} className='productImage'/>
