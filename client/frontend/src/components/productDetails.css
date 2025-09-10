@@ -1,5 +1,9 @@
 .mainContainer{
     width: 100vw;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .SingleProductDetail{
     display: flex;
@@ -15,4 +19,59 @@
 }
 .quantity{
     display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: green;
+    color: white;
+    padding: 5px;
+    border-radius: 10px;
+    width: 20vw;
+    
+}
+.size{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width:30vw;
+}
+.para{
+    background-color: grey;
+    padding: 10px;
+    border-radius: 10px;
+    color: #F0EEED;
+}
+.faButton{
+    background-color: green;
+    color: white;
+}
+
+
+@media screen and (max-width:740px){
+    .mainContainer{
+    width: 100vw;
+}
+.SingleProductDetail{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100vw;
+}
+.productSingleImage{
+    width: 444px;
+    height: 530px;
+    left: 266px;
+    background: #F0EEED;
+    border-radius: 20px;
+}
+.quantity{
+    display: flex;
+    margin-left: 30%;
+     width: 40vw;
+}
+.size{
+    width:100vw;
+}
+
 }

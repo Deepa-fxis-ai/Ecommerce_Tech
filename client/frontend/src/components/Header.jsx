@@ -42,7 +42,7 @@ const Header=()=>{
           </Link>
           <button onClick={handleBarStatus}><FaBars/></button>
           </div>
-          {mobileViewBarStatus?<div className="optionContainer"s>
+          {mobileViewBarStatus?<div className="optionContainer">
              <a href="/">Home</a>
              <a href="/product">Products</a>
              <a href="/cart">Cart</a>

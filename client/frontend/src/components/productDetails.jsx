@@ -90,18 +90,18 @@ const ProductDetail=()=>{
                     <p>{productDetail.ratings}</p>
                     <p>Rs.{productDetail.price}</p>
                     <p>{productDetail.description}</p>
-                    <div>
-                        <p>Small</p>
-                        <p>Medium</p>
-                        <p>Large</p>
-                        <p>Extra Large</p>
+                    <div className='size'>
+                        <p className='para'>Small</p>
+                        <p className='para'>Medium</p>
+                        <p className='para'>Large</p>
+                        <p className='para'>Extra Large</p>
                     </div>
                     <div className='quantity'>
-                        <button onClick={handleDecrement}><FaMinus /></button>
+                        <button onClick={handleDecrement} className='faButton'><FaMinus /></button>
                         {cartQuantity}
-                        <button onClick={handleIncrement}><FaPlus /></button>
+                        <button onClick={handleIncrement} className='faButton'><FaPlus /></button>
                     </div>
-                    <button onClick={()=>{handleCartData(productDetail.id)}}>Add to Cart</button>
+                    <button className='button' onClick={()=>{handleCartData(productDetail.id)}}>Add to Cart</button>
                   </div>
                 </div>
             )}

@@ -11,6 +11,7 @@ const Product=()=>{
     const [selectedDressType,setSelectedDressType]=useState("Casual")
     const [selectedDressSize,setSelectedDressSize]=useState("")
     const [filteredProducts,setFilteredProducts]=useState([])
+    const [filterStatus,setFilterStatus]=useState(false)
     const navigate=useNavigate()
 
     const dressTypes=[
@@ -84,6 +85,10 @@ const Product=()=>{
             })
         setFilteredProducts(search)
     }
+
+    const handleFilterStatus=()=>{
+        setFilterStatus(prev=>!prev)
+    }
      
     return(
         <div className='productContainer'>
@@ -127,6 +132,72 @@ const Product=()=>{
                 <button onClick={handleFilter} className='applyButton'>Apply Filter</button>
                 
                </div>
+
+               <div className='productSection'>
+                    {filteredProducts.length>0?
+                    filteredProducts.map((each,index)=>(
+                        <div key={index} className='productCard' onClick={()=>handleNavigation(each.id)}>
+                            <img src={each.image_url} className='productImage'/>
+                            <div>
+                                <h4>{each.product_name}</h4>
+                                <p>{each.ratings}</p>
+                                <p>{each.price}</p>
+                            </div>
+                        </div> 
+                    ))
+                    :<p>No Product Available</p>} 
+              </div>
+
+            </div>
+
+            <div className='bothFilterAndProductContainerInMobile'>
+               <div className='filterSectionMobile'>
+                <input type="search" className='searchContainer' placeholder='Search Products' onChange={handleSearchedProducts}/>
+                <button onClick={handleFilterStatus} className="filterHeading">
+                    <h3>Filters</h3>
+                    <FaFilter/>
+                </button>
+                
+               </div>
+
+               {filterStatus?
+               <div>
+               <div className='filterThings'>
+                <div className='eachFilterBorder'>
+                    <div className="filterHeading">
+                        <h5>Dress Type</h5>
+                        <PiDressDuotone/>
+                    </div>
+                    <div className="filterAlignment">
+                        {dressTypes.map(each=>(
+                                <label key={each.code}>
+                                <input id={each} type="radio" name="dressType" value={each.code} checked={selectedDressType===each.code} onChange={handleTypeChange}/>
+                                {each.label}
+                                </label>
+                        ))}
+                    </div>
+                </div>
+                <div className='eachFilterBorder'>
+                    <div className="filterHeading">
+                        <h5>Size</h5>
+                        <TbRulerMeasure/>
+                    </div>
+                    <div className="filterAlignment">
+                        {dressSize.map(each=>(
+                            <label key={each.code}>
+                                <input type="radio" name="dressSize" value={each.code} checked={selectedDressSize===each.code} onChange={handleSizeChange}/>
+                                {each.label}
+                            </label>
+                        ))}
+                    </div>
+                </div>
+                </div>
+                    <button onClick={handleFilter} className='applyButton'>Apply Filter</button>
+               </div>:
+               null
+               }
+
+               
 
                <div className='productSection'>
                     {filteredProducts.length>0?

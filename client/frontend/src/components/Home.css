@@ -213,7 +213,7 @@ body{
     display: none;
 }
 
-@media screen and (max-width:640px){
+@media screen and (max-width:740px){
 .HomeContainer{
     height: 100vh;
     width: 100vw;
@@ -222,26 +222,24 @@ body{
 }
 .banner{
     width: 100vw;
-    height: 100vh;
+    height: 70vh;
     box-sizing: border-box;
     padding-left:30px;
 }
 .bannerContent{
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
 }
 .bannerMobileImage{
    width: 100vw;
    height: 50vh;
 }
 .majorHeading{
-    width: 377px;
+    width: 90vw;
     font-family: 'Integral CF';
     font-style: normal;
     font-weight: 700;
     font-size: 34px;
-    line-height: 64px;
     color: #000000;
 }
 .bannerContents{
@@ -260,7 +258,6 @@ body{
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
-    line-height: 22px;
     color: rgba(0, 0, 0, 0.6);
 }
 .shopButton{
