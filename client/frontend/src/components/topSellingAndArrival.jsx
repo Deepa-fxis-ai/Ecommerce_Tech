@@ -1,4 +1,5 @@
 import { useState , useEffect} from 'react'
+import { IoIosStar } from "react-icons/io";
 import Cookies from 'js-cookie'
 import './topSellingAndArrival.css'
 
@@ -52,85 +53,200 @@ const TopSellingAndArrival=()=>{
      
     return(
         <div className='topContainer'>
-               <h1 className="newArrival">NEW ARRIVALS</h1>
-               <div className='newArivalOrSellingProducts'>
-                <div className="rowSection">
-                {viewMore?
-                  
+            <div className='desktop'>
+                <h1 className="newArrival">NEW ARRIVALS</h1>
+                <div className='newArivalOrSellingProducts'>
+                    <div className="rowSection">
+                    {viewMore?
+                    
+                        productList.user&&productList.user.length>0?
+                    productList.user.map((each,index)=>{
+                    if(index<4){
+                        return(
+                        <div key={index} className='productArrival' onClick={()=>handleNavigation(each.id)}>
+                            <img src={each.image_url} className='productImage'/>
+                            <div>
+                                <h4>{each.product_name}</h4>
+                                <div>
+                                    {Array.from({length: each.ratings}).map((_, i)=>{
+                                return <span key={i}><IoIosStar/></span>
+                                })}
+                                </div>
+                                <p>{each.price}</p>
+                            </div>
+                        </div> 
+                    )
+                    }})
+                    
+                    
+                    :<p>No Product Available</p>:
+                    
                     productList.user&&productList.user.length>0?
-                productList.user.map((each,index)=>{
-                   if(index<4){
-                    return(
-                      <div key={index} className='productArrival' onClick={()=>handleNavigation(each.id)}>
-                        <img src={each.image_url} className='productImage'/>
-                        <div>
-                            <h4>{each.product_name}</h4>
-                            <p>{each.ratings}</p>
-                            <p>{each.price}</p>
-                        </div>
-                      </div> 
-                   )
-                 }})
-                
-                
-                :<p>No Product Available</p>:
-                 
-                productList.user&&productList.user.length>0?
-                productList.user.map((each,index)=>(
-                      <div key={index} className='productArrival' onClick={()=>handleNavigation(each.id)}>
-                        <img src={each.image_url} className='productImage'/>
-                        <div>
-                            <h4>{each.product_name}</h4>
-                            <p>{each.ratings}</p>
-                            <p>{each.price}</p>
-                        </div>
-                      </div> 
-                ))
-                :<p>No Product Available</p>
-                }
-                
+                    productList.user.map((each,index)=>(
+                        <div key={index} className='productArrival' onClick={()=>handleNavigation(each.id)}>
+                            <img src={each.image_url} className='productImage'/>
+                            <div>
+                                <h4>{each.product_name}</h4>
+                                <div>
+                                    {Array.from({length: each.ratings}).map((_, i)=>{
+                                return <span key={i}><IoIosStar/></span>
+                                })}
+                                </div>
+                                <p>{each.price}</p>
+                            </div>
+                        </div> 
+                    ))
+                    :<p>No Product Available</p>
+                    }
+                    
+                    </div>
+                    <button onClick={handleView}>{view}</button>
                 </div>
-                <button onClick={handleView}>{view}</button>
-               </div>
-               <h1 className="newArrival">TOP SELLINGS</h1>
-               <div className='newArivalOrSellinProducts'>
-                <div className="rowSection">
-                {viewMoreSelling?
- 
-                productList.user&&productList.user.length>0?
-                productList.user.map((each,index)=>{
-                   if((index<4) && (each.ratings>3)){
-                    return(
-                      <div key={index} className='productArrival' onClick={()=>handleNavigation(each.id)}>
-                        <img src={each.image_url} className='productImage'/>
-                        <div>
-                            <h4>{each.product_name}</h4>
-                            <p>{each.ratings}</p>
-                            <p>{each.price}</p>
-                        </div>
-                      </div> 
-                )
-            }})
-                :<p>No Product Available</p>:
-                 
-                productList.user&&productList.user.length>0?
-                productList.user.map((each,index)=>{
-                    if(each.ratings>3){
-                    return(
-                      <div key={index} className='productArrival' onClick={()=>handleNavigation(each.id)}>
-                        <img src={each.image_url} className='productImage'/>
-                        <div>
-                            <h4>{each.product_name}</h4>
-                            <p>{each.ratings}</p>
-                            <p>{each.price}</p>
-                        </div>
-                      </div> 
-                )}})
-                :<p>No Product Available</p>
-                }
-               </div>
-               </div>
-               <button onClick={handleSellingView}>{viewSelling}</button>
+                <h1 className="newArrival">TOP SELLINGS</h1>
+                <div className='newArivalOrSellinProducts'>
+                    <div className="rowSection">
+                    {viewMoreSelling?
+    
+                    productList.user&&productList.user.length>0?
+                    productList.user.map((each,index)=>{
+                    if((index<6) && (each.ratings>3)){
+                        return(
+                        <div key={index} className='productArrival' onClick={()=>handleNavigation(each.id)}>
+                            <img src={each.image_url} className='productImage'/>
+                            <div>
+                                <h4>{each.product_name}</h4>
+                                <div>
+                                    {Array.from({length: each.ratings}).map((_, i)=>{
+                                return <span key={i}><IoIosStar/></span>
+                                })}
+                                </div>
+                                <p>{each.price}</p>
+                            </div>
+                        </div> 
+                    )
+                }})
+                    :<p>No Product Available</p>:
+                    
+                    productList.user&&productList.user.length>0?
+                    productList.user.map((each,index)=>{
+                        if(each.ratings>3){
+                        return(
+                        <div key={index} className='productArrival' onClick={()=>handleNavigation(each.id)}>
+                            <img src={each.image_url} className='productImage'/>
+                            <div>
+                                <h4>{each.product_name}</h4>
+                                <div>
+                                    {Array.from({length: each.ratings}).map((_, i)=>{
+                                return <span key={i}><IoIosStar/></span>
+                                })}
+                                </div>
+                                <p>{each.price}</p>
+                            </div>
+                        </div> 
+                    )}})
+                    :<p>No Product Available</p>
+                    }
+                </div>
+                </div>
+                <button onClick={handleSellingView}>{viewSelling}</button>
+            </div>
+             <div className='mobile'>
+                <h1 className="newArrival">NEW ARRIVALS</h1>
+                <div className='newArivalOrSellingProducts'>
+                    <div className="rowSection">
+                    {viewMore?
+                    
+                        productList.user&&productList.user.length>0?
+                    productList.user.map((each,index)=>{
+                    if(index<2){
+                        return(
+                        <div key={index} className='productArrival' onClick={()=>handleNavigation(each.id)}>
+                            <img src={each.image_url} className='productImage'/>
+                            <div>
+                                <h4>{each.product_name}</h4>
+                                <div>
+                                    {Array.from({length: each.ratings}).map((_, i)=>{
+                                return <span key={i}><IoIosStar/></span>
+                                })}
+                                </div>
+                                <p>{each.price}</p>
+                            </div>
+                        </div> 
+                    )
+                    }})
+                    
+                    
+                    :<p>No Product Available</p>:
+                    
+                    productList.user&&productList.user.length>0?
+                    productList.user.map((each,index)=>(
+                        <div key={index} className='productArrival' onClick={()=>handleNavigation(each.id)}>
+                            <img src={each.image_url} className='productImage'/>
+                            <div>
+                                <h4>{each.product_name}</h4>
+                                <div>
+                                    {Array.from({length: each.ratings}).map((_, i)=>{
+                                return <span key={i}><IoIosStar/></span>
+                                })}
+                                </div>
+                                <p>{each.price}</p>
+                            </div>
+                        </div> 
+                    ))
+                    :<p>No Product Available</p>
+                    }
+                    
+                    </div>
+                    <button onClick={handleView}>{view}</button>
+                </div>
+                <h1 className="newArrival">TOP SELLINGS</h1>
+                <div className='newArivalOrSellinProducts'>
+                    <div className="rowSection">
+                    {viewMoreSelling?
+    
+                    productList.user&&productList.user.length>0?
+                    productList.user.map((each,index)=>{
+                    if((index<5) && (each.ratings>3)){
+                        return(
+                        <div key={index} className='productArrival' onClick={()=>handleNavigation(each.id)}>
+                            <img src={each.image_url} className='productImage'/>
+                            <div>
+                                <h4>{each.product_name}</h4>
+                                <div>
+                                    {Array.from({length: each.ratings}).map((_, i)=>{
+                                return <span key={i}><IoIosStar/></span>
+                                })}
+                                </div>
+                                <p>{each.price}</p>
+                            </div>
+                        </div> 
+                    )
+                }})
+                    :<p>No Product Available</p>:
+                    
+                    productList.user&&productList.user.length>0?
+                    productList.user.map((each,index)=>{
+                        if(each.ratings>3){
+                        return(
+                        <div key={index} className='productArrival' onClick={()=>handleNavigation(each.id)}>
+                            <img src={each.image_url} className='productImage'/>
+                            <div>
+                                <h4>{each.product_name}</h4>
+                                <div>
+                                    {Array.from({length: each.ratings}).map((_, i)=>{
+                                return <span key={i}><IoIosStar/></span>
+                                })}
+                                </div>
+                                <p>{each.price}</p>
+                            </div>
+                        </div> 
+                    )}})
+                    :<p>No Product Available</p>
+                    }
+                </div>
+                </div>
+                <button onClick={handleSellingView}>{viewSelling}</button>
+            </div>
         </div>
     )
 }

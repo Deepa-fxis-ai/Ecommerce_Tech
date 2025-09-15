@@ -46,9 +46,9 @@
 }
 
 
-@media screen and (max-width:740px){
+@media screen and (max-width:767px){
     .mainContainer{
-    width: 100vw;
+    width: 100%;
 }
 .SingleProductDetail{
     display: flex;
@@ -56,10 +56,10 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    width: 100vw;
+    width: 80%;
 }
 .productSingleImage{
-    width: 444px;
+    width: 80%;
     height: 530px;
     left: 266px;
     background: #F0EEED;

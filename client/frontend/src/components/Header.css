@@ -46,13 +46,13 @@ a{
     padding: 10px;
 }
 
-@media screen and (max-width:740px){
+@media screen and (max-width:767px){
     .headerContainer{
         display: none;
-}
+    }
 .mobileContainer{
     height: 10vh;
-    width: 100vw;
+    width: 100%;
     background-color: white;
     display:flex;
     justify-content: space-around;
@@ -61,6 +61,7 @@ a{
 }
 
 .optionContainer{
+    z-index: 10;
     height: 30vh;
     width: 40vw;
     display:flex;

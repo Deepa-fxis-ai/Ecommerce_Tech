@@ -84,17 +84,26 @@
 .bothFilterAndProductContainerInMobile{
     display: none;
 }
+.starContainer{
+    width: 15vw;
+    height:7vh;
+    display: flex;
+    justify-content: flex-start;
+}
+.ratingStar{
+    margin: 10px;
+}
 
-@media screen and (max-width:740px){
+@media screen and (max-width:767px){
     .bothFilterAndProductContainer{
     display: none;
    } 
    .bothFilterAndProductContainerInMobile{
      display: flex;
      flex-direction: column;
-     width: 100vw;
+     width: 100%;
      justify-content: space-around;
-}
+   }
      .filterSectionMobile{
        display: flex;
        justify-content: space-between;
@@ -103,64 +112,93 @@
     width: 107px;
     border-width: 0;
     padding: 10px;
-}
-.filterHeading:hover{
-    border-width: 0;
-}
-.filterThings{
-    display: flex;
-    width: 100vw;
-    justify-content: space-around;
-    margin-top: 15px;
-}
-.eachFilterBorder{
-    border: 1px solid gray;
-    border-radius: 10px;
-    padding: 10px;
-}
-.applyButton{
-    margin-left: 40%;
-    margin-top: 10px;
-}
-.searchContainer{
-    width:50vw;
-    height: 5vh;
-    background-color: rgb(212, 206, 206);
-    border-radius: 20px;
+    }
+    .cancelAndHeading{
+        width: 100%;
+        height: 4vh;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .filterHeading:hover{
+        border-width: 0;
+    }
+    .cancel{
+        background-color: transparent;
+        margin-top: 10px;
+    }
+    .filterThings{
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+        justify-content: space-around;
+        margin-top: 15px;
+        background-color: rgb(190, 185, 185);
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        padding: 2rem;
+        z-index: 1000;
+        overflow-y: auto;
+        overflow-x: hidden;
+        max-height: 40vh;
+        border-bottom: 0;
+        box-sizing: border-box;
+    }
+    .eachFilterBorder{
+        border-radius: 10px;
+        padding: 10px;
+    }
+    .starContainer{
+    background-color: transparent;
+    height:7vh;
     display: flex;
     justify-content: flex-start;
-    padding: 10px;
-    align-items: center;
-    border: 0px;
-    margin-left: 10px;
 }
-.productContainer{
-    height: 100vh;
-    width: 100vw;
-}
-.productSection{
-    display: flex;
-    flex-direction: row;
-    height: 40vh;
-    width: 100vw;
-    flex-wrap: wrap;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.productCard{
-    height: auto;
-    width: 25vw;
-    margin: 5px; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 20px;
-    border-radius: 20px;
-}
-.productImage{
-    width: 20vw;
-    height: 15vh;
-    border-radius: 20px;
-}
+    .applyButton{
+        margin-top: 10px;
+    }
+    .searchContainer{
+        width:50vw;
+        height: 5vh;
+        background-color: rgb(212, 206, 206);
+        border-radius: 20px;
+        display: flex;
+        justify-content: flex-start;
+        padding: 10px;
+        align-items: center;
+        border: 0px;
+        margin-left: 10px;
+    }
+    .productContainer{
+        height: 100vh;
+        width: 100vw;
+    }
+    .productSection{
+        display: flex;
+        flex-direction: row;
+        height: 40vh;
+        width: 100vw;
+        flex-wrap: wrap;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .productCard{
+        height: auto;
+        width: 25vw;
+        margin: 5px; 
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 20px;
+        border-radius: 20px;
+    }
+    .productImage{
+        width: 20vw;
+        height: 15vh;
+        border-radius: 20px;
+    }
 }

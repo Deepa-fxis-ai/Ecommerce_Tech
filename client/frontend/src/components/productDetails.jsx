@@ -1,6 +1,7 @@
 import {useState,useEffect} from 'react'
 import { useParams ,useNavigate} from 'react-router-dom'
 import { FaMinus, FaPlus } from "react-icons/fa6";
+import { IoIosStar } from "react-icons/io";
 import Header from './Header.jsx'
 import Cookies from 'js-cookie'
 import './productDetails.css'
@@ -67,7 +68,14 @@ const ProductDetail=()=>{
     }
 
     const handleDecrement=()=>{
-        setCartQuantity(prev=>prev-1)
+        setCartQuantity(prev=>{
+            if(prev>0){
+               return prev-1
+            }
+            else{
+                return 0
+            }
+        })
     }
     const handleIncrement=()=>{
         setCartQuantity(prev=>prev+1)
@@ -87,7 +95,11 @@ const ProductDetail=()=>{
                   <img src={productDetail.image_url} className='productSingleImage'/>
                   <div>
                     <h3>{productDetail.product_name}</h3>
-                    <p>{productDetail.ratings}</p>
+                    <div>
+                    {Array.from({length: productDetail.ratings}).map((_, i)=>{
+                    return <span key={i}><IoIosStar/></span>
+                    })}
+                    </div>
                     <p>Rs.{productDetail.price}</p>
                     <p>{productDetail.description}</p>
                     <div className='size'>
@@ -108,6 +120,6 @@ const ProductDetail=()=>{
      </div>
         )
 }
-98.
+
 
 export default ProductDetail

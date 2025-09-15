@@ -3,15 +3,21 @@ import {useNavigate} from 'react-router-dom'
 import { FaFilter } from "react-icons/fa";
 import { PiDressDuotone } from "react-icons/pi";
 import { TbRulerMeasure } from "react-icons/tb";
+import { IoIosPricetag,IoIosStar } from "react-icons/io";
+import { FaStar } from "react-icons/fa";
+import { MdCancel } from "react-icons/md";
+import Slider from '@mui/material/Slider'
 import Header from './Header.jsx'
 import './product.css'
 
 const Product=()=>{
     const [productList,setProductList]=useState([]);
-    const [selectedDressType,setSelectedDressType]=useState("Casual")
+    const [selectedDressType,setSelectedDressType]=useState("")
     const [selectedDressSize,setSelectedDressSize]=useState("")
     const [filteredProducts,setFilteredProducts]=useState([])
     const [filterStatus,setFilterStatus]=useState(false)
+    const [priceRange,setPriceRange]=useState([0,5000])
+    const [rating,setRating]=useState(0)
     const navigate=useNavigate()
 
     const dressTypes=[
@@ -70,9 +76,29 @@ const Product=()=>{
         
     }
 
+    const onHandlePriceRange=((event,newVal)=>setPriceRange(newVal))
+
+
     const handleFilter=()=>{
-       const filtered=productList.filter(each=>each.dressType === selectedDressType || each.size===selectedDressSize)
-       setFilteredProducts(filtered)   
+        const [min,max]=priceRange
+        let filtered=[...productList]
+
+        if(selectedDressType){
+           filtered=filtered.filter(each=>each.dressType === selectedDressType)
+        }
+
+        if(selectedDressSize!==""){
+           filtered=filtered.filter(each=>each.size.includes(Number(selectedDressSize)))
+        }
+
+        filtered=filtered.filter(each=>each.price>=min && each.price<=max)
+
+        if(rating!==0){
+            filtered=filtered.filter(each=>each.ratings===rating)
+        }
+       
+        setFilteredProducts(filtered) 
+        
     }
 
     const handleSearchedProducts=(e)=>{
@@ -87,6 +113,10 @@ const Product=()=>{
     }
 
     const handleFilterStatus=()=>{
+        setFilterStatus(prev=>!prev)
+    }
+
+    const handleCancelButton=()=>{
         setFilterStatus(prev=>!prev)
     }
      
@@ -129,6 +159,32 @@ const Product=()=>{
                         ))}
                     </div>
                 </div>
+
+                <div>
+                    <div className="filterHeading">
+                        <h5>Price</h5>
+                        <IoIosPricetag/>
+                    </div>
+                    <div className="filterAlignment">
+                        <Slider value={priceRange} onChange={onHandlePriceRange} valueLabelDisplay="on" min={0} max={5000} step={100}/>
+                    </div>
+                </div>
+
+                <div>
+                    <div className="filterHeading">
+                        <h5>Ratings</h5>
+                    </div>
+                    <div>
+                        {Array.from({length:5}).map((_,i)=>(
+                            <button key={i} className='starContainer' onClick={()=>setRating(i+1)}> 
+                                 {Array.from({length:i+1}).map((_,j)=>(
+                                   <span key={j}><FaStar/></span> 
+                                 ))}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+
                 <button onClick={handleFilter} className='applyButton'>Apply Filter</button>
                 
                </div>
@@ -161,39 +217,70 @@ const Product=()=>{
                </div>
 
                {filterStatus?
-               <div>
-               <div className='filterThings'>
-                <div className='eachFilterBorder'>
+                    <div className='filterThings'>
+                        <div className='cancelAndHeading'>
+                            <h5>Apply Filter Here!!</h5>
+                            <button className='cancel' onClick={handleCancelButton}>
+                                <MdCancel/>
+                            </button>
+                        </div>
+                        <div className='eachFilterBorder'>
+                            <div className="filterHeading">
+                                <h5>Dress Type</h5>
+                                <PiDressDuotone/>
+                            </div>
+                            <div className="filterAlignment">
+                                {dressTypes.map(each=>(
+                                        <label key={each.code}>
+                                        <input id={each} type="radio" name="dressType" value={each.code} checked={selectedDressType===each.code} onChange={handleTypeChange}/>
+                                        {each.label}
+                                        </label>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className='eachFilterBorder'>
+                            <div className="filterHeading">
+                                <h5>Size</h5>
+                                <TbRulerMeasure/>
+                            </div>
+                            <div className="filterAlignment">
+                                {dressSize.map(each=>(
+                                    <label key={each.code}>
+                                        <input type="radio" name="dressSize" value={each.code} checked={selectedDressSize===each.code} onChange={handleSizeChange}/>
+                                        {each.label}
+                                    </label>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div>
+                            <div className="filterHeading">
+                                <h5>Price</h5>
+                                <IoIosPricetag/>
+                            </div>
+                            <div className="filterAlignment">
+                                <Slider value={priceRange} onChange={onHandlePriceRange} valueLabelDisplay="on" min={0} max={5000} step={100}/>
+                            </div>
+                        </div>
+
+                        <div>
                     <div className="filterHeading">
-                        <h5>Dress Type</h5>
-                        <PiDressDuotone/>
+                        <h5>Ratings</h5>
                     </div>
-                    <div className="filterAlignment">
-                        {dressTypes.map(each=>(
-                                <label key={each.code}>
-                                <input id={each} type="radio" name="dressType" value={each.code} checked={selectedDressType===each.code} onChange={handleTypeChange}/>
-                                {each.label}
-                                </label>
+                    <div>
+                        {Array.from({length:5}).map((_,i)=>(
+                            <button key={i} className='starContainer' onClick={()=>setRating(i+1)}> 
+                                 {Array.from({length:i+1}).map((_,j)=>(
+                                   <span key={j}><FaStar/></span> 
+                                 ))}
+                            </button>
                         ))}
                     </div>
-                </div>
-                <div className='eachFilterBorder'>
-                    <div className="filterHeading">
-                        <h5>Size</h5>
-                        <TbRulerMeasure/>
-                    </div>
-                    <div className="filterAlignment">
-                        {dressSize.map(each=>(
-                            <label key={each.code}>
-                                <input type="radio" name="dressSize" value={each.code} checked={selectedDressSize===each.code} onChange={handleSizeChange}/>
-                                {each.label}
-                            </label>
-                        ))}
-                    </div>
-                </div>
-                </div>
+                        </div>
+                    
                     <button onClick={handleFilter} className='applyButton'>Apply Filter</button>
-               </div>:
+                    </div>:
                null
                }
 
@@ -206,7 +293,11 @@ const Product=()=>{
                             <img src={each.image_url} className='productImage'/>
                             <div>
                                 <h4>{each.product_name}</h4>
-                                <p>{each.ratings}</p>
+                                <div>
+                                    {Array.from({length: each.ratings}).map((_, i)=>{
+                                return <span key={i}><IoIosStar/></span>
+                                })}
+                                </div>
                                 <p>{each.price}</p>
                             </div>
                         </div> 
