@@ -8,9 +8,13 @@ import './Header.css'
 const Header=()=>{
     const [mobileViewBarStatus,setMobileViewBarStatus]=useState(false)
     const navigate=useNavigate()
+    const token=Cookies.get('jwt_token')
     const onChangeLogout=()=>{
        Cookies.remove('jwt_token')
        navigate("/login")
+    }
+    const onChangeLogin=()=>{
+      navigate("/login")
     }
 
     const handleBarStatus=()=>{
@@ -29,7 +33,7 @@ const Header=()=>{
              <a href="/">Home</a>
              <a href="/product">Products</a>
              <a href="/cart">Cart</a>
-             <button type="button" className="button" onClick={onChangeLogout}>Logout</button>
+             {token?<button type="button" className="button" onClick={onChangeLogout}>Logout</button>:<button type="button" className="button" onClick={onChangeLogin}>Login/Register</button>}
           </div> 
           </div>
           
@@ -46,7 +50,7 @@ const Header=()=>{
              <a href="/">Home</a>
              <a href="/product">Products</a>
              <a href="/cart">Cart</a>
-             <button type="button" className="button" onClick={onChangeLogout}>Logout</button>
+             {token===null?<button type="button" className="button" onClick={onChangeLogin}>Login</button>:<button type="button" className="button" onClick={onChangeLogout}>Logout</button>}
           </div> :null}
           
            

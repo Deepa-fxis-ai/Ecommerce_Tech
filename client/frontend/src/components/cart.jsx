@@ -57,21 +57,27 @@ const Cart=()=>{
         <div className='cartContainer'>
             <Header/>
             <table>
+                <thead>
                 <tr className='cartList'>
                     <th>Product ID</th>
                     <th>Quantity</th>
                     <th>Total Price</th>
                     <th>Cancel Cart</th>
                 </tr>
+                </thead>
+                <tbody>
                      {cartData.map(each=>(
+                    
                         <tr key={each.id} className='cartList'>
                             <td>{each.product}</td>
                             <td>{each.quantity}</td>
                             <td>₹{each.total_price}</td>
-                            <button onClick={()=>handleCartDelete(each.id)}><MdOutlineDeleteOutline/></button>
-                        </tr>
-              ))}
-                
+                            <td>
+                              <button onClick={()=>handleCartDelete(each.id)}><MdOutlineDeleteOutline/></button>
+                            </td>
+                        </tr>                    
+                    ))}
+                </tbody>
             </table>
 
 

@@ -12,7 +12,7 @@ const Home=()=>{
             <h1 className='majorHeading'>FIND CLOTHES THAT MATCHES YOUR STYLE</h1>
             <p className='cardparagraph'>
               Browse through our diverse range of meticulously crafted garments, designed to bring out your individuality and cater to your sense of style.
-            </p>
+            </p><br/>
             <Link to="/product">
                <button className='shopButton'>Shop Now</button>
             </Link>
@@ -55,6 +55,15 @@ const Home=()=>{
                 className='party'/>
                 <img src="https://res.cloudinary.com/dlfl0nfin/image/upload/v1756732705/Frame_63_hdilyk.png"
                 className='gym'/>
+            </div>
+
+            <div className='dressPicturesMobile'>
+                <img src="https://res.cloudinary.com/dlfl0nfin/image/upload/v1757921739/Frame_105_ps6n57.png" className='dressTypeImage'/>
+                <img src="https://res.cloudinary.com/dlfl0nfin/image/upload/v1757921761/Frame_106_vxpccl.png" className='dressTypeImage'/>
+                <img src="https://res.cloudinary.com/dlfl0nfin/image/upload/v1757921796/Frame_107_qvcfxz.png"
+                className='dressTypeImage'/>
+                <img src="https://res.cloudinary.com/dlfl0nfin/image/upload/v1757921813/Frame_108_foyohg.png"
+                className='dressTypeImage'/>
             </div>
         </div>
     </div>
