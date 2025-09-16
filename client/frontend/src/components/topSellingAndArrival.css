@@ -17,8 +17,13 @@
     align-items: center;
     text-align: center;
     color: #000000;
-    margin-left: 30%;
 }
+.viewButton{
+    background-color: #000000;
+    color: white;
+    margin-bottom: 10px;
+}
+
 .newArivalOrSellingProducts{
     display: flex;
     flex-direction: column;
@@ -45,7 +50,11 @@
     align-items: center;
 }
 .desktop{
-    display: block;
+    display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+
 }
 .mobile{
     display: none;

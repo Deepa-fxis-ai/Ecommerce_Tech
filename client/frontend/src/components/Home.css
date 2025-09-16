@@ -36,7 +36,6 @@ body{
     width: 627px;
     justify-content: space-around;
 }
-
 .cardparagraph{
     width: 545px;
     height: 33px;
@@ -400,25 +399,58 @@ body{
     
 }
 
-@media screen and (min-width:768px){
+@media screen and (min-width:768px) and (max-width:1023px){
   .banner{
-    background-color: rgb(223, 216, 216);
+    background-color: #f3f0f0;
     background-image: none;
     width: 100vw;
-    height: 80vh;
+    height: 90vh;
     box-sizing: border-box;
-    padding-left:30px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
  }
+ .bannerContent{
+    width:100vw;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+ .bannerContents{
+    display: flex;
+    flex-direction: column;
+    height: 663px;
+    width: 100%;
+    justify-content: space-around;
+}
+ .majorHeading{
+    width: 100%;
+    font-family: 'Integral CF';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 64px;
+    line-height: 64px;
+    color: #000000;
+}
+ .bannerMobileImage{
+        display: block;
+        background-color: #d3cece;
+        width: 90%;
+        height: 748px;
+        left: 0%; 
+    }
  .cardparagraph{
     font-size: 16px;
     line-height: 22px;
     color: rgba(0, 0, 0, 0.6);
  }
  .bannerContent{
-    height: 60vh;
+    height: 40vh;
  }
  .bannerpopularity{
-    margin: 10px;
+    margin: 20px;
  }
  .brands{
         width: 100%;
@@ -460,7 +492,7 @@ body{
         background: #F0F0F0;
         border-radius: 40px;
         display: flex;
-        padding: 20px;
+        padding: 10px;
         box-sizing: border-box;
     }
     .dressTypeBasedHeading{
@@ -496,52 +528,152 @@ body{
     }
 }
 
-@media screen and (min-width:1024px){
-    .HomeContainer{
-        height: 100vh;
-        width: 100vw;
-        box-sizing: border-box;
-    }
-    .banner{
-        background-image: url("https://res.cloudinary.com/dlfl0nfin/image/upload/v1756726913/Rectangle_2_d0yyup.png");
-        width: 100vw;
-        height: 100vh;
-        box-sizing: border-box;
-        padding-left:30px;
+@media screen and (min-width:1024px) and (max-width:1440px){
+   .banner{
+        width: 100%;
+        height: 80vh;
+        left: 0px;
+        background-color: #d3cece;
     }
     .bannerContent{
-        width:50vw;
-        height: 90vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
+    width:80vw;
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     }
-    .majorHeading{
-        width: 577px;
-        font-family: 'Integral CF';
-        font-style: normal;
-        font-weight: 700;
-        font-size: 64px;
-        line-height: 64px;
-        color: #000000;
-    }
-    .bannerContents{
-        display: flex;
-        flex-direction: column;
-        height: 663px;
-        width: 627px;
-        justify-content: space-around;
-    }
+   .majorHeading{
+    width: 577px;
+    font-family: 'Integral CF';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 44px;
+    line-height: 64px;
+    color: #000000;
+}
+    .bannerpopularity{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 32px;
+    width: 596px;
+    height: 74px;
+    left: 100px;
+    margin-top: 5%;
+}
+   
+}
 
+@media screen and (min-width:1441px) and (max-width:2559px){
+    .banner{
+        width: 100%;
+        height: 75vh;
+        left: 0px;
+        background-color: #d3cece;
+        background-size: cover;
+    }
+    .bannerContent{
+    width:80vw;
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    }
+   .majorHeading{
+    width: 577px;
+    font-family: 'Integral CF';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 44px;
+    line-height: 64px;
+    color: #000000;
+}
+    .bannerpopularity{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 32px;
+    width: 596px;
+    height: 74px;
+    left: 100px;
+    margin-top: 5%;
+}
+.dressType{
+    width: 100vw;
+    height: 866px;
+    background: #F0F0F0;
+    border-radius: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.casual{
+    width: 25vw;
+    height: 289px;
+    left: 64px;
+    background-image: url('https://res.cloudinary.com/dlfl0nfin/image/upload/v1756731714/image_11_ldhdsv.png');
+    border-radius: 20px;
+    display: inline;
+    margin: 5px;
+}
+.formal{
+    width: 784px;
+    height: 289px;
+    left: 491px;
+    background: #FFFFFF;
+    border-radius: 20px;
+}
+.party{
+    width: 684px;
+    height: 289px;
+    left: 64px;
+    background: #FFFFFF;
+    border-radius: 20px;
+}
+.gym{
+    width: 507px;
+    height: 289px;
+    left: 768px;
+    background: #FFFFFF;
+    border-radius: 20px;
+}
+}
+
+@media screen and (min-width:2560px){
+    .banner{
+        width: 100%;
+        height: 60vh;
+        left: 0px;
+        background-color: #d3cece;
+        background-size: cover;
+    }
+    .bannerContent{
+    width:100vw;
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    }
+   .majorHeading{
+    width: 1277px;
+    font-family: 'Integral CF';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 74px;
+    line-height: 74px;
+    color: #000000;
+    }
     .cardparagraph{
-        width: 545px;
+        width: 1145px;
         height: 33px;
         left: 92px;
         font-family: 'Satoshi';
         font-style: normal;
         font-weight: 400;
-        font-size: 16px;
-        line-height: 22px;
+        font-size: 36px;
+        line-height: 46px;
         color: rgba(0, 0, 0, 0.6);
     }
     .shopButton{
@@ -551,12 +683,14 @@ body{
         align-items: center;
         padding: 16px 54px;
         gap: 12px;
-        width: 210px;
-        height: 52px;
+        width: 510px;
+        height: 72px;
         left: 100px;
         background: #000000;
         border-radius: 62px;
         color:white;
+        margin-top: 5%;
+        font-size: 32px;
     }
     .bannerpopularity{
         display: flex;
@@ -564,73 +698,10 @@ body{
         align-items: center;
         padding: 0px;
         gap: 32px;
-        width: 596px;
+        width: 1296px;
         height: 74px;
         left: 100px;
-    }
-    .bannerBox{
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 0px;
-        width: 141px;
-        height: 74px;
-        flex: none;
-        order: 0;
-        flex-grow: 0;
-    }
-    .values{
-        width: 107px;
-        height: 54px;
-        font-family: 'Satoshi';
-        font-style: normal;
-        font-weight: 700;
-        font-size: 40px;
-        line-height: 54px;
-        display: flex;
-        align-items: center;
-        color: #000000;
-        flex: none;
-        order: 0;
-        flex-grow: 0;
-        margin: -2px 0px;
-    }
-    .valueDescription{
-        width: 141px;
-        height: 22px;
-        font-family: 'Satoshi';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 16px;
-        line-height: 22px;
-        color: rgba(0, 0, 0, 0.6);
-        flex: none;
-        order: 1;
-        flex-grow: 0;
-    }
-    .brands{
-        width: 100vw;
-        height: 122px;
-        background: #000000;
-        color: #FFFFFF;
-        display: flex;
-        justify-content: space-around;
-        box-sizing: border-box;
-    }
-    .versace{
-        font-family: 'Courier New', Courier, monospace;
-    }
-    .zara{
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    }
-    .gucci{
-        font-family:Georgia, 'Times New Roman', Times, serif;
-    }
-    .prada{
-        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    }
-    .ck{
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin-top: 2%;
     }
     .dressType{
         width: 100vw;
@@ -641,74 +712,40 @@ body{
         flex-direction: column;
         align-items: center;
     }
-    .dressTypeBasedHeading{
-        width: 687px;
-        height: 58px;
-        left: calc(50% - 687px/2);
-        font-family: 'Integral CF';
-        font-style: normal;
-        font-weight: 700;
-        font-size: 48px;
-        line-height: 58px;
-        display: flex;
-        align-items: center;
-        text-align: center;
-        color: #000000;
-    }
     .casual{
         width: 30vw;
         height: 289px;
+        background-size: cover;
         left: 64px;
         background-image: url('https://res.cloudinary.com/dlfl0nfin/image/upload/v1756731714/image_11_ldhdsv.png');
         border-radius: 20px;
         display: inline;
-        margin: 10px;
-    }
-    .dressTypeParagraph{
-        width: 114px;
-        height: 49px;
-        left: 36px;
-        font-family: 'Satoshi';
-        font-style: normal;
-        font-weight: 700;
-        font-size: 36px;
-        line-height: 49px;
-        display: flex;
-        align-items: center;
-        color: #000000;
+        margin: 5px;
     }
     .formal{
-        width: 584px;
+        width: 784px;
         height: 289px;
         left: 491px;
         background: #FFFFFF;
         border-radius: 20px;
     }
     .party{
-        width: 684px;
+        width: 784px;
         height: 289px;
         left: 64px;
         background: #FFFFFF;
         border-radius: 20px;
     }
     .gym{
-        width: 307px;
+        width: 707px;
         height: 289px;
         left: 768px;
         background: #FFFFFF;
         border-radius: 20px;
     }
-    .dressPictures{
-        display: flex;
-        flex-wrap: wrap;
-        height: 60vh;
-        width: 80vw;
-        justify-content: space-around;
-    }
-    .bannerMobileImage{
-        display: none;
-    }
-    .dressPicturesMobile{
-        display: none;
-    }
 }
+
+
+
+
+

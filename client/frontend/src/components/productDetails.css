@@ -6,16 +6,20 @@
     justify-content: center;
 }
 .SingleProductDetail{
+    width:80vw;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
 }
 .productSingleImage{
-    width: 444px;
-    height: 530px;
-    left: 266px;
+    width: 30vw;
+    height: 60vh;
     background: #F0EEED;
     border-radius: 20px;
+    margin: 30px;
+}
+.cartAndQuantity{
+    display: flex;
 }
 .quantity{
     display: flex;
@@ -26,7 +30,9 @@
     padding: 5px;
     border-radius: 10px;
     width: 20vw;
-    
+    box-sizing: border-box;
+    height: 8vh;
+    margin-top: 7px;
 }
 .size{
     display: flex;
@@ -41,7 +47,7 @@
     color: #F0EEED;
 }
 .faButton{
-    background-color: green;
+    background-color: transparent;
     color: white;
 }
 

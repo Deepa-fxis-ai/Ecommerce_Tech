@@ -2,13 +2,17 @@ import { FaBattleNet,FaBars } from "react-icons/fa6";
 import { useState } from "react";
 import Cookies from 'js-cookie'
 import {useNavigate,Link} from 'react-router-dom';
-
+import { useTranslation } from "react-i18next";
 import './Header.css'
 
 const Header=()=>{
+    const {i18n}=useTranslation()
     const [mobileViewBarStatus,setMobileViewBarStatus]=useState(false)
     const navigate=useNavigate()
     const token=Cookies.get('jwt_token')
+    const changeLanguage=(lng)=>{
+      i18n.changeLanguage(lng)
+    }
     const onChangeLogout=()=>{
        Cookies.remove('jwt_token')
        navigate("/login")
@@ -33,6 +37,12 @@ const Header=()=>{
              <a href="/">Home</a>
              <a href="/product">Products</a>
              <a href="/cart">Cart</a>
+             <select onChange={(e) => changeLanguage(e.target.value)}>
+               <option value="en">English</option>
+               <option value="hi">Hindi</option>
+               <option value="ta">Tamil</option>
+               <option value="ma">Malayalam</option>
+             </select>
              {token?<button type="button" className="button" onClick={onChangeLogout}>Logout</button>:<button type="button" className="button" onClick={onChangeLogin}>Login/Register</button>}
           </div> 
           </div>
