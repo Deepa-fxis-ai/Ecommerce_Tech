@@ -86,37 +86,41 @@ const ProductDetail=()=>{
     },[id]);
 
     return(
-       <div className='mainContainer'>
+       <div>
             <Header/>
-            {!productDetail ? (
-            <p>Loading...</p>
-            ) : (
-                <div className='SingleProductDetail'>
-                  <img src={productDetail.image_url} className='productSingleImage'/>
-                  <div>
-                    <h3>{productDetail.product_name}</h3>
+            <div className='mainContainer'>
+                {!productDetail ? (
+                <p>Loading...</p>
+                ) : (
+                    <div className='SingleProductDetail'>
+                    <img src={productDetail.image_url} className='productSingleImage'/>
                     <div>
-                    {Array.from({length: productDetail.ratings}).map((_, i)=>{
-                    return <span key={i}><IoIosStar/></span>
-                    })}
+                        <h3>{productDetail.product_name}</h3>
+                        <p>{productDetail.description}</p>
+                        <p>Rs.{productDetail.price}</p>
+                        <div>
+                        {Array.from({length: productDetail.ratings}).map((_, i)=>{
+                        return <span key={i}><IoIosStar/></span>
+                        })}
+                        </div>
+                        <div className='size'>
+                            <p className='para'>Small</p>
+                            <p className='para'>Medium</p>
+                            <p className='para'>Large</p>
+                            <p className='para'>Extra Large</p>
+                        </div>
+                        <div className='cartAndQuantity'>
+                            <div className='quantity'>
+                                <button onClick={handleDecrement} className='faButton'><FaMinus /></button>
+                                {cartQuantity}
+                                <button onClick={handleIncrement} className='faButton'><FaPlus /></button>
+                            </div>
+                            <button className='button' onClick={()=>{handleCartData(productDetail.id)}}>Add to Cart</button>
+                        </div>
                     </div>
-                    <p>Rs.{productDetail.price}</p>
-                    <p>{productDetail.description}</p>
-                    <div className='size'>
-                        <p className='para'>Small</p>
-                        <p className='para'>Medium</p>
-                        <p className='para'>Large</p>
-                        <p className='para'>Extra Large</p>
                     </div>
-                    <div className='quantity'>
-                        <button onClick={handleDecrement} className='faButton'><FaMinus /></button>
-                        {cartQuantity}
-                        <button onClick={handleIncrement} className='faButton'><FaPlus /></button>
-                    </div>
-                    <button className='button' onClick={()=>{handleCartData(productDetail.id)}}>Add to Cart</button>
-                  </div>
-                </div>
-            )}
+                )}
+            </div>
      </div>
         )
 }

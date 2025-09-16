@@ -1,20 +1,22 @@
 import Header from './Header.jsx'
 import { Link } from 'react-router-dom';
 import TopSellingAndArrival from './topSellingAndArrival.jsx';
+import { useTranslation } from 'react-i18next';
 import './Home.css'
 
 const Home=()=>{
+    const { t }=useTranslation();
     return(
     <div className='HomeContainer'>
         <Header />
         <div className='banner'>
             <div className='bannerContent'>
-            <h1 className='majorHeading'>FIND CLOTHES THAT MATCHES YOUR STYLE</h1>
+            <h1 className='majorHeading'>{t("home.bannerHeading")}</h1>
             <p className='cardparagraph'>
-              Browse through our diverse range of meticulously crafted garments, designed to bring out your individuality and cater to your sense of style.
+              {t("home.bannerParagraph")}
             </p><br/>
             <Link to="/product">
-               <button className='shopButton'>Shop Now</button>
+               <button className='shopButton'>{t("home.bannerButton")}</button>
             </Link>
             
             <div className="bannerpopularity">

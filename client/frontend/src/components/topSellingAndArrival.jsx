@@ -43,11 +43,11 @@ const TopSellingAndArrival=()=>{
 
     const handleView=()=>{
         setViewMore(prev=>!prev)
-        setView('View Less')
+        setView(viewMore===false?'View More':'View Less')
     }
     const handleSellingView=()=>{
         setViewMoreSelling(prev=>!prev)
-        setViewSelling('View Less')
+        setViewSelling(viewMoreSelling===false?'View More':'View Less')
     }
 
      
@@ -100,7 +100,7 @@ const TopSellingAndArrival=()=>{
                     }
                     
                     </div>
-                    <button onClick={handleView}>{view}</button>
+                    <button onClick={handleView} className='viewButton'>{view}</button>
                 </div>
                 <h1 className="newArrival">TOP SELLINGS</h1>
                 <div className='newArivalOrSellinProducts'>
@@ -148,7 +148,7 @@ const TopSellingAndArrival=()=>{
                     }
                 </div>
                 </div>
-                <button onClick={handleSellingView}>{viewSelling}</button>
+                <button onClick={handleSellingView} className='viewButton'>{viewSelling}</button>
             </div>
              <div className='mobile'>
                 <h1 className="newArrival">NEW ARRIVALS</h1>
@@ -197,7 +197,7 @@ const TopSellingAndArrival=()=>{
                     }
                     
                     </div>
-                    <button onClick={handleView}>{view}</button>
+                    <button onClick={handleView} className='viewButton'>{view}</button>
                 </div>
                 <h1 className="newArrival">TOP SELLINGS</h1>
                 <div className='newArivalOrSellinProducts'>
@@ -245,7 +245,7 @@ const TopSellingAndArrival=()=>{
                     }
                 </div>
                 </div>
-                <button onClick={handleSellingView}>{viewSelling}</button>
+                <button onClick={handleSellingView} className='viewButton'>{viewSelling}</button>
             </div>
         </div>
     )
