@@ -6,11 +6,13 @@ import { useTranslation } from "react-i18next";
 import './Header.css'
 
 const Header=()=>{
-    const {i18n}=useTranslation()
+    const {t,i18n}=useTranslation()
     const [mobileViewBarStatus,setMobileViewBarStatus]=useState(false)
+    const [language,setLanguage]=useState("")
     const navigate=useNavigate()
     const token=Cookies.get('jwt_token')
     const changeLanguage=(lng)=>{
+      setLanguage("")
       i18n.changeLanguage(lng)
     }
     const onChangeLogout=()=>{
@@ -34,16 +36,17 @@ const Header=()=>{
               </div> 
             </Link>
             <div className="optionsContainer">
-             <a href="/">Home</a>
-             <a href="/product">Products</a>
-             <a href="/cart">Cart</a>
-             <select onChange={(e) => changeLanguage(e.target.value)}>
+             <a href="/">{t("header.home")}</a>
+             <a href="/product">{t("header.products")}</a>
+             <a href="/cart">{t("header.cart")}</a>
+             <select onChange={(e) => changeLanguage(e.target.value)} className="select" value={language}>
+               <option value="" disabled>{t("header.select")}</option>
                <option value="en">English</option>
-               <option value="hi">Hindi</option>
-               <option value="ta">Tamil</option>
-               <option value="ma">Malayalam</option>
+               <option value="hi">हिंदी</option>
+               <option value="ta">தமிழ்</option>
+               <option value="ma">മലയാളം</option>
              </select>
-             {token?<button type="button" className="button" onClick={onChangeLogout}>Logout</button>:<button type="button" className="button" onClick={onChangeLogin}>Login/Register</button>}
+             {token?<button type="button" className="button" onClick={onChangeLogout}>{t("header.logout")}</button>:<button type="button" className="button" onClick={onChangeLogin}>{t("header.login")}</button>}
           </div> 
           </div>
           
@@ -57,10 +60,17 @@ const Header=()=>{
           <button onClick={handleBarStatus}><FaBars/></button>
           </div>
           {mobileViewBarStatus?<div className="optionContainer">
-             <a href="/">Home</a>
-             <a href="/product">Products</a>
-             <a href="/cart">Cart</a>
-             {token===null?<button type="button" className="button" onClick={onChangeLogin}>Login</button>:<button type="button" className="button" onClick={onChangeLogout}>Logout</button>}
+             <a href="/">{t("header.home")}</a>
+             <a href="/product">{t("header.products")}</a>
+             <a href="/cart">{t("header.cart")}</a>
+             <select onChange={(e) => changeLanguage(e.target.value)} className="select" value={language}>
+               <option value="" disabled>{t("header.select")}</option>
+               <option value="en">English</option>
+               <option value="hi">Hindi</option>
+               <option value="ta">Tamil</option>
+               <option value="ma">Malayalam</option>
+             </select>
+             {token===null?<button type="button" className="button" onClick={onChangeLogin}>{t("header.login")}</button>:<button type="button" className="button" onClick={onChangeLogout}>{t("header.logout")}</button>}
           </div> :null}
           
            

@@ -73,11 +73,15 @@
 }
 .quantity{
     display: flex;
-    margin-left: 30%;
-     width: 40vw;
+    height: 5vh;
+    width: 80vw;
 }
 .size{
-    width:100vw;
+    width:80vw;
+}
+.cartAndQuantity{
+    display: flex;
+    flex-direction: column;
 }
 
 }

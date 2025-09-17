@@ -2,10 +2,14 @@ import { useState ,useEffect} from 'react'
 import Cookies from 'js-cookie'
 import Header from './Header.jsx'
 import { MdOutlineDeleteOutline } from "react-icons/md";
+import { useTranslation } from 'react-i18next';
 import './cart.css'
 
 const Cart=()=>{
+    const {t}=useTranslation()
     const [cartData,getCartData]=useState([])
+    const [sumOfTotalPrice,setSumOfTotalPrice]=useState(0)
+    const [sumOfQuantity,setSumOfQuantity]=useState(0)
     const token=Cookies.get('jwt_token')
 
     useEffect(()=>{
@@ -53,16 +57,27 @@ const Cart=()=>{
         }
     }
 
+    const calculate=data=>{
+       const sum=data.reduce((acc,each)=>acc+each.total_price,0)
+       const quantity=data.reduce((acc,each)=>acc+each.quantity,0)
+       setSumOfTotalPrice(sum)
+       setSumOfQuantity(quantity)
+    }
+    
+    useEffect(()=>{
+        calculate(cartData)
+    },[cartData])
+
     return(
         <div className='cartContainer'>
             <Header/>
             <table>
                 <thead>
                 <tr className='cartList'>
-                    <th>Product ID</th>
-                    <th>Quantity</th>
-                    <th>Total Price</th>
-                    <th>Cancel Cart</th>
+                    <th>{t("cart.productId")}</th>
+                    <th>{t("cart.quantity")}</th>
+                    <th>{t("cart.totalPrice")}</th>
+                    <th>{t("cart.cancel")}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -78,11 +93,13 @@ const Cart=()=>{
                         </tr>                    
                     ))}
                 </tbody>
-            </table>
-
-
-
-             
+            </table> 
+            <div className='total'>
+                <p>{t("cart.totalQuantity")}: {sumOfQuantity}</p>
+                <p>{t("cart.totalAmount")}: {sumOfTotalPrice}</p> 
+                <button className='button'>{t("cart.order")}</button>
+                <button></button>
+            </div>          
         </div>
     )
 }

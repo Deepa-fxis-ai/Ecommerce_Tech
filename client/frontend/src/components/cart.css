@@ -1,6 +1,8 @@
 .cartContainer {
   height: 100vh;
   width: 100vw;
+  display: flex;
+  flex-direction: column;
 }
 
 table {
@@ -16,6 +18,13 @@ td, th {
   padding: 10px;
 }
 
+.total{
+  align-self: flex-end;
+  width:25vw;
+  margin-right: 15%;
+  font-size: 18px;
+}
+
 @media screen and (max-width: 344px) {
   table {
     width:70%;
@@ -24,5 +33,10 @@ td, th {
 
   td, th {
     padding: 5px;
+    font-size: 12px;
   }
+
+  .total{
+  font-size: 14px;
+}
 }
