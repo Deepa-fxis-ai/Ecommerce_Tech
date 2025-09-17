@@ -7,10 +7,12 @@ import { IoIosPricetag,IoIosStar } from "react-icons/io";
 import { FaStar } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
 import Slider from '@mui/material/Slider'
+import { useTranslation } from 'react-i18next';
 import Header from './Header.jsx'
 import './product.css'
 
 const Product=()=>{
+    const {t}=useTranslation()
     const [productList,setProductList]=useState([]);
     const [selectedDressType,setSelectedDressType]=useState("")
     const [selectedDressSize,setSelectedDressSize]=useState("")
@@ -98,7 +100,6 @@ const Product=()=>{
         }
        
         setFilteredProducts(filtered) 
-        
     }
 
     const handleSearchedProducts=(e)=>{
@@ -125,14 +126,14 @@ const Product=()=>{
             <Header/>
             <div className='bothFilterAndProductContainer'>
                <div className='filterSection'>
-                <input type="search" className='searchContainer' placeholder='Search Products' onChange={handleSearchedProducts}/>
+                <input type="search" className='searchContainer' placeholder={t("product.search")} onChange={handleSearchedProducts}/>
                 <div className="filterHeading">
-                    <h3>Filters</h3>
+                    <h3>{t("product.filters")}</h3>
                     <FaFilter/>
                 </div>
                 <div>
                     <div className="filterHeading">
-                        <h5>Dress Type</h5>
+                        <h5>{t("product.dressType")}</h5>
                         <PiDressDuotone/>
                     </div>
                     <div className="filterAlignment">
@@ -147,7 +148,7 @@ const Product=()=>{
                 
                 <div>
                     <div className="filterHeading">
-                        <h5>Size</h5>
+                        <h5>{t("product.size")}</h5>
                         <TbRulerMeasure/>
                     </div>
                     <div className="filterAlignment">
@@ -162,7 +163,7 @@ const Product=()=>{
 
                 <div>
                     <div className="filterHeading">
-                        <h5>Price</h5>
+                        <h5>{t("product.price")}</h5>
                         <IoIosPricetag/>
                     </div>
                     <div className="filterAlignment">
@@ -172,7 +173,7 @@ const Product=()=>{
 
                 <div>
                     <div className="filterHeading">
-                        <h5>Ratings</h5>
+                        <h5>{t("product.ratings")}</h5>
                     </div>
                     <div>
                         {Array.from({length:5}).map((_,i)=>(
@@ -185,7 +186,7 @@ const Product=()=>{
                     </div>
                 </div>
 
-                <button onClick={handleFilter} className='applyButton'>Apply Filter</button>
+                <button onClick={handleFilter} className='applyButton'>{t("product.applyButton")}</button>
                 
                </div>
 
@@ -208,9 +209,9 @@ const Product=()=>{
 
             <div className='bothFilterAndProductContainerInMobile'>
                <div className='filterSectionMobile'>
-                <input type="search" className='searchContainer' placeholder='Search Products' onChange={handleSearchedProducts}/>
+                <input type="search" className='searchContainer' placeholder={t("product.search")} onChange={handleSearchedProducts}/>
                 <button onClick={handleFilterStatus} className="filterHeading">
-                    <h3>Filters</h3>
+                    <h3>{t("product.filters")}</h3>
                     <FaFilter/>
                 </button>
                 
@@ -219,14 +220,14 @@ const Product=()=>{
                {filterStatus?
                     <div className='filterThings'>
                         <div className='cancelAndHeading'>
-                            <h5>Apply Filter Here!!</h5>
+                            <h5>{t("product.filterHeading")}</h5>
                             <button className='cancel' onClick={handleCancelButton}>
                                 <MdCancel/>
                             </button>
                         </div>
                         <div className='eachFilterBorder'>
                             <div className="filterHeading">
-                                <h5>Dress Type</h5>
+                                <h5>{t("product.dressType")}</h5>
                                 <PiDressDuotone/>
                             </div>
                             <div className="filterAlignment">
@@ -241,7 +242,7 @@ const Product=()=>{
 
                         <div className='eachFilterBorder'>
                             <div className="filterHeading">
-                                <h5>Size</h5>
+                                <h5>{t("product.size")}</h5>
                                 <TbRulerMeasure/>
                             </div>
                             <div className="filterAlignment">
@@ -256,7 +257,7 @@ const Product=()=>{
 
                         <div>
                             <div className="filterHeading">
-                                <h5>Price</h5>
+                                <h5>{t("product.price")}</h5>
                                 <IoIosPricetag/>
                             </div>
                             <div className="filterAlignment">
@@ -266,7 +267,7 @@ const Product=()=>{
 
                         <div>
                     <div className="filterHeading">
-                        <h5>Ratings</h5>
+                        <h5>{t("product.ratings")}</h5>
                     </div>
                     <div>
                         {Array.from({length:5}).map((_,i)=>(
@@ -279,7 +280,7 @@ const Product=()=>{
                     </div>
                         </div>
                     
-                    <button onClick={handleFilter} className='applyButton'>Apply Filter</button>
+                    <button onClick={handleFilter} className='applyButton'>{t("product.applyButton")}</button>
                     </div>:
                null
                }

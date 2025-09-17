@@ -55,11 +55,12 @@ body{
     padding: 16px 54px;
     gap: 12px;
     width: 210px;
-    height: 52px;
+    height: 42px;
     left: 100px;
     background: #000000;
     border-radius: 62px;
     color:white;
+    font-size: 14px;
 }
 .bannerpopularity{
     display: flex;
@@ -145,16 +146,14 @@ body{
     align-items: center;
 }
 .dressTypeBasedHeading{
-    width: 687px;
+    width: 100%;
     height: 58px;
     left: calc(50% - 687px/2);
     font-family: 'Integral CF';
     font-style: normal;
     font-weight: 700;
-    font-size: 48px;
+    font-size: 25px;
     line-height: 58px;
-    display: flex;
-    align-items: center;
     text-align: center;
     color: #000000;
 }
@@ -223,22 +222,24 @@ body{
     }
     .banner{
         width: 100%;
-        height: 853px;
+        height: 753px;
         left: 0px;
+        
     }
     .bannerContent{
         width:90%;
-        height: auto;
+        height:50vh;
         margin-left: 2%;
+        padding: 15px;
     }
     .majorHeading{
-        width: 315px;
-        height: 93px;
+        width: 100%;
+        height: 73px;
         left: 16px;
         font-family: 'Integral CF';
         font-style: normal;
         font-weight: 700;
-        font-size: 32px;
+        font-size: 22px;
         line-height: 34px;
         display: flex;
         align-items: center;
@@ -255,7 +256,7 @@ body{
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
-        height: 663px;
+        height: 70vh;
         width: 100%;
         justify-content: space-around;
         padding: 10px;
@@ -263,12 +264,12 @@ body{
     }
     .cardparagraph{
         width: 100%;
-        height: 50px;
+        height: 80px;
         left: 16px;
         font-family: 'Satoshi';
         font-style: normal;
         font-weight: 400;
-        font-size: 14px;
+        font-size: 10px;
         line-height: 20px;
         margin-bottom: 10px;
     }
@@ -367,16 +368,14 @@ body{
         box-sizing: border-box;
     }
     .dressTypeBasedHeading{
-        width: 246px;
+        width: 100%;
         height: 72px;
         left: calc(50% - 246px/2);
         font-family: 'Integral CF';
         font-style: normal;
         font-weight: 700;
-        font-size: 32px;
-        line-height: 36px;
-        display: flex;
-        align-items: center;
+        font-size: 14px;
+        line-height: 16px;
         text-align: center;
     }
     .dressPictures{
@@ -413,7 +412,7 @@ body{
  }
  .bannerContent{
     width:100vw;
-    height: 90vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -421,28 +420,28 @@ body{
  .bannerContents{
     display: flex;
     flex-direction: column;
-    height: 663px;
+    height: 1063px;
     width: 100%;
     justify-content: space-around;
+}
+.shopButton{
+    font-size: 10px;
+    width: 40vw;
 }
  .majorHeading{
     width: 100%;
     font-family: 'Integral CF';
     font-style: normal;
     font-weight: 700;
-    font-size: 64px;
-    line-height: 64px;
+    font-size: 34px;
+    line-height: 36px;
     color: #000000;
 }
  .bannerMobileImage{
-        display: block;
-        background-color: #d3cece;
-        width: 90%;
-        height: 748px;
-        left: 0%; 
+       display: none;
     }
  .cardparagraph{
-    font-size: 16px;
+    font-size: 12px;
     line-height: 22px;
     color: rgba(0, 0, 0, 0.6);
  }
@@ -496,7 +495,7 @@ body{
         box-sizing: border-box;
     }
     .dressTypeBasedHeading{
-        width: 246px;
+        width: 546px;
         height: 72px;
         left: calc(50% - 246px/2);
         font-family: 'Integral CF';
@@ -504,8 +503,6 @@ body{
         font-weight: 700;
         font-size: 32px;
         line-height: 36px;
-        display: flex;
-        align-items: center;
         text-align: center;
     }
     .dressPictures{
@@ -531,25 +528,31 @@ body{
 @media screen and (min-width:1024px) and (max-width:1440px){
    .banner{
         width: 100%;
-        height: 80vh;
+        height: 68vh;
         left: 0px;
         background-color: #d3cece;
     }
     .bannerContent{
-    width:80vw;
-    height: 40vh;
+    width:100vw;
+    height: 45vh;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     }
    .majorHeading{
-    width: 577px;
+    width: 777px;
     font-family: 'Integral CF';
     font-style: normal;
     font-weight: 700;
     font-size: 44px;
-    line-height: 64px;
+    line-height: 54px;
     color: #000000;
+}
+.cardparagraph{
+    width: 777px;
+}
+.shopButton{
+    width: 40vw;
 }
     .bannerpopularity{
     display: flex;
@@ -568,7 +571,7 @@ body{
 @media screen and (min-width:1441px) and (max-width:2559px){
     .banner{
         width: 100%;
-        height: 75vh;
+        height: 100vh;
         left: 0px;
         background-color: #d3cece;
         background-size: cover;

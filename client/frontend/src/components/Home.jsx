@@ -22,15 +22,15 @@ const Home=()=>{
             <div className="bannerpopularity">
                 <div className='bannerBox'>
                    <h1 className='values'>200+</h1>
-                   <p className='valueDescription'>International Brands</p>
+                   <p className='valueDescription'>{t("home.bannerPopularity.first")}</p>
                 </div>
                 <div className='bannerBox'>
                    <h1 className='values'>2,000+</h1>
-                   <p className='valueDescription'>High Quality Products</p>
+                   <p className='valueDescription'>{t("home.bannerPopularity.second")}</p>
                 </div>
                 <div className='bannerBox'>
                    <h1 className='values'>30,000+</h1>
-                   <p className='valueDescription'>Happy Customers</p>
+                   <p className='valueDescription'>{t("home.bannerPopularity.third")}</p>
                 </div>
             </div> 
             <img src="https://res.cloudinary.com/dlfl0nfin/image/upload/v1757402954/mob_nfebng.png" className='bannerMobileImage'/>
@@ -45,7 +45,7 @@ const Home=()=>{
         </div>
         <TopSellingAndArrival/>
         <div className='dressType'>
-            <h1 className='dressTypeBasedHeading'>BROWSE BY DRESS STYLE</h1>
+            <h1 className='dressTypeBasedHeading'>{t("home.dressType")}</h1>
             <div className='dressPictures'>
                 <div className='casual'>
                     <p className='dressTypeParagraph'>
