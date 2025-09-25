@@ -1,5 +1,5 @@
 from django.contrib import admin
-from api.models import Role,UserRole,Product,Size
+from api.models import Role,UserRole,Product,Size,ProductTranslation
 
 admin.site.register(Role)
 admin.site.register(UserRole)
@@ -8,8 +8,15 @@ admin.site.register(UserRole)
 class SizeAdmin(admin.ModelAdmin):
     list_display=("name",)
 
-@admin.register(Product)
+class ProductTranslationInline(admin.TabularInline):
+    model=ProductTranslation
+    extra=1
+
 class ProductAdmin(admin.ModelAdmin):
-    list_display=('product_name','price','description','image_url','ratings','dressType')
-    filter_horizontal=("size",) 
+    inlines=[ProductTranslationInline]
+    list_display=('sku','stocks','product_name','description','price','image_url','ratings','dressType')
+    filter_horizontal=("size",)
+
+admin.site.register(Product,ProductAdmin)
+
 

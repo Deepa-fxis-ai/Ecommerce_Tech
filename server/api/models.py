@@ -23,14 +23,32 @@ class Size(models.Model):
         return self.name
         
 class Product(models.Model):
-    product_name=models.CharField(max_length=255,default='Unknown')
+    sku=models.CharField(max_length=50,unique=True,default='SKU')
     price=models.DecimalField(max_digits=10,decimal_places=2)
-    description=models.TextField()
     image_url=models.URLField(max_length=500,blank=True,null=True)
+    product_name=models.CharField(max_length=255,default='Unknown')
+    description=models.TextField(blank=True,null=True)
     ratings=models.IntegerField(validators=[MinValueValidator(1),MaxValueValidator(5)],blank=True,null=True)
+    stocks=models.IntegerField(default=10)
     size=models.ManyToManyField(Size,blank=True)
     dressType=models.CharField(max_length=20,choices=[('C','Casual'),('F','Formal'),('P','Party'),('G','Gym',)],default=('C','Casual'))
 
+    def __str__(self):
+           return self.sku
+
+class ProductTranslation(models.Model):
+    product=models.ForeignKey(Product,related_name="translations",on_delete=models.CASCADE)
+    language=models.CharField(max_length=10)
+    name=models.CharField(max_length=255,default='Unknown')
+    description=models.TextField()
+    auto_translated=models.BooleanField(default=False)
+
+    class Meta:
+        unique_together=("product","language")
+
+    def __str__(self):
+        return f"{self.product.sku}[{self.language}]"
+    
 class CustomerReview(models.Model):
     customer_rating=models.IntegerField(validators=[MinValueValidator(1),MaxValueValidator(5)],blank=True,null=True)
     customer_name=models.CharField(max_length=20,unique=True)

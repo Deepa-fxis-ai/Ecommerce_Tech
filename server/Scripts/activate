@@ -35,7 +35,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Python_django_projects\Trendy\server"
+VIRTUAL_ENV="C:\Python_django_projects\TechShop\Ecommerce_Tech\server"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
