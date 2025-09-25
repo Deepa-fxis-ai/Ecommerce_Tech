@@ -1,4 +1,4 @@
-import { useState , useEffect} from 'react'
+import { useState , useEffect,useContext} from 'react'
 import {useNavigate} from 'react-router-dom'
 import { FaFilter } from "react-icons/fa";
 import { PiDressDuotone } from "react-icons/pi";
@@ -10,9 +10,11 @@ import Slider from '@mui/material/Slider'
 import { useTranslation } from 'react-i18next';
 import Header from './Header.jsx'
 import './product.css'
+import { LanguageContext } from '../reactContext.jsx';
 
 const Product=()=>{
     const {t}=useTranslation()
+    const {language} =useContext(LanguageContext)
     const [productList,setProductList]=useState([]);
     const [selectedDressType,setSelectedDressType]=useState("")
     const [selectedDressSize,setSelectedDressSize]=useState("")
@@ -36,7 +38,7 @@ const Product=()=>{
        ]
  
     const getProductData=async ()=>{ 
-        const url="http://127.0.0.1:8000/product/get/";
+        const url=`http://127.0.0.1:8000/product/get/?lang=${language}`;
         const options={
             method:"GET",
             headers:{
@@ -50,6 +52,7 @@ const Product=()=>{
             const data=await response.json()
             setProductList(data.user)
             setFilteredProducts(data.user)
+            console.log(data)
         }
         else{
             console.log(data.detail)

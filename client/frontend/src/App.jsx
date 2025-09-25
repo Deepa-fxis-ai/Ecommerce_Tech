@@ -1,4 +1,5 @@
 import { Routes , Route} from 'react-router-dom'
+import { useState } from 'react'
 import Home from './components/Home.jsx'
 import Registration from './components/Registration.jsx'
 import Login from './components/Login.jsx'
@@ -6,10 +7,19 @@ import Product from './components/product.jsx'
 import Cart from './components/cart.jsx'
 import ProductDetail from './components/productDetails.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
+import {useTranslation} from "react-i18next";
+import {LanguageContext} from "./reactContext.jsx"
 import './App.css'
 
 const App=()=>{
+  const [lang,setlang]=useState("en")
+  const {i18n}=useTranslation()
+  const languageSetting=(lng)=>{
+    i18n.changeLanguage(lng)
+    setlang(lng)
+  }
   return(
+    <LanguageContext.Provider value={{language:lang,languageConversion:languageSetting}}>
      <Routes> 
        <Route exact path="/register" element={<Registration/>}/>
        <Route exact path="/login" element={<Login/>}/>
@@ -20,6 +30,7 @@ const App=()=>{
          <Route exact path="/cart" element={<Cart/>}/>
        </Route>
      </Routes>
+    </LanguageContext.Provider>
   )
 }
 

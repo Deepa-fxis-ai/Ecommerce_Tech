@@ -1,20 +1,24 @@
+import {LanguageContext} from '../reactContext'
 import { FaBattleNet,FaBars } from "react-icons/fa6";
-import { useState } from "react";
+import { useState,useContext } from "react";
 import Cookies from 'js-cookie'
 import {useNavigate,Link} from 'react-router-dom';
 import { useTranslation } from "react-i18next";
 import './Header.css'
 
 const Header=()=>{
-    const {t,i18n}=useTranslation()
+    const {t}=useTranslation()
+    const {languageConversion} = useContext(LanguageContext)
     const [mobileViewBarStatus,setMobileViewBarStatus]=useState(false)
     const [language,setLanguage]=useState("")
     const navigate=useNavigate()
     const token=Cookies.get('jwt_token')
-    const changeLanguage=(lng)=>{
-      setLanguage("")
-      i18n.changeLanguage(lng)
+
+    const changeLanguage=(event)=>{
+        setLanguage("")
+        languageConversion(event)
     }
+    
     const onChangeLogout=()=>{
        Cookies.remove('jwt_token')
        navigate("/login")
@@ -26,8 +30,9 @@ const Header=()=>{
     const handleBarStatus=()=>{
       setMobileViewBarStatus(prev=>!prev)
     }
-    return(
-        <div>
+
+        return(
+          <div>
           <div className='headerContainer'>
               <Link to="/">
               <div className="logoContainer">
@@ -40,12 +45,12 @@ const Header=()=>{
              <a href="/product">{t("header.products")}</a>
              <a href="/cart">{t("header.cart")}</a>
              <select onChange={(e) => changeLanguage(e.target.value)} className="select" value={language}>
-               <option value="" disabled>{t("header.select")}</option>
-               <option value="en">English</option>
-               <option value="hi">हिंदी</option>
-               <option value="ta">தமிழ்</option>
-               <option value="ma">മലയാളം</option>
-             </select>
+                <option value="" disabled>{t("header.select")}</option>
+                <option value="en">English</option>
+                <option value="hi">हिंदी</option>
+                <option value="ta">தமிழ்</option>
+                <option value="ma">മലയാളം</option>
+            </select>
              {token?<button type="button" className="button" onClick={onChangeLogout}>{t("header.logout")}</button>:<button type="button" className="button" onClick={onChangeLogin}>{t("header.login")}</button>}
           </div> 
           </div>
@@ -77,9 +82,10 @@ const Header=()=>{
 
            
         </div>
+        )
 
-        
-    )
+
+    
 }
 
 export default Header
