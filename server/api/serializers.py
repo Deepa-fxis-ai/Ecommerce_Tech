@@ -35,10 +35,18 @@ class ProductTranslationSerializer(serializers.ModelSerializer):
         fields=("language","name","description","auto_translated")
 
 class ProductSerializer(serializers.ModelSerializer):
-    translations=ProductTranslationSerializer(many=True,read_only=True)
+    translations=serializers.SerializerMethodField()
     class Meta:
         model=Product
         fields=('id','sku','product_name','price','description','stocks','image_url','ratings','size','dressType','translations')
+
+    def get_translations(self, obj):
+        lang = self.context.get("lang")
+        qs = obj.translations.all()
+
+        if lang:
+            qs = obj.translations.all()
+        return ProductTranslationSerializer(qs, many=True).data
 
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
@@ -48,5 +56,5 @@ class ReviewSerializer(serializers.ModelSerializer):
 class CartSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cart
-        fields=('id','product','quantity','added_at','total_price')
+        fields=('id','product','quantity','carted_size','added_at','total_price')
         read_only_fields=('id','added_at','total_price')

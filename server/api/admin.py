@@ -1,5 +1,5 @@
 from django.contrib import admin
-from api.models import Role,UserRole,Product,Size,ProductTranslation
+from .models import Role,UserRole,Product,Size,ProductTranslation
 
 admin.site.register(Role)
 admin.site.register(UserRole)

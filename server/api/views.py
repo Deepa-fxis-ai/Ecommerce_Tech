@@ -3,7 +3,7 @@ from rest_framework.permissions import AllowAny
 from django.contrib.auth.models import User
 from .serializers import RegisterSerializer,LoginSerializer,UserSerializer,ProductSerializer,ReviewSerializer,CartSerializer
 from django.contrib.auth import authenticate
-from rest_framework_simplejwt.tokens import RefreshToken # type: ignore
+from rest_framework_simplejwt.tokens import RefreshToken  
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
@@ -63,12 +63,13 @@ class ProductCreateView(generics.CreateAPIView):
     permission_classes=(IsAuthenticated,HasRole)
     required_role='admin'
     queryset=Product.objects.all()
-    serializer_class=ProductSerializer(many=True)
+    serializer_class=ProductSerializer
 
 class ProductGetView(APIView):
     def get(self,request):
+        lang = request.query_params.get("lang")
         product=Product.objects.all()
-        serialized_data=ProductSerializer(product,many=True)
+        serialized_data=ProductSerializer(product,many=True,context={"lang": lang})
         return Response({
            'user': serialized_data.data,
         },200)
