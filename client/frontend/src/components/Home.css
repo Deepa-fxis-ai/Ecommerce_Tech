@@ -6,6 +6,14 @@ body{
     width: 100vw;
     box-sizing: border-box;
 }
+.light{
+    background-color: black;
+    color: white;
+}
+.dark{
+    background-color: white;
+    color: black;
+}
 .banner{
     background-image: url("https://res.cloudinary.com/dlfl0nfin/image/upload/v1756726913/Rectangle_2_d0yyup.png");
     width: 100vw;

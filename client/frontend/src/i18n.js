@@ -30,7 +30,15 @@ const resources={
                price:"Price",
                applyButton:"Apply Filter",
                filterHeading:"Apply Filter Here!!",
-               ratings:"Rating"
+               ratings:"Rating",
+               casual:'Casual',
+               formal:'Formal',
+               party:'Party',      
+               gym:'Gym', 
+               small:'Small',
+               medium:'Medium',
+               large:'Large',
+               xlarge:'Extra Large'
             },
             header:{
               home:"Home",
@@ -78,7 +86,15 @@ const resources={
                 price: "कीमत",
                 applyButton: "फ़िल्टर लागू करें",
                 filterHeading: "यहाँ फ़िल्टर लागू करें!!",
-                ratings:"रेटिंग"
+                ratings:"रेटिंग",
+                casual: "कैज़ुअल",
+                formal: "फॉर्मल",
+                party: "पार्टी",
+                gym: "जिम",
+                small: "स्मॉल",
+                medium: "मीडियम",
+                large: "लार्ज",
+                xlarge: "एक्स्ट्रा लार्ज"
             },
             header: {
                 home: "होम",
@@ -127,7 +143,15 @@ const resources={
                 price: "விலை",
                 applyButton: "வடிகட்டியை பயன்படுத்தவும்",
                 filterHeading: "இங்கே வடிகட்டியை பயன்படுத்துங்கள்!!",
-                ratings:"மதிப்பீடு"
+                ratings:"மதிப்பீடு",
+                casual: "கேஷுவல்",
+                formal: "ஃபார்மல்",
+                party: "பார்ட்டி",
+                gym: "ஜிம்",
+                small: "ஸ்மால்",
+                medium: "மீடியம்",
+                large: "லார்ஜ்",
+                xlarge: "எக்ஸ்ட்ரா லார்ஜ்"
             },
             header: {
                 home: "முகப்பு",
@@ -149,7 +173,7 @@ const resources={
 
         }
     },
-    ma:{
+    ml:{
         translation: {
             home:{
                 bannerHeading:"നിങ്ങളുടെ സ്റ്റൈലിനൊത്ത വസ്ത്രങ്ങൾ കണ്ടെത്തൂ",
@@ -176,7 +200,15 @@ const resources={
                 price: "വില",
                 applyButton: "ഫിൽട്ടർ പ്രയോഗിക്കുക",
                 filterHeading: "ഇവിടെ ഫിൽട്ടർ പ്രയോഗിക്കുക!!",
-                ratings:"റേറ്റിംഗ്"
+                ratings:"റേറ്റിംഗ്",
+                casual: "ക്യാഷ്വൽ",
+                formal: "ഫോർമൽ",
+                party: "പാർട്ടി",
+                gym: "ജിം",
+                small: "സ്മോൾ",
+                medium: "മീഡിയം",
+                large: "ലാർജ്",
+                xlarge: "എക്സ്ട്രാ ലാർജ്"
              },
              header: {
                 home: "ഹോം",

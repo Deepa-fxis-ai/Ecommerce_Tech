@@ -13,13 +13,17 @@ import './App.css'
 
 const App=()=>{
   const [lang,setlang]=useState("en")
+  const [theme,setTheme]=useState("light")
   const {i18n}=useTranslation()
   const languageSetting=(lng)=>{
     i18n.changeLanguage(lng)
     setlang(lng)
   }
+  const handleToggleTheme=()=>{
+    setTheme(prev=>prev==='light'?'dark':'light')
+  }
   return(
-    <LanguageContext.Provider value={{language:lang,languageConversion:languageSetting}}>
+    <LanguageContext.Provider value={{language:lang,languageConversion:languageSetting,themeStatus:theme,onhandleTheme:handleToggleTheme}}>
      <Routes> 
        <Route exact path="/register" element={<Registration/>}/>
        <Route exact path="/login" element={<Login/>}/>

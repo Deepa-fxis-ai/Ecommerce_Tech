@@ -25,20 +25,20 @@ const Product=()=>{
     const navigate=useNavigate()
 
     const dressTypes=[
-       {code:'C',label:'Casual'},
-       {code:'F',label:'Formal'},
-       {code:'P',label:'Party'},
-       {code:'G',label:'Gym'}]
+       {code:'C',label:t("product.casual")},
+       {code:'F',label:t("product.formal")},
+       {code:'P',label:t("product.party")},
+       {code:'G',label:t("product.gym")}]
 
       const dressSize=[
-        {code:'1',label:'Small'},
-        {code:'2',label:'Medium'},
-        {code:'3',label:'Large'},
-        {code:'4',label:'Extra Large'}
+        {code:'1',label:t("product.small")},
+        {code:'2',label:t("product.medium")},
+        {code:'3',label:t("product.large")},
+        {code:'4',label:t("product.xlarge")}
        ]
  
     const getProductData=async ()=>{ 
-        const url=`http://127.0.0.1:8000/product/get/?lang=${language}`;
+        const url=`http://127.0.0.1:8000/product/get/`;
         const options={
             method:"GET",
             headers:{
@@ -123,6 +123,7 @@ const Product=()=>{
     const handleCancelButton=()=>{
         setFilterStatus(prev=>!prev)
     }
+
      
     return(
         <div className='productContainer'>
@@ -199,8 +200,14 @@ const Product=()=>{
                         <div key={index} className='productCard' onClick={()=>handleNavigation(each.id)}>
                             <img src={each.image_url} className='productImage'/>
                             <div>
-                                <h4>{each.product_name}</h4>
-                                <p>{each.ratings}</p>
+                                <h4>
+                                {each.translations.find(t => t.language === language)?.name || each.product_name}
+                                </h4>
+                                <div>
+                                    {Array.from({length: each.ratings}).map((_, i)=>{
+                                      return <span key={i}><IoIosStar/></span>
+                                    })}
+                                </div>
                                 <p>{each.price}</p>
                             </div>
                         </div> 
@@ -296,7 +303,9 @@ const Product=()=>{
                         <div key={index} className='productCard' onClick={()=>handleNavigation(each.id)}>
                             <img src={each.image_url} className='productImage'/>
                             <div>
-                                <h4>{each.product_name}</h4>
+                                <h4>
+                                {each.translations.find(t => t.language === language)?.name || each.product_name}
+                                </h4>
                                 <div>
                                     {Array.from({length: each.ratings}).map((_, i)=>{
                                 return <span key={i}><IoIosStar/></span>
