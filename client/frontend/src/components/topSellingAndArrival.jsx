@@ -1,18 +1,20 @@
-import { useState , useEffect} from 'react'
+import { useState , useEffect,useContext} from 'react'
 import { IoIosStar } from "react-icons/io";
 import Cookies from 'js-cookie'
 import { useTranslation } from 'react-i18next';
-import './topSellingAndArrival.css'
+import './topSellingAndArrival.css';
+import { LanguageContext } from '../reactContext.jsx';
 
 const TopSellingAndArrival=()=>{
     const {t}=useTranslation()
+    const {language,themeStatus} =useContext(LanguageContext)
     const [productList,setProductList]=useState({user:[]});
     const [viewMore,setViewMore]=useState(true)
     const [view,setView]=useState(t("topSellingAndArrival.viewMore"))
     const [viewMoreSelling,setViewMoreSelling]=useState(true)
     const [viewSelling,setViewSelling]=useState(t("topSellingAndArrival.viewMore"))
     const token=Cookies.get('jwt_token')
-
+    const theme=themeStatus!=='light'?'dark':'light'
 
     const getProductData=async ()=>{ 
         const url="http://127.0.0.1:8000/product/get/";
@@ -29,6 +31,7 @@ const TopSellingAndArrival=()=>{
         if(response.ok){
             const data=await response.json()
             setProductList(data)
+            console.log(data)
         }
         else{
             console.log(data.detail)
@@ -55,8 +58,8 @@ const TopSellingAndArrival=()=>{
      
     return(
         <div className='topContainer'>
-            <div className='desktop'>
-                <h1 className="newArrival">{t("topSellingAndArrival.newArrival")}</h1>
+            <div className={`desktop ${theme}`}>
+                <h1 className={`newArrival ${theme}`} >{t("topSellingAndArrival.newArrival")}</h1>
                 <div className='newArivalOrSellingProducts'>
                     <div className="rowSection">
                     {viewMore?
@@ -68,7 +71,9 @@ const TopSellingAndArrival=()=>{
                         <div key={index} className='productArrival' onClick={()=>handleNavigation(each.id)}>
                             <img src={each.image_url} className='productImage'/>
                             <div>
-                                <h4>{each.product_name}</h4>
+                                 <h4>
+                                {each.translations.find(t => t.language === language)?.name || each.product_name}
+                                </h4>
                                 <div>
                                     {Array.from({length: each.ratings}).map((_, i)=>{
                                 return <span key={i}><IoIosStar/></span>
@@ -88,7 +93,9 @@ const TopSellingAndArrival=()=>{
                         <div key={index} className='productArrival' onClick={()=>handleNavigation(each.id)}>
                             <img src={each.image_url} className='productImage'/>
                             <div>
-                                <h4>{each.product_name}</h4>
+                                <h4>
+                                {each.translations.find(t => t.language === language)?.name || each.product_name}
+                                </h4>
                                 <div>
                                     {Array.from({length: each.ratings}).map((_, i)=>{
                                 return <span key={i}><IoIosStar/></span>
@@ -102,9 +109,9 @@ const TopSellingAndArrival=()=>{
                     }
                     
                     </div>
-                    <button onClick={handleView} className='viewButton'>{view}</button>
+                    <button onClick={handleView} className={`viewButton ${themeStatus!=='light'?'light':'dark'}`}>{view}</button>
                 </div>
-                <h1 className="newArrival">{t("topSellingAndArrival.topSelling")}</h1>
+                <h1 className={`newArrival ${theme}`}>{t("topSellingAndArrival.topSelling")}</h1>
                 <div className='newArivalOrSellinProducts'>
                     <div className="rowSection">
                     {viewMoreSelling?
@@ -116,7 +123,9 @@ const TopSellingAndArrival=()=>{
                         <div key={index} className='productArrival' onClick={()=>handleNavigation(each.id)}>
                             <img src={each.image_url} className='productImage'/>
                             <div>
-                                <h4>{each.product_name}</h4>
+                                <h4>
+                                {each.translations.find(t => t.language === language)?.name || each.product_name}
+                                </h4>
                                 <div>
                                     {Array.from({length: each.ratings}).map((_, i)=>{
                                 return <span key={i}><IoIosStar/></span>
@@ -136,7 +145,9 @@ const TopSellingAndArrival=()=>{
                         <div key={index} className='productArrival' onClick={()=>handleNavigation(each.id)}>
                             <img src={each.image_url} className='productImage'/>
                             <div>
-                                <h4>{each.product_name}</h4>
+                                <h4>
+                                {each.translations.find(t => t.language === language)?.name || each.product_name}
+                                </h4>
                                 <div>
                                     {Array.from({length: each.ratings}).map((_, i)=>{
                                 return <span key={i}><IoIosStar/></span>
@@ -150,10 +161,10 @@ const TopSellingAndArrival=()=>{
                     }
                 </div>
                 </div>
-                <button onClick={handleSellingView} className='viewButton'>{viewSelling}</button>
+                <button onClick={handleSellingView} className={`viewButton ${themeStatus!=='light'?'light':'dark'}`}>{viewSelling}</button>
             </div>
-             <div className='mobile'>
-                <h1 className="newArrival">{t("topSellingAndArrival.newArrival")}</h1>
+             <div className={`mobile ${theme}`}>
+                <h1 className={`newArrival ${theme}`}>{t("topSellingAndArrival.newArrival")}</h1>
                 <div className='newArivalOrSellingProducts'>
                     <div className="rowSection">
                     {viewMore?
@@ -199,9 +210,9 @@ const TopSellingAndArrival=()=>{
                     }
                     
                     </div>
-                    <button onClick={handleView} className='viewButton'>{view}</button>
+                    <button onClick={handleView} className={`viewButton ${themeStatus!=='light'?'light':'dark'}`}>{view}</button>
                 </div>
-                <h1 className="newArrival">{t("topSellingAndArrival.topSelling")}</h1>
+                <h1 className={`newArrival ${theme}`}>{t("topSellingAndArrival.topSelling")}</h1>
                 <div className='newArivalOrSellinProducts'>
                     <div className="rowSection">
                     {viewMoreSelling?
@@ -247,7 +258,7 @@ const TopSellingAndArrival=()=>{
                     }
                 </div>
                 </div>
-                <button onClick={handleSellingView} className='viewButton'>{viewSelling}</button>
+                <button onClick={handleSellingView} className={`viewButton ${themeStatus!=='light'?'light':'dark'}`}>{viewSelling}</button>
             </div>
         </div>
     )

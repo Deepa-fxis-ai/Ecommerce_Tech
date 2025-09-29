@@ -75,6 +75,7 @@ const Cart=()=>{
                 <thead>
                 <tr className='cartList'>
                     <th>{t("cart.productId")}</th>
+                    <th>size</th>
                     <th>{t("cart.quantity")}</th>
                     <th>{t("cart.totalPrice")}</th>
                     <th>{t("cart.cancel")}</th>
@@ -85,6 +86,7 @@ const Cart=()=>{
                     
                         <tr key={each.id} className='cartList'>
                             <td>{each.product}</td>
+                            <td>{each.carted_size}</td>
                             <td>{each.quantity}</td>
                             <td>₹{each.total_price}</td>
                             <td>

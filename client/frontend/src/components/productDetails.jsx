@@ -1,14 +1,17 @@
-import {useState,useEffect} from 'react'
+import {useState,useEffect,useContext} from 'react'
 import { useParams ,useNavigate} from 'react-router-dom'
 import { FaMinus, FaPlus } from "react-icons/fa6";
 import { IoIosStar } from "react-icons/io";
 import Header from './Header.jsx'
 import Cookies from 'js-cookie'
 import './productDetails.css'
+import { LanguageContext } from '../reactContext.jsx';
 
 const ProductDetail=()=>{
+    const {language}=useContext(LanguageContext)
     const [productDetail,setProductDetail]=useState(null)
     const [cartQuantity,setCartQuantity]=useState(1)
+    const [cartSize,setCartSize]=useState("M")
     const {id}=useParams()
     const navigate=useNavigate()
     const token=Cookies.get('jwt_token')
@@ -27,6 +30,7 @@ const ProductDetail=()=>{
         if(response.ok){
             const data=await response.json()
             setProductDetail(data)
+            console.log(data)
         }
         else{
             console.log(data.detail)
@@ -49,7 +53,7 @@ const ProductDetail=()=>{
                 "Content-Type":"application/json",
                 "Authorization":`Bearer ${token}`
             },
-            "body": JSON.stringify({product: productId,quantity: cartQuantity,}),
+            "body": JSON.stringify({product: productId,quantity: cartQuantity,carted_size: cartSize}),
         }
         try{
           const response=await fetch(url,options)
@@ -95,8 +99,8 @@ const ProductDetail=()=>{
                     <div className='SingleProductDetail'>
                     <img src={productDetail.image_url} className='productSingleImage'/>
                     <div>
-                        <h3>{productDetail.product_name}</h3>
-                        <p>{productDetail.description}</p>
+                        <h3>{productDetail.translations.find(t=>t.language===language)?.name||productDetail.product_name}</h3>
+                        <p>{productDetail.translations.find(t=>t.language===language)?.description||productDetail.description}</p>
                         <p>Rs.{productDetail.price}</p>
                         <div>
                         {Array.from({length: productDetail.ratings}).map((_, i)=>{
@@ -104,10 +108,10 @@ const ProductDetail=()=>{
                         })}
                         </div>
                         <div className='size'>
-                            <p className='para'>Small</p>
-                            <p className='para'>Medium</p>
-                            <p className='para'>Large</p>
-                            <p className='para'>Extra Large</p>
+                            <button className='para' onClick={()=>setCartSize('S')}>Small</button>
+                            <button className='para' onClick={()=>setCartSize('M')}>Medium</button>
+                            <button className='para' onClick={()=>setCartSize('L')}>Large</button>
+                            <button className='para' onClick={()=>setCartSize('XL')}>Extra Large</button>
                         </div>
                         <div className='cartAndQuantity'>
                             <div className='quantity'>

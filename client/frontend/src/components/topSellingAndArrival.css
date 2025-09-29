@@ -5,6 +5,14 @@
     justify-content: center;
     width: 100vw;
 }
+.light{
+    background-color: black;
+    color: white;
+}
+.dark{
+    background-color: white;
+    color: #000;
+}
 .newArrival{
     width: 493px;
     height: 58px;
@@ -19,8 +27,6 @@
     margin-left: 25px;
 }
 .viewButton{
-    background-color: #000000;
-    color: white;
     margin-bottom: 10px;
 }
 
@@ -60,6 +66,7 @@
     display: none;
 }
 
+
 @media screen and (max-width:767px) {
     .desktop{
     display: none;
@@ -68,20 +75,22 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-left: 20%;
+        padding-left: 5%;
         width: 100%;
     }
     .newArrival{
-        width: 269px;
+        width: 159px;
         height: 28px;
-        left: calc(50% - 269px/2 + 0.5px);
+        left: 0;
         font-family: 'Integral CF';
         font-style: normal;
         font-weight: 700;
-        font-size: 14px;
+        font-size: 15px;
         line-height: 18px;
         text-align: center;
         color: #000000;
+        margin-top: 20px;
+        margin-right: 10%;
     }
     .newArivalOrSellingProducts{
         display: flex;

@@ -1,10 +1,17 @@
 .headerContainer{
     height: 15vh;
-    background-color: white;
     display:flex;
     justify-content: space-around;
     align-items: center;
     box-sizing: border-box;
+}
+.light{
+    background-color: white;
+    color: black;
+}
+.dark{
+    background-color:black;
+    color: white;
 }
 .mobileContainer{
     display: none;
@@ -15,17 +22,18 @@
     width: auto;
     text-align: center;
 }
-a{
-    color: #000;
-}
-.logo{
-    color: rgb(5, 5, 5);
-}
-.headings{
+.headingslight{
     font-size: 22px;
     font-style:italic;
     font-weight: bolder;
     color: rgb(60, 60, 63);
+    display: inline;
+}
+.headingsdark{
+    font-size: 22px;
+    font-style:italic;
+    font-weight: bolder;
+    color: rgb(218, 218, 221);
     display: inline;
 }
 .letter{
@@ -45,7 +53,6 @@ a{
     display:flex;
     justify-content: space-around;
     align-items: center;
-    color: #000;
     font-size: 14px;
 }
 .button{
@@ -63,7 +70,6 @@ a{
 .mobileContainer{
     height: 10vh;
     width: 100%;
-    background-color: white;
     display:flex;
     justify-content: space-around;
     align-items: center;
@@ -77,10 +83,8 @@ a{
     display:flex;
     flex-direction: column;
     justify-content: space-around;
-    align-items: center;
-    color: #000;
+    align-items: center;  
     justify-self: flex-end;
-    background-color: rgb(206, 209, 212);
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     position: absolute;
@@ -94,7 +98,6 @@ a{
 }
 .button{
     background-color: rgb(10, 10, 10);
-    color: white;
     border-radius: 10px;
     margin: 6px;
     padding: 10px;
