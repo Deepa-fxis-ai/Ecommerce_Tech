@@ -1,7 +1,0 @@
-#!C:\Python_django_projects\TechShop\Ecommerce_Tech\server\Scripts\python.exe
-
-from argostranslate import cli
-
-cli.main()
-
-

@@ -38,3 +38,10 @@ Thumbs.db
 *.zip
 *.tar
 *.gz
+
+# Virtualenv / Python packages
+.venv/
+server/Lib/
+server/Scripts/
+server/include/
+server/share/
