@@ -10,10 +10,16 @@ __pycache__/
 env/
 venv/
 
-# Django
-/media/
-staticfiles/
+
+# Python/Django
+__pycache__/
+*.pyc
 db.sqlite3
+server/Lib/
+venv/
+env/
+
+
 
 # Node / React
 node_modules/
