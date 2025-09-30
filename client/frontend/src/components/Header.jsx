@@ -126,7 +126,7 @@ const Header=()=>{
                 control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked  onChange={onhandleTheme}/>}
               />
             </FormGroup>
-             {token?<button type="button" className="button" onClick={onChangeLogout}>{t("header.logout")}</button>:<button type="button" className="button" onClick={onChangeLogin}>{t("header.login")}</button>}
+             {token?<button type="button" className={`select ${themeStatus === 'light' ? 'dark' : 'light'}`} onClick={onChangeLogout}>{t("header.logout")}</button>:<button type="button" className={`select ${themeStatus === 'light' ? 'dark' : 'light'}`} onClick={onChangeLogin}>{t("header.login")}</button>}
           </div> 
           </div>
           
@@ -164,7 +164,7 @@ const Header=()=>{
                 control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked onChange={onhandleTheme}/>}
               />
             </FormGroup>
-             {token===null?<button type="button" className="button" onClick={onChangeLogin}>{t("header.login")}</button>:<button type="button" className="button" onClick={onChangeLogout}>{t("header.logout")}</button>}
+             {token===null?<button type="button" className={`button ${themeStatus === 'light' ? 'dark' : 'light'}`} onClick={onChangeLogin}>{t("header.login")}</button>:<button type="button" className={`button ${themeStatus === 'light' ? 'dark' : 'light'}`} onClick={onChangeLogout}>{t("header.logout")}</button>}
           </div> :null}
           
            

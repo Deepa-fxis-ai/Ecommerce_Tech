@@ -1,11 +1,15 @@
+import { useContext } from 'react';
 import Header from './Header.jsx'
 import { Link } from 'react-router-dom';
 import TopSellingAndArrival from './topSellingAndArrival.jsx';
 import { useTranslation } from 'react-i18next';
+import { LanguageContext } from '../reactContext.jsx';
 import './Home.css'
 
 const Home=()=>{
     const { t }=useTranslation();
+    const {themeStatus}=useContext(LanguageContext)
+    const theme=themeStatus==='light'?'light':'dark'
     return(
     <div className='HomeContainer'>
         <Header />
@@ -44,8 +48,8 @@ const Home=()=>{
              <h1 className='ck'>Calvin Klein</h1>
         </div>
         <TopSellingAndArrival/>
-        <div className='dressType'>
-            <h1 className='dressTypeBasedHeading'>{t("home.dressType")}</h1>
+        <div className={`dressType ${theme}`}>
+            <h1 className={`dressTypeBasedHeading ${theme}`}>{t("home.dressType")}</h1>
             <div className='dressPictures'>
                 <div className='casual'>
                     <p className='dressTypeParagraph'>

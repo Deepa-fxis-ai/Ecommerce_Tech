@@ -46,7 +46,8 @@ const resources={
               cart:"Cart",
               login:"Login/Register",
               logout:"Logout",
-              select: "Language"
+              select: "Language",
+              
             },
             cart:{
                 productId:"Product ID",
@@ -55,7 +56,12 @@ const resources={
                 cancel:"Cancel Cart",
                 totalQuantity:"Total Quantity",
                 totalAmount:"Total Amount",
-                order:"Order Now"
+                order:"Order Now",
+                size:"Size",
+                orderConfirmation:"Order Confirmation",
+                orderConfirm:"Are you sure you want to place this order? Once confirmed, it cannot be canceled immediately.",
+                confirm:"Confirm",
+                cancel:"Cancel"
             }
         }
     },
@@ -102,7 +108,8 @@ const resources={
                 cart: "कार्ट",
                 login: "लॉगिन/रजिस्टर",
                 logout: "लॉगआउट",
-                select: "भाषा"
+                select: "भाषा",
+                
             },
             cart: {
                 productId: "उत्पाद आईडी",
@@ -111,7 +118,12 @@ const resources={
                 cancel: "कार्ट रद्द करें",
                 totalQuantity:"कुल मात्रा",
                 totalAmount:"कुल राशि",
-                order:"ऑर्डर करें"
+                order:"ऑर्डर करें",
+                size: "आकार",
+                orderConfirmation: "ऑर्डर की पुष्टि",
+                orderConfirm: "क्या आप वाकई यह ऑर्डर देना चाहते हैं? पुष्टि के बाद इसे तुरंत रद्द नहीं किया जा सकता।",
+                confirm: "पुष्टि करें",
+                cancelConfirm: "रद्द करें"
             }
 
         }
@@ -159,7 +171,8 @@ const resources={
                 cart: "வண்டி",
                 login: "உள்நுழை/பதிவுசெய்",
                 logout: "வெளியேறு",
-                select:"மொழி"
+                select:"மொழி",
+                size:"அளவு"
             },
             cart: {
                 productId: "தயாரிப்பு ஐடி",
@@ -168,7 +181,12 @@ const resources={
                 cancel: "ரத்து செய்யவும்",
                 totalQuantity:"மொத்த அளவு",
                 totalAmount:"மொத்த தொகை",
-                order:"ஆர்டர் செய்யுங்கள்"
+                order:"ஆர்டர் செய்யுங்கள்",
+                size:"அளவு",
+                orderConfirmation: "ஆர்டர் உறுதிப்படுத்தல்",
+                orderConfirm: "இந்த ஆர்டரை இட விரும்புகிறீர்களா? உறுதிப்படுத்திய பிறகு உடனடியாக ரத்து செய்ய முடியாது.",
+                confirm: "உறுதிப்படுத்து",
+                cancelConfirm: "ரத்து செய்"
             }
 
         }
@@ -216,7 +234,7 @@ const resources={
                 cart: "കാർട്ട്",
                 login: "ലോഗിൻ/രജിസ്റ്റർ",
                 logout: "ലോഗ്ഔട്ട്",
-                select:"ഭാഷ"
+                select:"ഭാഷ",
              },
              cart: {
                 productId: "ഉൽപ്പന്ന ഐഡി",
@@ -225,7 +243,12 @@ const resources={
                 cancel: "കാർട്ട് റദ്ദാക്കുക",
                 totalQuantity:"മൊത്തം അളവ്",
                 totalAmount:"മൊത്തം തുക",
-                order:"ഓർഡർ ചെയ്യുക"
+                order:"ഓർഡർ ചെയ്യുക",
+                size: "വലിപ്പം",
+                orderConfirmation: "ഓർഡർ സ്ഥിരീകരണം",
+                orderConfirm: "നിങ്ങൾക്ക് ഈ ഓർഡർ നൽകാൻ ഉറപ്പാണോ? സ്ഥിരീകരിച്ചതിന് ശേഷം ഇത് ഉടൻ റദ്ദാക്കാനാകില്ല.",
+                confirm: "സ്ഥിരീകരിക്കുക",
+                cancelConfirm: "റദ്ദാക്കുക"
             }
         }
     }

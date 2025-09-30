@@ -1,16 +1,51 @@
-import { useState ,useEffect} from 'react'
+import { useState ,useEffect,useContext} from 'react'
 import Cookies from 'js-cookie'
 import Header from './Header.jsx'
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import { useTranslation } from 'react-i18next';
+import { LanguageContext } from '../reactContext.jsx';
 import './cart.css'
+
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Slide from '@mui/material/Slide';
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const Cart=()=>{
     const {t}=useTranslation()
+    const {themeStatus}=useContext(LanguageContext)
     const [cartData,getCartData]=useState([])
     const [sumOfTotalPrice,setSumOfTotalPrice]=useState(0)
     const [sumOfQuantity,setSumOfQuantity]=useState(0)
     const token=Cookies.get('jwt_token')
+    const theme=themeStatus==='light'?'light':'dark'
+    const [open, setOpen] = useState(false);
+    const [paymentOpen,setPaymentOpen]=useState(false)
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const handleConfirm = () => {
+        setOpen(false);
+        setPaymentOpen(true)
+    };
+
+    const handlePaymentClose=()=>{
+        setPaymentOpen(false)
+    }
 
     useEffect(()=>{
             handleCartData()
@@ -69,13 +104,13 @@ const Cart=()=>{
     },[cartData])
 
     return(
-        <div className='cartContainer'>
+        <div className={`cartContainer ${theme}`}>
             <Header/>
-            <table>
+            <table className={themeStatus==='light'?'darkborder':'lightborder'}>
                 <thead>
                 <tr className='cartList'>
                     <th>{t("cart.productId")}</th>
-                    <th>size</th>
+                    <th>{t("cart.size")}</th>
                     <th>{t("cart.quantity")}</th>
                     <th>{t("cart.totalPrice")}</th>
                     <th>{t("cart.cancel")}</th>
@@ -99,11 +134,52 @@ const Cart=()=>{
             <div className='total'>
                 <p>{t("cart.totalQuantity")}: {sumOfQuantity}</p>
                 <p>{t("cart.totalAmount")}: {sumOfTotalPrice}</p> 
-                <button className='button'>{t("cart.order")}</button>
-                <button></button>
-            </div>          
+                <button className={`button ${themeStatus === 'light' ? 'dark' : 'light'}`} onClick={handleClickOpen}>{t("cart.order")}</button>
+                
+            </div> 
+            <Dialog
+                open={open}
+                slots={{
+                transition: Transition,
+                }}
+                keepMounted
+                onClose={handleClose}
+                aria-describedby="alert-dialog-slide-description"
+            >
+                <DialogTitle>{t("cart.orderConfirmation")}</DialogTitle>
+                <DialogContent>
+                <DialogContentText id="alert-dialog-slide-description">
+                    {t("cart.orderConfirm")}
+                </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                <Button onClick={handleClose}>{t("cart.cancel")}</Button>
+                <Button onClick={handleConfirm}>{t("cart.confirm")}</Button>
+                </DialogActions>
+            </Dialog> 
+            <Dialog
+                open={paymentOpen}
+                slots={{
+                transition: Transition,
+                }}
+                keepMounted
+                onClose={handleClose}
+                aria-describedby="alert-dialog-slide-description"
+            >
+                <DialogTitle>{'payment'}</DialogTitle>
+                <DialogContent>
+                <DialogContentText id="alert-dialog-slide-description">
+                    payment
+                </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                <Button onClick={handlePaymentClose}>cancel</Button>
+                <Button onClick={handlePaymentClose}>pay</Button>
+                </DialogActions>
+            </Dialog>         
         </div>
     )
 }
+
 
 export default Cart

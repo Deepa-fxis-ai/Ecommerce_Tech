@@ -4,6 +4,7 @@ import Cookies from 'js-cookie'
 import { useTranslation } from 'react-i18next';
 import './topSellingAndArrival.css';
 import { LanguageContext } from '../reactContext.jsx';
+import { useNavigate } from 'react-router-dom';
 
 const TopSellingAndArrival=()=>{
     const {t}=useTranslation()
@@ -15,6 +16,7 @@ const TopSellingAndArrival=()=>{
     const [viewSelling,setViewSelling]=useState(t("topSellingAndArrival.viewMore"))
     const token=Cookies.get('jwt_token')
     const theme=themeStatus!=='light'?'dark':'light'
+    const navigate=useNavigate()
 
     const getProductData=async ()=>{ 
         const url="http://127.0.0.1:8000/product/get/";
@@ -53,6 +55,10 @@ const TopSellingAndArrival=()=>{
     const handleSellingView=()=>{
         setViewMoreSelling(prev=>!prev)
         setViewSelling(viewMoreSelling===false?t("topSellingAndArrival.viewMore"):t("topSellingAndArrival.viewLess"))
+    }
+
+    const handleNavigation=(id)=>{
+        navigate(`/product/${id}`)
     }
 
      

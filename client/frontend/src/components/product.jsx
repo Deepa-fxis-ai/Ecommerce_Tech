@@ -14,7 +14,7 @@ import { LanguageContext } from '../reactContext.jsx';
 
 const Product=()=>{
     const {t}=useTranslation()
-    const {language} =useContext(LanguageContext)
+    const {language,themeStatus} =useContext(LanguageContext)
     const [productList,setProductList]=useState([]);
     const [selectedDressType,setSelectedDressType]=useState("")
     const [selectedDressSize,setSelectedDressSize]=useState("")
@@ -23,6 +23,7 @@ const Product=()=>{
     const [priceRange,setPriceRange]=useState([0,5000])
     const [rating,setRating]=useState(0)
     const navigate=useNavigate()
+    const theme=themeStatus==='light'?'light':'dark'
 
     const dressTypes=[
        {code:'C',label:t("product.casual")},
@@ -128,7 +129,7 @@ const Product=()=>{
     return(
         <div className='productContainer'>
             <Header/>
-            <div className='bothFilterAndProductContainer'>
+            <div className={`bothFilterAndProductContainer ${theme}`}>
                <div className='filterSection'>
                 <input type="search" className='searchContainer' placeholder={t("product.search")} onChange={handleSearchedProducts}/>
                 <div className="filterHeading">
@@ -181,7 +182,7 @@ const Product=()=>{
                     </div>
                     <div>
                         {Array.from({length:5}).map((_,i)=>(
-                            <button key={i} className='starContainer' onClick={()=>setRating(i+1)}> 
+                            <button key={i} className={`starContainer ${themeStatus==='light'?'light':'dark'}`} onClick={()=>setRating(i+1)}> 
                                  {Array.from({length:i+1}).map((_,j)=>(
                                    <span key={j}><FaStar/></span> 
                                  ))}
@@ -190,7 +191,7 @@ const Product=()=>{
                     </div>
                 </div>
 
-                <button onClick={handleFilter} className='applyButton'>{t("product.applyButton")}</button>
+                <button onClick={handleFilter} className={`applyButton ${themeStatus==='light'?'dark':'light'}`}>{t("product.applyButton")}</button>
                 
                </div>
 
@@ -217,7 +218,7 @@ const Product=()=>{
 
             </div>
 
-            <div className='bothFilterAndProductContainerInMobile'>
+            <div className={`bothFilterAndProductContainerInMobile ${theme}`}>
                <div className='filterSectionMobile'>
                 <input type="search" className='searchContainer' placeholder={t("product.search")} onChange={handleSearchedProducts}/>
                 <button onClick={handleFilterStatus} className="filterHeading">

@@ -8,13 +8,14 @@ import './productDetails.css'
 import { LanguageContext } from '../reactContext.jsx';
 
 const ProductDetail=()=>{
-    const {language}=useContext(LanguageContext)
+    const {language,themeStatus}=useContext(LanguageContext)
     const [productDetail,setProductDetail]=useState(null)
     const [cartQuantity,setCartQuantity]=useState(1)
     const [cartSize,setCartSize]=useState("M")
     const {id}=useParams()
     const navigate=useNavigate()
     const token=Cookies.get('jwt_token')
+    const theme=themeStatus==='light'?'light':'dark'
 
     const getProductData=async ()=>{ 
         const url=`http://127.0.0.1:8000/product/detail/${id}`;
@@ -92,7 +93,7 @@ const ProductDetail=()=>{
     return(
        <div>
             <Header/>
-            <div className='mainContainer'>
+            <div className={`mainContainer ${theme}`}>
                 {!productDetail ? (
                 <p>Loading...</p>
                 ) : (
@@ -119,7 +120,7 @@ const ProductDetail=()=>{
                                 {cartQuantity}
                                 <button onClick={handleIncrement} className='faButton'><FaPlus /></button>
                             </div>
-                            <button className='button' onClick={()=>{handleCartData(productDetail.id)}}>Add to Cart</button>
+                            <button className={`button ${themeStatus === 'light' ? 'dark' : 'light'}`} onClick={()=>{handleCartData(productDetail.id)}}>Add to Cart</button>
                         </div>
                     </div>
                     </div>

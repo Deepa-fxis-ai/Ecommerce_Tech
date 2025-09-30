@@ -102,11 +102,12 @@
      display: flex;
      flex-direction: column;
      width: 100%;
-     justify-content: space-around;
+     height:100%;
    }
      .filterSectionMobile{
        display: flex;
        justify-content: space-between;
+       margin-top: 10px;
     }
     .filterHeading{
     width: 107px;
@@ -162,7 +163,7 @@
     }
     .searchContainer{
         width:50vw;
-        height: 5vh;
+        height: 2vh;
         background-color: rgb(212, 206, 206);
         border-radius: 20px;
         display: flex;

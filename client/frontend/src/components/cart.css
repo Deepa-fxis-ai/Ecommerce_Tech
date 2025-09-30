@@ -5,10 +5,27 @@
   flex-direction: column;
 }
 
+.dark{
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+}
+.light{
+    background-color: white;
+    color: #000;
+    border: 1px solid black;
+
+}
+.lightborder{
+    border: 1px solid rgb(10, 10, 10);
+}
+.darkborder{
+    border: 1px solid rgb(250, 249, 249);
+}
+
 table {
   width: 70vw;
   margin-left: 15%;
-  border: 1px solid black;
   border-collapse: collapse;
 }
 
