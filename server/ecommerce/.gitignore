@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+venv/
+Lib/
+Include/
+Scripts/
+*.dll
+*.so
+*.whl
+db.sqlite3
