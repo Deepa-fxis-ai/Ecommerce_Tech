@@ -15,6 +15,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -174,7 +176,9 @@ const Cart=()=>{
                 </DialogContent>
                 <DialogActions>
                 <Button onClick={handlePaymentClose}>cancel</Button>
-                <Button onClick={handlePaymentClose}>pay</Button>
+                <PayPalScriptProvider options={{ "client-id": "Aa_YDPt_61B4koqe93BhUSXOyM3YB8FW4wqZiBKPAkWZNgz9Skv-BVIn9sACOUhPYPClaTk0nvwxswTs" }}>
+                  <PayPalButtons style={{ layout: "vertical" }} />
+                </PayPalScriptProvider>
                 </DialogActions>
             </Dialog>         
         </div>

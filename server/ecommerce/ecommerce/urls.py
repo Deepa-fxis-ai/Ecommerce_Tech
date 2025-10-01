@@ -20,7 +20,7 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
-from api.views import RegisterView,LoginView,DashboardView,AdminDashboardView,ProductCreateView,ProductGetView,ProductUpdateDeleteView,UserReviewCreate,UserReviewGet,CartView,CartDeleteView
+from api.views import RegisterView,LoginView,DashboardView,AdminDashboardView,ProductCreateView,ProductGetView,ProductUpdateDeleteView,UserReviewCreate,UserReviewGet,CartView,CartDeleteView,CreatePayment,ExecutePayment
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -36,5 +36,7 @@ urlpatterns = [
     path('user/review/create',UserReviewCreate.as_view(),name="review_create"),
     path('user/review/get',UserReviewGet.as_view(),name="review_get"),
     path('cart/',CartView.as_view(),name="cart_get"),
-    path('deletecart/<int:pk>',CartDeleteView.as_view(),name="cart_delete")
+    path('deletecart/<int:pk>',CartDeleteView.as_view(),name="cart_delete"),
+    path("paypal/create-payment/",CreatePayment.as_view(),name="create_payment"),
+    path("paypal/execute-payment/", ExecutePayment.as_view(),name="execute_payment"),
 ]
