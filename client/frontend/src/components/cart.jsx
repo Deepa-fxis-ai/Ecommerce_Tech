@@ -65,10 +65,10 @@ const Cart=()=>{
             }
             try{
               const response=await fetch(url,options)
-              
+              const data=await response.json()
             if(response.ok){
-                const data=await response.json()
-                getCartData(data)
+                
+                getCartData(data) 
             }
             else{
                 console.log(data.detail)
@@ -103,6 +103,7 @@ const Cart=()=>{
     
     useEffect(()=>{
         calculate(cartData)
+        console.log(cartData)
     },[cartData])
 
     return(

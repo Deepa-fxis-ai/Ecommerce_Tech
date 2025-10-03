@@ -5,6 +5,7 @@ import Registration from './components/Registration.jsx'
 import Login from './components/Login.jsx'
 import Product from './components/product.jsx'
 import Cart from './components/cart.jsx'
+import NotFound from './components/notFound.jsx'
 import ProductDetail from './components/productDetails.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import {useTranslation} from "react-i18next";
@@ -33,6 +34,7 @@ const App=()=>{
        <Route element={<ProtectedRoute/>}>
          <Route exact path="/cart" element={<Cart/>}/>
        </Route>
+       <Route path="*" element={<NotFound />}/>
      </Routes>
     </LanguageContext.Provider>
   )

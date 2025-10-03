@@ -15,7 +15,7 @@ from django.http import JsonResponse
 import paypalrestsdk
 from .paypal_config import paypalrestsdk
 
-
+from rest_framework.exceptions import ValidationError
 
 
 # Create your views here.
@@ -118,15 +118,29 @@ class CartView(generics.ListCreateAPIView):
     def get_queryset(self):
         return Cart.objects.filter(user=self.request.user) 
     def perform_create(self,serializer):
-        serializer.save(user=self.request.user)
+
+        cart_item=serializer.save(user=self.request.user)
+
+        product = cart_item.product
+        if product.stocks >= cart_item.quantity:
+            product.stocks -= cart_item.quantity
+            product.save()
+        else:
+            cart_item.delete()
+            
+            raise ValidationError(f"Only {product.stock} items in stock")
 
 class CartDeleteView(APIView):
     def get_cart(self,pk):
         return get_object_or_404(Cart, pk=pk)
     
     def delete(self,request,pk):
-        product=self.get_cart(pk)
-        product.delete()
+        cart_item=self.get_cart(pk)
+
+        product=cart_item.product
+        product.stocks+=cart_item.quantity
+        product.save()
+        cart_item.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class CreatePayment(APIView):

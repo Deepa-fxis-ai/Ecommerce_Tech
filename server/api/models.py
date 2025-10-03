@@ -29,7 +29,7 @@ class Product(models.Model):
     product_name=models.CharField(max_length=255,default='Unknown')
     description=models.TextField(blank=True,null=True)
     ratings=models.IntegerField(validators=[MinValueValidator(1),MaxValueValidator(5)],blank=True,null=True)
-    stocks=models.IntegerField(default=10)
+    stocks=models.PositiveIntegerField(default=10)
     size=models.ManyToManyField(Size,blank=True)
     dressType=models.CharField(max_length=20,choices=[('C','Casual'),('F','Formal'),('P','Party'),('G','Gym',)],default=('C','Casual'))
 
@@ -60,7 +60,7 @@ class Cart(models.Model):
     quantity=models.PositiveIntegerField(default=1)
     carted_size=models.CharField(max_length=10,default='M')
     added_at=models.DateTimeField(auto_now_add=True)
-    
+
     @property
     def total_price(self):
         return self.product.price * self.quantity

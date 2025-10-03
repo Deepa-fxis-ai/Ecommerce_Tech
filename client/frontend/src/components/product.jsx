@@ -211,6 +211,7 @@ const Product=()=>{
                                 </div>
                                 <p>{each.price}</p>
                             </div>
+                            {each.stocks===0&&<p>Not Available</p>}
                         </div> 
                     ))
                     :<p>No Product Available</p>} 
@@ -314,6 +315,7 @@ const Product=()=>{
                                 </div>
                                 <p>{each.price}</p>
                             </div>
+                            {each.stocks===0&&<p>Not Available</p>}
                         </div> 
                     ))
                     :<p>No Product Available</p>} 

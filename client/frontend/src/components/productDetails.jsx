@@ -16,6 +16,7 @@ const ProductDetail=()=>{
     const navigate=useNavigate()
     const token=Cookies.get('jwt_token')
     const theme=themeStatus==='light'?'light':'dark'
+    const [quanLimit,setQuanLimit]=useState(false)
 
     const getProductData=async ()=>{ 
         const url=`http://127.0.0.1:8000/product/detail/${id}`;
@@ -58,14 +59,13 @@ const ProductDetail=()=>{
         }
         try{
           const response=await fetch(url,options)
-          
-        if(response.ok){
-            const data=await response.json()
-            navigate("/cart")
-        }
-        else{
-            console.log(data.detail)
-        }
+          const data=await response.json()
+            if(response.ok){   
+                navigate("/cart")
+            }
+            else{
+                console.log(data.detail)
+            }
         }
         catch(error){
             console.log(error)
@@ -81,9 +81,16 @@ const ProductDetail=()=>{
                 return 0
             }
         })
+        setQuanLimit(false)
     }
     const handleIncrement=()=>{
-        setCartQuantity(prev=>prev+1)
+        if(productDetail.stocks>=cartQuantity){
+             setCartQuantity(prev=>prev+1)
+        }
+        else{
+            setQuanLimit(true)
+        }
+        
     }
 
     useEffect(()=>{
@@ -122,7 +129,10 @@ const ProductDetail=()=>{
                             </div>
                             <button className={`button ${themeStatus === 'light' ? 'dark' : 'light'}`} onClick={()=>{handleCartData(productDetail.id)}}>Add to Cart</button>
                         </div>
+                        {productDetail.stocks===0&&<p className='availbility'>Not Available</p>}
+                        {quanLimit&&<p className='availbility'>Your product quantity was too higher than avaliable stocks.Please reduce your quantity</p>}
                     </div>
+                    
                     </div>
                 )}
             </div>

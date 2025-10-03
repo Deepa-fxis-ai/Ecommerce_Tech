@@ -6,8 +6,15 @@ import './topSellingAndArrival.css';
 import { LanguageContext } from '../reactContext.jsx';
 import { useNavigate } from 'react-router-dom';
 
+const LoadingStatus={
+    pending:'PENDING',
+    success:'SUCCESS',
+    failure:'FAILURE'
+}
+
 const TopSellingAndArrival=()=>{
     const {t}=useTranslation()
+    const[loadingStatus,setLoadingStatus]=useState(LoadingStatus.pending)
     const {language,themeStatus} =useContext(LanguageContext)
     const [productList,setProductList]=useState({user:[]});
     const [viewMore,setViewMore]=useState(true)
@@ -19,6 +26,7 @@ const TopSellingAndArrival=()=>{
     const navigate=useNavigate()
 
     const getProductData=async ()=>{ 
+        setLoadingStatus(LoadingStatus.pending)
         const url="http://127.0.0.1:8000/product/get/";
         const options={
             method:"GET",
@@ -34,13 +42,16 @@ const TopSellingAndArrival=()=>{
             const data=await response.json()
             setProductList(data)
             console.log(data)
+            setLoadingStatus(LoadingStatus.success)
         }
         else{
             console.log(data.detail)
+            setLoadingStatus(LoadingStatus.failure)
         }
         }
         catch(error){
             console.log(error)
+            setLoadingStatus(LoadingStatus.failure)
         }    
     }
 
@@ -61,8 +72,7 @@ const TopSellingAndArrival=()=>{
         navigate(`/product/${id}`)
     }
 
-     
-    return(
+    const successCase=()=>(
         <div className='topContainer'>
             <div className={`desktop ${theme}`}>
                 <h1 className={`newArrival ${theme}`} >{t("topSellingAndArrival.newArrival")}</h1>
@@ -77,7 +87,7 @@ const TopSellingAndArrival=()=>{
                         <div key={index} className='productArrival' onClick={()=>handleNavigation(each.id)}>
                             <img src={each.image_url} className='productImage'/>
                             <div>
-                                 <h4>
+                                <h4>
                                 {each.translations.find(t => t.language === language)?.name || each.product_name}
                                 </h4>
                                 <div>
@@ -169,7 +179,7 @@ const TopSellingAndArrival=()=>{
                 </div>
                 <button onClick={handleSellingView} className={`viewButton ${themeStatus!=='light'?'light':'dark'}`}>{viewSelling}</button>
             </div>
-             <div className={`mobile ${theme}`}>
+            <div className={`mobile ${theme}`}>
                 <h1 className={`newArrival ${theme}`}>{t("topSellingAndArrival.newArrival")}</h1>
                 <div className='newArivalOrSellingProducts'>
                     <div className="rowSection">
@@ -267,6 +277,37 @@ const TopSellingAndArrival=()=>{
                 <button onClick={handleSellingView} className={`viewButton ${themeStatus!=='light'?'light':'dark'}`}>{viewSelling}</button>
             </div>
         </div>
+    )
+
+    const failureCase=()=>(
+        <div className='topContainer'>
+            Something went wrong
+        </div>
+    )
+
+    const loadingCase=()=>(
+        <div className='topContainer'>
+            Loading...
+        </div>
+    )
+
+    const returnElements=()=>{
+        switch(loadingStatus){
+            case LoadingStatus.pending:
+                return loadingCase();
+            case LoadingStatus.failure:
+                return failureCase();
+            case LoadingStatus.success:
+                return successCase();
+            default:
+                null
+        }
+    }
+     
+    return(
+       <>
+        {returnElements()}
+       </>
     )
 }
 

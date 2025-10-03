@@ -58,7 +58,9 @@
     background-color: transparent;
     color: white;
 }
-
+.availbility{
+    color: red;
+}
 
 @media screen and (max-width:767px){
     .mainContainer{
