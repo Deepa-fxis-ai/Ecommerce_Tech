@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 import './topSellingAndArrival.css';
 import { LanguageContext } from '../reactContext.jsx';
 import { useNavigate } from 'react-router-dom';
+import Stack from '@mui/material/Stack';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const LoadingStatus={
     pending:'PENDING',
@@ -280,14 +282,17 @@ const TopSellingAndArrival=()=>{
     )
 
     const failureCase=()=>(
-        <div className='topContainer'>
-            Something went wrong
+        <div className={`failureContainer ${theme}`}>
+            <h5>Something went wrong </h5>
+            <button className={`button ${theme}`} onClick={getProductData}>Retry</button>
         </div>
     )
 
     const loadingCase=()=>(
-        <div className='topContainer'>
-            Loading...
+        <div className={`failureContainer ${theme}`}>
+             <Stack sx={{ color: 'grey.500' }} spacing={2} direction="row">
+               <CircularProgress color="inherit" />
+            </Stack>
         </div>
     )
 

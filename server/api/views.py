@@ -1,14 +1,14 @@
 from rest_framework import generics,status
 from rest_framework.permissions import AllowAny
 from django.contrib.auth.models import User
-from .serializers import RegisterSerializer,LoginSerializer,UserSerializer,ProductSerializer,ReviewSerializer,CartSerializer
+from .serializers import RegisterSerializer,LoginSerializer,UserSerializer,ProductSerializer,OrderSerializer,CartSerializer
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken  
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from .permissions import HasRole
-from .models import Product,CustomerReview,Cart
+from .models import Product,CustomerReview,Cart,Order
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.http import JsonResponse
@@ -99,7 +99,7 @@ class ProductUpdateDeleteView(APIView):
         product.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
-class UserReviewCreate(generics.CreateAPIView):
+"""class UserReviewCreate(generics.CreateAPIView):
     queryset=CustomerReview.objects.all()
     serializer_class=ReviewSerializer
 
@@ -110,7 +110,7 @@ class UserReviewGet(APIView):
         serialized_data=ReviewSerializer(customer,many=True)
         return Response({
            'user': serialized_data.data,
-        },200)
+        },200)"""
     
 class CartView(generics.ListCreateAPIView):
     serializer_class=CartSerializer
@@ -158,7 +158,7 @@ class CreatePayment(APIView):
                         "name": "Test Item",
                         "sku": "item_1",
                         "price": "10.00",
-                        "currency": "USD",
+                        "currency": "INR",
                         "quantity": 1
                     }]
                 },
@@ -197,4 +197,38 @@ class ExecutePayment(APIView):
         else:
             return JsonResponse({"status": "failure", "error": payment.error})
 
-    
+class CreateOrderView(APIView):
+    permission_classes=(IsAuthenticated,)
+
+    def post(self, request):
+        user_cart_items = Cart.objects.filter(user=request.user)
+
+        if not user_cart_items.exists():
+            return Response({'error': 'No items in cart'}, status=400)
+
+        orders_created = []
+
+        for cart_item in user_cart_items:
+            order = Order.objects.create(
+                order_user=request.user,
+                order_product=cart_item.product,
+                quantity=cart_item.quantity,
+                total_price=cart_item.product.price * cart_item.quantity,
+                payment_mode=request.data.get('payment_mode', 'COD') 
+            )
+            orders_created.append(order)
+
+        user_cart_items.delete()
+
+        serializer = OrderSerializer(orders_created, many=True)
+
+        return Response({'orders': serializer.data}, status=201)
+
+
+class OrderView(APIView):
+    def get(self,request):
+       queryset=Order.objects.all() 
+       serializer=OrderSerializer(queryset,many=True)
+       return Response({
+           'orders':serializer.data
+       },200)

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Role,UserRole,Product,Size,ProductTranslation
+from .models import Role,UserRole,Product,Size,ProductTranslation,Order
 
 admin.site.register(Role)
 admin.site.register(UserRole)
@@ -18,5 +18,6 @@ class ProductAdmin(admin.ModelAdmin):
     filter_horizontal=("size",)
 
 admin.site.register(Product,ProductAdmin)
+admin.site.register(Order)
 
 

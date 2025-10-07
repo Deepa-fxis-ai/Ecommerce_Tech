@@ -5,6 +5,14 @@
     justify-content: center;
     width: 100vw;
 }
+.failureContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 50vh;
+}
 .light{
     background-color: black;
     color: white;

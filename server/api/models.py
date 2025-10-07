@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator,MinValueValidator
 
+
 # Create your models here.
 class Role(models.Model):
     name=models.CharField(max_length=200, unique=True)
@@ -66,3 +67,9 @@ class Cart(models.Model):
         return self.product.price * self.quantity
     
 
+class Order(models.Model):
+    order_user=models.ForeignKey(User,on_delete=models.CASCADE,null=True, blank=True)
+    order_product=models.ForeignKey(Product,on_delete=models.CASCADE,null=True, blank=True)
+    quantity=models.PositiveIntegerField(default=1)
+    total_price=models.DecimalField(max_digits=10,decimal_places=2,null=True, blank=True)
+    payment_mode=models.CharField(max_length=10)

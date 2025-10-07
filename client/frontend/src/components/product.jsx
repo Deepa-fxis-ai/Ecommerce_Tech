@@ -11,9 +11,18 @@ import { useTranslation } from 'react-i18next';
 import Header from './Header.jsx'
 import './product.css'
 import { LanguageContext } from '../reactContext.jsx';
+import Stack from '@mui/material/Stack';
+import CircularProgress from '@mui/material/CircularProgress';
+
+const LoadingStatus={
+    pending:'PENDING',
+    success:'SUCCESS',
+    failure:'FAILURE'
+}
 
 const Product=()=>{
     const {t}=useTranslation()
+    const[loadingStatus,setLoadingStatus]=useState(LoadingStatus.pending)
     const {language,themeStatus} =useContext(LanguageContext)
     const [productList,setProductList]=useState([]);
     const [selectedDressType,setSelectedDressType]=useState("")
@@ -39,6 +48,7 @@ const Product=()=>{
        ]
  
     const getProductData=async ()=>{ 
+        setLoadingStatus(LoadingStatus.pending)
         const url=`http://127.0.0.1:8000/product/get/`;
         const options={
             method:"GET",
@@ -54,13 +64,16 @@ const Product=()=>{
             setProductList(data.user)
             setFilteredProducts(data.user)
             console.log(data)
+            setLoadingStatus(LoadingStatus.success)
         }
         else{
             console.log(data.detail)
+            setLoadingStatus(LoadingStatus.failure)
         }
         }
         catch(error){
             console.log(error)
+            setLoadingStatus(LoadingStatus.failure)
         }    
     }
 
@@ -123,6 +136,58 @@ const Product=()=>{
 
     const handleCancelButton=()=>{
         setFilterStatus(prev=>!prev)
+    }
+    
+    const successCase=()=>(
+        <div className='productSection'>
+                    {filteredProducts.length>0?
+                    filteredProducts.map((each,index)=>(
+                        <div key={index} className='productCard' onClick={()=>handleNavigation(each.id)}>
+                            <img src={each.image_url} className='productImage'/>
+                            <div>
+                                <h4>
+                                {each.translations.find(t => t.language === language)?.name || each.product_name}
+                                </h4>
+                                <div>
+                                    {Array.from({length: each.ratings}).map((_, i)=>{
+                                      return <span key={i}><IoIosStar/></span>
+                                    })}
+                                </div>
+                                <p>{each.price}</p>
+                            </div>
+                            {each.stocks===0&&<p>Not Available</p>}
+                        </div> 
+                    ))
+                    :<p>No Product Available</p>} 
+              </div>
+    )
+
+    const failureCase=()=>(
+        <div className={`failureContainer ${theme}`}>
+            <h5>Something went wrong </h5>
+            <button className={`button ${theme}`} onClick={getProductData}>Retry</button>
+        </div>
+    )
+
+    const loadingCase=()=>(
+        <div className={`failureContainer ${theme}`}>
+             <Stack sx={{ color: 'grey.500' }} spacing={2} direction="row">
+               <CircularProgress color="inherit" />
+            </Stack>
+        </div>
+    )
+
+    const returnElements=()=>{
+        switch(loadingStatus){
+            case LoadingStatus.pending:
+                return loadingCase();
+            case LoadingStatus.failure:
+                return failureCase();
+            case LoadingStatus.success:
+                return successCase();
+            default:
+                null
+        }
     }
 
      
@@ -194,28 +259,9 @@ const Product=()=>{
                 <button onClick={handleFilter} className={`applyButton ${themeStatus==='light'?'dark':'light'}`}>{t("product.applyButton")}</button>
                 
                </div>
-
-               <div className='productSection'>
-                    {filteredProducts.length>0?
-                    filteredProducts.map((each,index)=>(
-                        <div key={index} className='productCard' onClick={()=>handleNavigation(each.id)}>
-                            <img src={each.image_url} className='productImage'/>
-                            <div>
-                                <h4>
-                                {each.translations.find(t => t.language === language)?.name || each.product_name}
-                                </h4>
-                                <div>
-                                    {Array.from({length: each.ratings}).map((_, i)=>{
-                                      return <span key={i}><IoIosStar/></span>
-                                    })}
-                                </div>
-                                <p>{each.price}</p>
-                            </div>
-                            {each.stocks===0&&<p>Not Available</p>}
-                        </div> 
-                    ))
-                    :<p>No Product Available</p>} 
-              </div>
+   
+               {returnElements()}
+               
 
             </div>
 
@@ -297,29 +343,7 @@ const Product=()=>{
                null
                }
 
-               
-
-               <div className='productSection'>
-                    {filteredProducts.length>0?
-                    filteredProducts.map((each,index)=>(
-                        <div key={index} className='productCard' onClick={()=>handleNavigation(each.id)}>
-                            <img src={each.image_url} className='productImage'/>
-                            <div>
-                                <h4>
-                                {each.translations.find(t => t.language === language)?.name || each.product_name}
-                                </h4>
-                                <div>
-                                    {Array.from({length: each.ratings}).map((_, i)=>{
-                                return <span key={i}><IoIosStar/></span>
-                                })}
-                                </div>
-                                <p>{each.price}</p>
-                            </div>
-                            {each.stocks===0&&<p>Not Available</p>}
-                        </div> 
-                    ))
-                    :<p>No Product Available</p>} 
-              </div>
+               {returnElements()}
 
             </div>
             

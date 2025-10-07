@@ -6,8 +6,11 @@ import Login from './components/Login.jsx'
 import Product from './components/product.jsx'
 import Cart from './components/cart.jsx'
 import NotFound from './components/notFound.jsx'
+import PaymentSuccess from './components/paymentSuccess.jsx'
+import PaymentCancel from './components/paymentCancel.jsx'
 import ProductDetail from './components/productDetails.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
+import AdminDashBoard from './components/admin/dashboard.jsx'
 import {useTranslation} from "react-i18next";
 import {LanguageContext} from "./reactContext.jsx"
 import './App.css'
@@ -33,8 +36,13 @@ const App=()=>{
        <Route exact path="/product/:id" element={<ProductDetail />}/>
        <Route element={<ProtectedRoute/>}>
          <Route exact path="/cart" element={<Cart/>}/>
+         <Route exact path='/success' element={<PaymentSuccess/>}/>
+         <Route exact path='/cancel' element={<PaymentCancel/>}/>
        </Route>
        <Route path="*" element={<NotFound />}/>
+       
+       <Route exact path="/admin/dashboard" element={<AdminDashBoard/>}/>
+       
      </Routes>
     </LanguageContext.Provider>
   )

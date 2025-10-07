@@ -1,0 +1,63 @@
+.dashboardContainer{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+}
+.sidebar{
+    width: 25vw;
+    height: 100vh;
+    background-color: rgb(37, 33, 33);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    box-sizing: border-box;
+}
+.sidebarClose{
+    width: 4vw;
+    height: 100vh;
+    background-color: rgb(37, 33, 33);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 20px;
+    box-sizing: border-box;
+}
+.logoContainer{
+    width:9vw;
+    height: 4vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+.logoAndCancel{
+    display: flex;
+    justify-content: space-between;
+    width:24vw;
+}
+.headings{
+    font-size: 22px;
+    font-style:italic;
+    font-weight: bolder;
+    color: rgb(218, 218, 221);
+    display: inline;
+}
+.iconButton{
+    background-color: transparent;
+    color:white;  
+    border-width: 0;
+    margin-right: 25px;
+    display: flex;
+    justify-content: center;
+}
+.iconButton:hover{
+    border-width: 0;
+}
+.displayContainer{
+    color: #000;
+    width: 75vw;
+    padding: 20px;
+    box-sizing: border-box;
+}

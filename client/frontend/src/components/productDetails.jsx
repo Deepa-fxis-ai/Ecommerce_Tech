@@ -6,9 +6,18 @@ import Header from './Header.jsx'
 import Cookies from 'js-cookie'
 import './productDetails.css'
 import { LanguageContext } from '../reactContext.jsx';
+import Stack from '@mui/material/Stack';
+import CircularProgress from '@mui/material/CircularProgress';
+
+const LoadingStatus={
+    pending:'PENDING',
+    success:'SUCCESS',
+    failure:'FAILURE'
+}
 
 const ProductDetail=()=>{
     const {language,themeStatus}=useContext(LanguageContext)
+    const[loadingStatus,setLoadingStatus]=useState(LoadingStatus.pending)
     const [productDetail,setProductDetail]=useState(null)
     const [cartQuantity,setCartQuantity]=useState(1)
     const [cartSize,setCartSize]=useState("M")
@@ -19,6 +28,7 @@ const ProductDetail=()=>{
     const [quanLimit,setQuanLimit]=useState(false)
 
     const getProductData=async ()=>{ 
+        setLoadingStatus(LoadingStatus.pending)
         const url=`http://127.0.0.1:8000/product/detail/${id}`;
         const options={
             method:"GET",
@@ -33,13 +43,16 @@ const ProductDetail=()=>{
             const data=await response.json()
             setProductDetail(data)
             console.log(data)
+            setLoadingStatus(LoadingStatus.success)
         }
         else{
             console.log(data.detail)
+            setLoadingStatus(LoadingStatus.failure)
         }
         }
         catch(error){
             console.log(error)
+            setLoadingStatus(LoadingStatus.failure)
         }    
     }
 
@@ -97,10 +110,8 @@ const ProductDetail=()=>{
         getProductData()
     },[id]);
 
-    return(
-       <div>
-            <Header/>
-            <div className={`mainContainer ${theme}`}>
+    const successCase=()=>(
+             <div className={`mainContainer ${theme}`}>
                 {!productDetail ? (
                 <p>Loading...</p>
                 ) : (
@@ -135,7 +146,42 @@ const ProductDetail=()=>{
                     
                     </div>
                 )}
+            </div>  
+            )
+        
+        const failureCase=()=>(
+            <div className={`failureContainer ${theme}`}>
+                <h5>Something went wrong </h5>
+                <button className={`button ${theme}`} onClick={getProductData}>Retry</button>
             </div>
+        )
+    
+        const loadingCase=()=>(
+            <div className={`failureContainer ${theme}`}>
+                    <Stack sx={{ color: 'grey.500' }} spacing={2} direction="row">
+                    <CircularProgress color="inherit" />
+                </Stack>
+            </div>
+        )
+    
+        const returnElements=()=>{
+            switch(loadingStatus){
+                case LoadingStatus.pending:
+                    return loadingCase();
+                case LoadingStatus.failure:
+                    return failureCase();
+                case LoadingStatus.success:
+                    return successCase();
+                default:
+                    null
+            }
+        }
+    
+
+    return(
+       <div>
+            <Header/>
+            {returnElements()}
      </div>
         )
 }

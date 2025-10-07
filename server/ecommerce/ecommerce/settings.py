@@ -150,3 +150,5 @@ CORS_ALLOWED_ORIGINS=[
     'https://localhost:3000',
     "http://localhost:5173",
 ]
+
+APPEND_SLASH = False

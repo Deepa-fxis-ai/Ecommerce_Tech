@@ -12,12 +12,19 @@ const Login=()=>{
     const [password,setPassword]=useState("")
     const [error,setError]=useState("")
     const [showError,setShowError]=useState(false)
+    
 
     const navigate=useNavigate()
 
-    const submitSuccess=(jwtToken)=>{
+    const submitSuccess=(jwtToken,adminCheck)=>{
         Cookies.set('jwt_token',jwtToken,{expires:30})
-        navigate(`/product`)
+        console.log(adminCheck)
+        if(adminCheck===true){
+           navigate(`/admin/dashboard`)
+        }
+        else{
+            navigate(`/`)
+        }
     }
 
     const getUserData=async (e)=>{
@@ -34,7 +41,7 @@ const Login=()=>{
         const response=await fetch(url,options)
         const data=await response.json()
         if(response.ok){
-            submitSuccess(data.access)
+            submitSuccess(data.access,data.user.is_staff)
             console.log(data)
         }
         else{
