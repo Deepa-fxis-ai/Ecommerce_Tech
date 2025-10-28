@@ -29,7 +29,7 @@ const ProductDetail=()=>{
 
     const getProductData=async ()=>{ 
         setLoadingStatus(LoadingStatus.pending)
-        const url=`http://127.0.0.1:8000/product/detail/${id}`;
+        const url=`http://127.0.0.1:8000/product/detail/${id}/`;
         const options={
             method:"GET",
             headers:{

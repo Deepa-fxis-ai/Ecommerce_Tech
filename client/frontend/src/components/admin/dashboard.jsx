@@ -45,7 +45,7 @@ const Dashboard=()=>{
 
     return(
         <div className='dashboardContainer'>
-            {cancelButton===false?
+            {cancelButton?
                 <div className='sidebar'>
                     <div className="logoAndCancel">
                         <div className="logoContainer">
@@ -65,8 +65,8 @@ const Dashboard=()=>{
                     </div> 
                     <Box sx={{ width: '15vw',m:'30px'}}>
                         <Stack spacing={2}>
-                            <Item onClick={handleProduct} sx={{bgcolor:'transparent',color:'white',borderWidth:'0px'}}>Product</Item>
-                            <Item onClick={handleOrder} sx={{bgcolor:'transparent',color:'white',borderWidth:'0px'}}>Order</Item>
+                            <Item onClick={handleProduct} sx={{bgcolor:'black',color:'white',borderWidth:'0px'}}>Product</Item>
+                            <Item onClick={handleOrder} sx={{bgcolor:'black',color:'white',borderWidth:'0px'}}>Order</Item>
                         </Stack>
                     </Box>
                 </div>:

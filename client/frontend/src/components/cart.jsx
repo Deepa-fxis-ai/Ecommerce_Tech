@@ -244,7 +244,7 @@ const Cart=()=>{
     const failureCase=()=>(
         <div className={`failureContainer ${theme}`}>
             <h5>Something went wrong </h5>
-            <button className={`button ${theme}`} onClick={getProductData}>Retry</button>
+            <button className={`button ${theme}`} onClick={handleCartData}>Retry</button>
         </div>
     )
 

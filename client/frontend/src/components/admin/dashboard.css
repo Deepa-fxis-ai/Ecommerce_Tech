@@ -5,24 +5,26 @@
 }
 .sidebar{
     width: 25vw;
-    height: 100vh;
-    background-color: rgb(37, 33, 33);
+    height: 30vh;
+    background-color: rgb(70, 65, 65);
     color: white;
     display: flex;
     flex-direction: column;
     padding-left: 20px;
     box-sizing: border-box;
+    position: absolute;
 }
 .sidebarClose{
     width: 4vw;
-    height: 100vh;
-    background-color: rgb(37, 33, 33);
+    height: 7vh;
+    background-color: transparent;
     color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-left: 20px;
     box-sizing: border-box;
+    position: absolute;
 }
 .logoContainer{
     width:9vw;
@@ -36,17 +38,17 @@
     display: flex;
     justify-content: space-between;
     width:24vw;
+    color: rgb(12, 12, 12);
 }
 .headings{
     font-size: 22px;
     font-style:italic;
     font-weight: bolder;
-    color: rgb(218, 218, 221);
+    color: rgb(12, 12, 12);
     display: inline;
 }
 .iconButton{
     background-color: transparent;
-    color:white;  
     border-width: 0;
     margin-right: 25px;
     display: flex;
