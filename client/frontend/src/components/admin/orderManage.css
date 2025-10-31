@@ -2,3 +2,10 @@
     background-color: rgb(95, 95, 252);
     color: white;
 }
+.successButton{
+    background-color: rgb(16, 241, 28);
+    color: white;
+}
+.completedText{
+    color: #045c22;
+}

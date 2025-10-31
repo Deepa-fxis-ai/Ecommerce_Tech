@@ -2,6 +2,9 @@ from celery import shared_task
 from .models import Product, ProductTranslation
 from .translation_utils import translate_text
 
+from django.core.mail import send_mail
+from django.conf import settings
+
 @shared_task
 def translate_product_task(product_id, from_lang="en", to_lang=None):
     to_langs = to_lang if isinstance(to_lang, list) else (
@@ -28,3 +31,14 @@ def translate_product_task(product_id, from_lang="en", to_lang=None):
         )
 
     return "Done"
+
+@shared_task
+def send_order_email(subject, message, recipient_email):
+    send_mail(
+        subject,
+        message,
+        settings.EMAIL_HOST_USER,
+        [recipient_email],
+        fail_silently=False,
+    )
+    return f"Email sent to {recipient_email}"

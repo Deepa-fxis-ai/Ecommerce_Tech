@@ -1,7 +1,7 @@
 from rest_framework import generics,status
 from rest_framework.permissions import AllowAny
 from django.contrib.auth.models import User
-from .serializers import RegisterSerializer,LoginSerializer,UserSerializer,ProductSerializer,OrderSerializer,CartSerializer
+from .serializers import RegisterSerializer,LoginSerializer,UserSerializer,ProductSerializer,OrderSerializer,CartSerializer,PasswordResetConfirmSerializer,PasswordResetRequestSerializer
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken  
 from rest_framework.response import Response
@@ -16,6 +16,13 @@ import paypalrestsdk
 from .paypal_config import paypalrestsdk
 
 from rest_framework.exceptions import ValidationError
+
+from .tasks import send_order_email
+
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_str
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+
 
 
 # Create your views here.
@@ -240,14 +247,66 @@ class UpdateDeleteView(APIView):
     
     def put(self,request,pk):
         order=self.get_order(pk)
-        serializer=OrderSerializer(order,data=request.data)
+        serializer=OrderSerializer(order,data=request.data,partial=True)
         if serializer.is_valid():
             serializer.save()
+            user_email = order.order_user.email
+            if order.status == "shipped":
+                send_order_email.delay(
+                    "Your Order has been shipped successfully",
+                    f'Your order for {order.order_product.product_name} has been shipped and is on its way!',
+                    user_email
+                )
+            elif order.status == "success":
+                send_order_email.delay(
+                    "Order Delivered Successfully",
+                    f'Your order for {order.order_product.product_name} has been delivered successfully. Thank you for shopping with us!',
+                    user_email
+             )
             return Response(serializer.data)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
     
     def delete(self,request,pk):
         order=self.get_order(pk)
-        order.delete()
+        order.delete() 
         return Response(status=status.HTTP_204_NO_CONTENT)
     
+class PasswordResetRequestView(APIView):
+    def post(self,request):
+        serializer=PasswordResetRequestSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        email=serializer.validated_data['email']
+        try:
+            user=User.objects.get(email=email)
+        except User.DoesNotExist:
+            return Response({"detail":"If the email exists, a reset link has been sent."}, status=200)
+        token = PasswordResetTokenGenerator().make_token(user)
+        uid = urlsafe_base64_encode(force_bytes(user.pk))
+        reset_url = f"http://localhost:5173/reset-password/{uid}/{token}"
+        send_order_email.delay(
+                    "Password reset request",
+                    f"Use the link to reset your password:\n\n{reset_url}\n\n Please make sure your registered user name is {user.username}",
+                    email
+             )
+        return Response({"detail":"If the email exists, a reset link has been sent."}, status=200)
+    
+class PasswordResetConfirmView(APIView):
+    def post(self, request):
+        serializer = PasswordResetConfirmSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        uid = serializer.validated_data['uid']
+        token = serializer.validated_data['token']
+        new_password = serializer.validated_data['new_password']
+
+        try:
+            uid_decoded = force_str(urlsafe_base64_decode(uid))
+            user = User.objects.get(pk=uid_decoded)
+        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+            return Response({"detail":"Invalid link."}, status=400)
+
+        if not PasswordResetTokenGenerator().check_token(user, token):
+            return Response({"detail":"Invalid or expired token."}, status=400)
+
+        user.set_password(new_password)
+        user.save()
+        return Response({"detail":"Password has been reset successfully."}, status=200)

@@ -66,4 +66,13 @@ class OrderSerializer(serializers.ModelSerializer):
     #cart = CartSerializer(read_only=True)
     class Meta:
         model=Order
-        fields=['id', 'order_user', 'order_product', 'quantity', 'total_price', 'payment_mode','status']
+        fields = '__all__'
+        read_only_fields = ('order_user', 'order_product', 'quantity', 'total_price', 'payment_mode')
+
+class PasswordResetRequestSerializer(serializers.Serializer):
+    email=serializers.EmailField()
+
+class PasswordResetConfirmSerializer(serializers.Serializer):
+    uid = serializers.CharField()
+    token = serializers.CharField()
+    new_password = serializers.CharField(min_length=8)

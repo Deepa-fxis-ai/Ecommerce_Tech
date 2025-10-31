@@ -40,9 +40,11 @@ const ProductManage=()=>{
     const [AddPSize,setAddPSize]=useState([])
     const [addPType,setAddPType]=useState("")
     const [openDelete, setOpenDelete] =useState(false);
+    const [deleteId,setDeleteId]=useState(null)
 
-    const handleClickOpenDelete = () => {
+    const handleClickOpenDelete = (Id) => {
         setOpenDelete(true);
+        setDeleteId(Id)
     };
 
     const handleCloseDelete = () => {
@@ -70,6 +72,7 @@ const ProductManage=()=>{
     const handleClose = () => {
     setOpen(false);
     };
+
 
     const getProductData=async ()=>{ 
         const url=`http://127.0.0.1:8000/product/get/`;
@@ -110,6 +113,25 @@ const ProductManage=()=>{
         if(response.ok){
             alert('Updated Successfully')
             setOpen(false)
+            getProductData();
+        }
+        else{
+            alert('Something Went Wrong')
+        }
+    }
+
+    const handleDelete=async()=>{
+        const url=`http://127.0.0.1:8000/product/detail/${deleteId}/`
+        const options={
+            method:"DELETE",
+            headers:{
+                "Content-Type":"application/json",
+            },
+        }
+        const response=await fetch(url,options)
+        if(response.ok){
+            alert('Deleted Successfully')
+            setOpenDelete(false)
             getProductData();
         }
         else{
@@ -195,7 +217,7 @@ const ProductManage=()=>{
                     <TableCell align="right">{row.stocks}</TableCell>
                     <TableCell align="right">
                          <button className="actionButton" onClick={()=>{handleClickOpen(row.id,row.product_name,row.description,row.size,row.price,row.stocks)}}><MdOutlineModeEdit/></button>
-                         <button className="actionButton" onClick={handleClickOpenDelete}><MdDeleteOutline/></button>
+                         <button className="actionButton" onClick={()=>handleClickOpenDelete(row.id)}><MdDeleteOutline/></button>
                     </TableCell>
                     </TableRow>
                 ))}
@@ -278,19 +300,16 @@ const ProductManage=()=>{
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
-                <DialogTitle id="alert-dialog-title">
-                {"Use Google's location service?"}
-                </DialogTitle>
+                
                 <DialogContent>
-                <DialogContentText id="alert-dialog-description">
-                    Let Google help apps determine location. This means sending anonymous
-                    location data to Google, even when no apps are running.
+                <DialogContentText id="alert-dialog-description" sx={{color:'red'}}>
+                    Are you Sure, Do you want to delete this Item?
                 </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                <Button onClick={handleClose}>Disagree</Button>
-                <Button onClick={handleClose} autoFocus>
-                    Agree
+                <Button onClick={handleCloseDelete}>Cancel</Button>
+                <Button onClick={handleDelete} autoFocus sx={{color:'red'}}>
+                    Delete
                 </Button>
                 </DialogActions>
             </Dialog>

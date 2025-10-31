@@ -74,3 +74,4 @@ class Order(models.Model):
     total_price=models.DecimalField(max_digits=10,decimal_places=2,null=True, blank=True)
     payment_mode=models.CharField(max_length=10)
     status=models.CharField(max_length=10,default="pending")
+    order_date=models.DateField(auto_now_add=True,null=True)

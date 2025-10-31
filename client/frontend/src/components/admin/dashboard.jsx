@@ -36,11 +36,13 @@ const Dashboard=()=>{
     const handleOrder=()=>{
         setProduct(false)
         setOrder(true)
+        setCancelButton(prev=>!prev)
     }
 
     const handleProduct=()=>{
         setProduct(true)
         setOrder(false)
+        setCancelButton(prev=>!prev)
     }
 
     return(

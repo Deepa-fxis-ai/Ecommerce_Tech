@@ -11,6 +11,8 @@ import PaymentCancel from './components/paymentCancel.jsx'
 import ProductDetail from './components/productDetails.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import AdminDashBoard from './components/admin/dashboard.jsx'
+import ForgotPassword from './components/forgotPassword.jsx'
+import ResetPassword from './components/ResetPassword.jsx'
 import {useTranslation} from "react-i18next";
 import {LanguageContext} from "./reactContext.jsx"
 import './App.css'
@@ -34,6 +36,8 @@ const App=()=>{
        <Route exact path="/" element={<Home/>}/>
        <Route exact path="/product" element={<Product/>}/>
        <Route exact path="/product/:id" element={<ProductDetail />}/>
+       <Route exact path="/forgot-password" element={<ForgotPassword />}/>
+       <Route exact path="/reset-password/:uid/:token" element={<ResetPassword />}/>
        <Route element={<ProtectedRoute/>}>
          <Route exact path="/cart" element={<Cart/>}/>
          <Route exact path='/success' element={<PaymentSuccess/>}/>

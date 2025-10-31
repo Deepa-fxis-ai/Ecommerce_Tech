@@ -75,6 +75,7 @@ const Login=()=>{
                 placeholder="Enter Your Password"
                 className='input'/>
             </div>
+            <a href="/forgot-password" className='forgetPassword'>forget password?</a>
             <p className='paragraph'>Don't have an account <a href="/register">Register here</a></p>
             <button type="submit" className='button'>Login</button>
             {showError?<p className='error'>{error}</p>:null}

@@ -11,15 +11,22 @@ const Registration=()=>{
     const [username,setUserName]=useState("")
     const [email,setEmail]=useState("")
     const [password,setPassword]=useState("")
-
+    const [error, setError] = useState("") 
     const navigate=useNavigate()
 
     const submitSuccess=()=>{
         navigate("/login")
     }
 
-    const getUserData=async (e)=>{
+    const getUserData=async(e)=>{
         e.preventDefault();
+        setError("");
+
+        if (!username || !email || !password) {
+            setError("All fields are required");
+            return;
+        }
+
         const url="http://127.0.0.1:8000/api/auth/register"
         const userData={username,email,password}
         const options={
@@ -31,11 +38,18 @@ const Registration=()=>{
         }
         const response=await fetch(url,options)
         const data=await response.json()
+        console.log(data)
+        try{
         if(response.ok){
             submitSuccess()
         }
         else{
             console.log("Error")
+            setError(data.detail || data.message || "Registration failed. Please try again.");
+        }
+        }
+        catch(error){
+            console.log(error)
         }
     }  
     
@@ -74,9 +88,11 @@ const Registration=()=>{
                 placeholder="Enter Your Password"
                 className='input'/>
             </div>
+            {error && <p className="error-message" style={{color: 'red', textAlign: 'center'}}>{error}</p>}
             <p className='paragraph'>Already have an account <a href="/login">login here</a></p>
             <button type="submit" className='button'>Register</button>
         </form>
+        
       </div>
     )
 }
