@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Role,UserRole,Product,CustomerReview,Cart,ProductTranslation,Order
+from .models import Role,UserRole,Product,CustomerReview,Cart,ProductTranslation,Order,UserProfile
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -24,6 +24,15 @@ class RegisterSerializer(serializers.ModelSerializer):
             role,created=Role.objects.get_or_create(name=role_name)
             UserRole.objects.create(user=user,role=role)
         return user
+    
+class ProfileSerializer(serializers.ModelSerializer):
+     username=serializers.CharField(source='user.username',read_only=True)
+     email=serializers.EmailField(source='user.email',read_only=True)
+     date_joined=serializers.DateTimeField(source='user.date_joined',read_only=True)
+
+     class Meta:
+         model = UserProfile
+         fields=['id','username','email','date_joined','phone','address','avatar']
     
 class LoginSerializer(serializers.Serializer):
     username= serializers.CharField(required=True)

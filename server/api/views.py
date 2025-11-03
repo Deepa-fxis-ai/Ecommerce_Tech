@@ -1,20 +1,20 @@
 from rest_framework import generics,status
 from rest_framework.permissions import AllowAny
 from django.contrib.auth.models import User
-from .serializers import RegisterSerializer,LoginSerializer,UserSerializer,ProductSerializer,OrderSerializer,CartSerializer,PasswordResetConfirmSerializer,PasswordResetRequestSerializer
+from .serializers import RegisterSerializer,LoginSerializer,UserSerializer,ProductSerializer,OrderSerializer,CartSerializer,PasswordResetConfirmSerializer,PasswordResetRequestSerializer,ProfileSerializer
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken  
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from .permissions import HasRole
-from .models import Product,CustomerReview,Cart,Order
+from .models import Product,CustomerReview,Cart,Order,UserProfile
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.http import JsonResponse
 import paypalrestsdk
 from .paypal_config import paypalrestsdk
-
+from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.exceptions import ValidationError
 
 from .tasks import send_order_email
@@ -26,6 +26,22 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 
 
 # Create your views here.
+class UserProfileView(generics.RetrieveUpdateAPIView):
+    permission_classes=(IsAuthenticated,)
+    serializer_class=ProfileSerializer
+    parser_classes = [MultiPartParser, FormParser] 
+
+    def get_object(self):
+        user_profile, created = UserProfile.objects.get_or_create(user=self.request.user)
+        return user_profile
+
+    def put(self, request, *args, **kwargs):
+        user_profile = self.get_object()
+        serializer = self.get_serializer(user_profile, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response(serializer.data)
+   
 class RegisterView(generics.CreateAPIView):
     queryset=User.objects.all()
     serializer_class=RegisterSerializer
