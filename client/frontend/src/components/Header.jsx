@@ -1,5 +1,6 @@
 import {LanguageContext} from '../reactContext'
 import { FaBattleNet,FaBars } from "react-icons/fa6";
+import { FaUserCircle } from "react-icons/fa";
 import { useState,useContext } from "react";
 import Cookies from 'js-cookie'
 import {useNavigate,Link} from 'react-router-dom';
@@ -68,7 +69,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 
 const Header=()=>{
     const {t}=useTranslation()
-    const {languageConversion,onhandleTheme,themeStatus} = useContext(LanguageContext)
+    const {languageConversion,onhandleTheme,themeStatus,onhandleUserProfile} = useContext(LanguageContext)
     const [mobileViewBarStatus,setMobileViewBarStatus]=useState(false)
     const [language,setLanguage]=useState("")
     const navigate=useNavigate()
@@ -127,6 +128,7 @@ const Header=()=>{
               />
             </FormGroup>
              {token?<button type="button" className={`select ${themeStatus === 'light' ? 'dark' : 'light'}`} onClick={onChangeLogout}>{t("header.logout")}</button>:<button type="button" className={`select ${themeStatus === 'light' ? 'dark' : 'light'}`} onClick={onChangeLogin}>{t("header.login")}</button>}
+              <button type="button" className="userButton" onClick={onhandleUserProfile}><FaUserCircle size={30} className={`${themeStatus === 'light' ? 'light' : 'dark'}`}/></button>
           </div> 
           </div>
           
@@ -165,9 +167,10 @@ const Header=()=>{
               />
             </FormGroup>
              {token===null?<button type="button" className={`button ${themeStatus === 'light' ? 'dark' : 'light'}`} onClick={onChangeLogin}>{t("header.login")}</button>:<button type="button" className={`button ${themeStatus === 'light' ? 'dark' : 'light'}`} onClick={onChangeLogout}>{t("header.logout")}</button>}
+              <button type="button" className="userButton" onClick={onhandleUserProfile}><FaUserCircle size={30}/></button>
           </div> :null}
           
-           
+          
         </div>
         )
 

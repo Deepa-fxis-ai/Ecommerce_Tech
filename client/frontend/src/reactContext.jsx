@@ -5,5 +5,7 @@ export const LanguageContext=React.createContext({
     languageConversion:()=>{},
     themeStatus:'',
     onhandleTheme:()=>{},
+    userProfileStatus:"false",
+    onhandleUserProfile:()=>{}
 })
 

@@ -2,17 +2,22 @@ import { useContext } from 'react';
 import Header from './Header.jsx'
 import { Link } from 'react-router-dom';
 import TopSellingAndArrival from './topSellingAndArrival.jsx';
+import UserProfile from './UserProfile.jsx'
 import { useTranslation } from 'react-i18next';
 import { LanguageContext } from '../reactContext.jsx';
 import './Home.css'
 
 const Home=()=>{
     const { t }=useTranslation();
-    const {themeStatus}=useContext(LanguageContext)
+    const {themeStatus,userProfileStatus}=useContext(LanguageContext)
     const theme=themeStatus==='light'?'light':'dark'
     return(
     <div className='HomeContainer'>
-        <Header />
+        <Header/>
+        
+        {userProfileStatus===true?
+          <div className='userProfileFeatures'><UserProfile/></div>
+        :null}
         <div className='banner'>
             <div className='bannerContent'>
             <h1 className='majorHeading'>{t("home.bannerHeading")}</h1>

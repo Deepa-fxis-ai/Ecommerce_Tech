@@ -62,6 +62,15 @@
     margin: 6px;
     padding: 10px;
 }
+.userButton{
+    border:0;
+    background-color: transparent;
+}
+.userButton:hover{
+    border:0;
+    background-color: transparent;
+}
+
 
 @media screen and (max-width:767px){
     .headerContainer{

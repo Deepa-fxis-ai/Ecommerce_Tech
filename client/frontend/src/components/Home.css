@@ -614,6 +614,19 @@ body{
     background: #FFFFFF;
     border-radius: 20px;
 }
+.userProfileFeatures{
+    position: absolute;
+    background-color: white;
+    width: 40vw;
+    height: 100vw;
+    overflow-y: scroll;
+    margin-left: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    
+}
 
    
 }
