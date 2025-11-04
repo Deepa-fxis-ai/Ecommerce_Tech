@@ -326,3 +326,15 @@ class PasswordResetConfirmView(APIView):
         user.set_password(new_password)
         user.save()
         return Response({"detail":"Password has been reset successfully."}, status=200)
+    
+class UserBaseOrderListView(generics.ListAPIView):
+    permission_classes=(IsAuthenticated,)
+    serializer_class=OrderSerializer
+
+    def get_queryset(self):
+        user=self.request.user
+        return Order.objects.filter(order_user=user)
+   
+       
+        
+

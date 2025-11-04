@@ -5,7 +5,7 @@
 }
 .sidebar{
     width: 25vw;
-    height: 30vh;
+    height: 35vh;
     background-color: rgb(70, 65, 65);
     color: white;
     display: flex;
@@ -37,7 +37,7 @@
 .logoAndCancel{
     display: flex;
     justify-content: space-between;
-    width:24vw;
+    width:auto;
     color: rgb(12, 12, 12);
 }
 .headings{
@@ -62,4 +62,22 @@
     width: 75vw;
     padding: 20px;
     box-sizing: border-box;
+}
+
+@media screen and (max-width:767px){
+    .welcomeHeading{
+       font-size: 20px;
+    } 
+    .sidebar{
+        width: 65vw;
+        height: 40vh;
+        background-color: rgb(70, 65, 65);
+        color: white;
+        display: flex;
+        flex-direction: column;
+        padding-left: 20px;
+        box-sizing: border-box;
+        position: absolute;
+        overflow:hidden;
+    }
 }

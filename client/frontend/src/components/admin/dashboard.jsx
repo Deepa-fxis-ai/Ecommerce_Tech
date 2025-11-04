@@ -65,7 +65,7 @@ const Dashboard=()=>{
                         </div> 
                         <button className='iconButton' onClick={handleCancle}><MdCancel/></button>
                     </div> 
-                    <Box sx={{ width: '15vw',m:'30px'}}>
+                    <Box sx={{ width: '18vw',m:'30px',overflow:'hidden'}}>
                         <Stack spacing={2}>
                             <Item onClick={handleProduct} sx={{bgcolor:'black',color:'white',borderWidth:'0px'}}>Product</Item>
                             <Item onClick={handleOrder} sx={{bgcolor:'black',color:'white',borderWidth:'0px'}}>Order</Item>
@@ -77,7 +77,7 @@ const Dashboard=()=>{
                 </div>
              }
             <div className='displayContainer'>
-                <h1>WELCOME TO ADMIN DASHBOARD!!</h1>
+                <h1 className="welcomeHeading">WELCOME TO ADMIN DASHBOARD!!</h1>
                 {product&&<ProductManage/>}
                 {order && <OrderManage/>}
             </div>

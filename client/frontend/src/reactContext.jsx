@@ -6,6 +6,8 @@ export const LanguageContext=React.createContext({
     themeStatus:'',
     onhandleTheme:()=>{},
     userProfileStatus:"false",
-    onhandleUserProfile:()=>{}
+    onhandleUserProfile:()=>{},
+    orderCheckStatus:false,
+    onhandleOrderCheckStatus:()=>{},
 })
 

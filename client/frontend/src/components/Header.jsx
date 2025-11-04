@@ -9,12 +9,13 @@ import { styled } from '@mui/material/styles';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
+import { IoBagHandleSharp } from "react-icons/io5";
 import './Header.css'
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
-  width: 62,
-  height: 34,
-  padding: 7,
+  width: 42,
+  height: 24,
+  padding: 5,
   '& .MuiSwitch-switchBase': {
     margin: 1,
     padding: 0,
@@ -38,8 +39,8 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   },
   '& .MuiSwitch-thumb': {
     backgroundColor: '#001e3c',
-    width: 32,
-    height: 32,
+    width: 20,
+    height: 20,
     '&::before': {
       content: "''",
       position: 'absolute',
@@ -69,7 +70,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 
 const Header=()=>{
     const {t}=useTranslation()
-    const {languageConversion,onhandleTheme,themeStatus,onhandleUserProfile} = useContext(LanguageContext)
+    const {languageConversion,onhandleTheme,themeStatus,onhandleUserProfile,onhandleOrderCheckStatus} = useContext(LanguageContext)
     const [mobileViewBarStatus,setMobileViewBarStatus]=useState(false)
     const [language,setLanguage]=useState("")
     const navigate=useNavigate()
@@ -127,28 +128,35 @@ const Header=()=>{
                 control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked  onChange={onhandleTheme}/>}
               />
             </FormGroup>
+            <div className='buttonUserOrder'>
              {token?<button type="button" className={`select ${themeStatus === 'light' ? 'dark' : 'light'}`} onClick={onChangeLogout}>{t("header.logout")}</button>:<button type="button" className={`select ${themeStatus === 'light' ? 'dark' : 'light'}`} onClick={onChangeLogin}>{t("header.login")}</button>}
               <button type="button" className="userButton" onClick={onhandleUserProfile}><FaUserCircle size={30} className={`${themeStatus === 'light' ? 'light' : 'dark'}`}/></button>
+               <button type="button" className="orderButton" onClick={onhandleOrderCheckStatus}><IoBagHandleSharp size={30} className={`${themeStatus === 'light' ? 'light' : 'dark'}`}/></button>
+            </div>
           </div> 
           </div>
           
            <div className={`mobileContainer ${themeStatus === 'light' ? 'light' : 'dark'}`}>
              <Link to="/">
-            <div className="logoContainer">
-                <FaBattleNet className={themeStatus === 'light' ? 'light' : 'dark'}/>
-                <h1 className={themeStatus === 'light' ? 'headingslight' : 'headingsdark'}>
-                  <span className={themeStatus === 'light' ? 'light' : 'dark'}>
-                    T
-                  </span>
-                    ech
-                  <span className={themeStatus === 'light' ? 'light' : 'dark'}>
-                    S
-                  </span>
-                    hop
-                  </h1>
-            </div> 
-          </Link>
-          <button onClick={handleBarStatus} className={themeStatus === 'light' ? 'light' : 'dark'}><FaBars/></button>
+                <div className="logoContainer">
+                    <FaBattleNet className={themeStatus === 'light' ? 'light' : 'dark'}/>
+                    <h1 className={themeStatus === 'light' ? 'headingslight' : 'headingsdark'}>
+                      <span className={themeStatus === 'light' ? 'light' : 'dark'}>
+                        T
+                      </span>
+                        ech
+                      <span className={themeStatus === 'light' ? 'light' : 'dark'}>
+                        S
+                      </span>
+                        hop
+                      </h1>
+                </div> 
+            </Link>
+            <div className='barAndProfileIcon'>
+                <button onClick={handleBarStatus} className={`userButton ${themeStatus === 'light' ? 'light' : 'dark'}`}><FaBars/></button>
+                <button type="button" className={`userButton ${themeStatus === 'light' ? 'light' : 'dark'}`} onClick={onhandleUserProfile}><FaUserCircle size={20}/></button> 
+                <button type="button" className="userButton" onClick={onhandleOrderCheckStatus}><IoBagHandleSharp size={20} className={`${themeStatus === 'light' ? 'light' : 'dark'}`}/></button>
+             </div>
           </div>
           {mobileViewBarStatus?<div className={`optionContainer ${themeStatus === 'light' ? 'light' : 'dark'}`}>
              <a href="/" className={themeStatus === 'light' ? 'light' : 'dark'}>{t("header.home")}</a>
@@ -162,12 +170,11 @@ const Header=()=>{
                <option value="ml">Malayalam</option>
              </select>
              <FormGroup>
-              <FormControlLabel
-                control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked onChange={onhandleTheme}/>}
-              />
-            </FormGroup>
+                  <FormControlLabel
+                      control={<MaterialUISwitch sx={{ m: 1}} defaultChecked onChange={onhandleTheme}/>}
+                    />
+                  </FormGroup>
              {token===null?<button type="button" className={`button ${themeStatus === 'light' ? 'dark' : 'light'}`} onClick={onChangeLogin}>{t("header.login")}</button>:<button type="button" className={`button ${themeStatus === 'light' ? 'dark' : 'light'}`} onClick={onChangeLogout}>{t("header.logout")}</button>}
-              <button type="button" className="userButton" onClick={onhandleUserProfile}><FaUserCircle size={30}/></button>
           </div> :null}
           
           

@@ -3,13 +3,14 @@ import Header from './Header.jsx'
 import { Link } from 'react-router-dom';
 import TopSellingAndArrival from './topSellingAndArrival.jsx';
 import UserProfile from './UserProfile.jsx'
+import OrderCheck from './orderCheck.jsx';
 import { useTranslation } from 'react-i18next';
 import { LanguageContext } from '../reactContext.jsx';
 import './Home.css'
 
 const Home=()=>{
     const { t }=useTranslation();
-    const {themeStatus,userProfileStatus}=useContext(LanguageContext)
+    const {themeStatus,userProfileStatus,orderCheckStatus}=useContext(LanguageContext)
     const theme=themeStatus==='light'?'light':'dark'
     return(
     <div className='HomeContainer'>
@@ -17,6 +18,9 @@ const Home=()=>{
         
         {userProfileStatus===true?
           <div className='userProfileFeatures'><UserProfile/></div>
+        :null}
+        {orderCheckStatus===true?
+          <div className='userProfileFeatures'><OrderCheck/></div>
         :null}
         <div className='banner'>
             <div className='bannerContent'>

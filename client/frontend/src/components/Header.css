@@ -70,6 +70,17 @@
     border:0;
     background-color: transparent;
 }
+.buttonUserOrder{
+    display:flex;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 10px;
+}
+.orderButton{
+    padding:10px;
+    border:0;
+    background-color: transparent;
+}
 
 
 @media screen and (max-width:767px){
@@ -80,14 +91,29 @@
     height: 10vh;
     width: 100%;
     display:flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
+    box-sizing: border-box;
+    padding: 5px;
+}
+.userButton{
+    padding: 4px; 
+}
+.userButton:hover{
+    border:0;
+    padding: 4px; 
+}
+.barAndProfileIcon{
+    display: flex;
+    width:20vw;
+    justify-content: center;
+    padding: 10px;
     box-sizing: border-box;
 }
 
 .optionContainer{
     z-index: 10;
-    height: 30vh;
+    height: 40vh;
     width: 40vw;
     display:flex;
     flex-direction: column;
@@ -98,12 +124,14 @@
     border-bottom-left-radius: 10px;
     position: absolute;
     font-size: 14px;
+    margin-top: 10px;
 }
 .logoContainer{
     height: 4vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 15px;
 }
 .button{
     background-color: rgb(10, 10, 10);

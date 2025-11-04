@@ -14,6 +14,7 @@ import AdminDashBoard from './components/admin/dashboard.jsx'
 import ForgotPassword from './components/forgotPassword.jsx'
 import ResetPassword from './components/ResetPassword.jsx'
 import UserProfile from './components/UserProfile.jsx'
+import OrderCheck from './components/orderCheck.jsx'
 import {useTranslation} from "react-i18next";
 import {LanguageContext} from "./reactContext.jsx"
 import './App.css'
@@ -22,6 +23,7 @@ const App=()=>{
   const [lang,setlang]=useState("en")
   const [theme,setTheme]=useState("light")
   const [userProfile,setUserProfileStatus]=useState(false)
+  const [orderCheck,setOrderCheck]=useState(false)
   const {i18n}=useTranslation()
   const languageSetting=(lng)=>{
     i18n.changeLanguage(lng)
@@ -33,8 +35,11 @@ const App=()=>{
   const handleProfileStatus=()=>{
     setUserProfileStatus(prev=>!prev)
   }
+  const handleOrderCheck=()=>{
+    setOrderCheck(prev=>!prev)
+  }
   return(
-    <LanguageContext.Provider value={{language:lang,languageConversion:languageSetting,themeStatus:theme,onhandleTheme:handleToggleTheme,userProfileStatus:userProfile,onhandleUserProfile:handleProfileStatus}}>
+    <LanguageContext.Provider value={{language:lang,languageConversion:languageSetting,themeStatus:theme,onhandleTheme:handleToggleTheme,userProfileStatus:userProfile,onhandleUserProfile:handleProfileStatus,orderCheckStatus:orderCheck,onhandleOrderCheckStatus:handleOrderCheck}}>
      <Routes> 
        <Route exact path="/register" element={<Registration/>}/>
        <Route exact path="/login" element={<Login/>}/>
@@ -44,6 +49,7 @@ const App=()=>{
        <Route exact path="/forgot-password" element={<ForgotPassword />}/>
        <Route exact path="/reset-password/:uid/:token" element={<ResetPassword />}/>
        <Route exact path="/user-profile" element={<UserProfile/>}/>
+       <Route exact path="/order-check" element={<OrderCheck/>}/>
        <Route element={<ProtectedRoute/>}>
          <Route exact path="/cart" element={<Cart/>}/>
          <Route exact path='/success' element={<PaymentSuccess/>}/>

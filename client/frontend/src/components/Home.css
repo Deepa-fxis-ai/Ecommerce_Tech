@@ -228,6 +228,21 @@ body{
     display: none;
 }
 
+.userProfileFeatures{
+    position: absolute;
+    background-color: white;
+    width: 40vw;
+    height: 100vw;
+    overflow-y: scroll;
+    margin-left: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+    
+}
+
 
 @media screen and (max-width:767px){
     .HomeContainer{
@@ -409,7 +424,33 @@ body{
         border-radius: 20px;
         margin: 10px;
     }
-    
+    .userProfileFeatures{
+        position: fixed;
+        background-color: white;
+        width: 100vw;
+        height: 60vw;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        margin-left: 0%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px; 
+        bottom: 0;  
+        transform: translateY(100%);
+        animation: slideUp 0.3s forwards;
+        z-index: 1000;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px
+      }
+       @keyframes slideUp {
+        from {
+            transform: translateY(100%);
+        }
+        to {
+            transform: translateY(0);
+        }
+    }
 }
 
 @media screen and (min-width:768px) and (max-width:1023px){
@@ -535,6 +576,18 @@ body{
         border-radius: 20px;
         margin: 3%;
     }
+    .userProfileFeatures{
+    position: absolute;
+    background-color: white;
+    width: 40vw;
+    height: auto;
+    overflow-y: scroll;
+    margin-left: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
 }
 
 @media screen and (min-width:1024px) and (max-width:1440px){
@@ -618,14 +671,13 @@ body{
     position: absolute;
     background-color: white;
     width: 40vw;
-    height: 100vw;
+    height: auto;
     overflow-y: scroll;
     margin-left: 60%;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    
 }
 
    
