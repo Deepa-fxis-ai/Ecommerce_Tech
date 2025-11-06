@@ -47,7 +47,7 @@ class ProductSerializer(serializers.ModelSerializer):
     translations=serializers.SerializerMethodField()
     class Meta:
         model=Product
-        fields=('id','sku','product_name','price','description','stocks','image_url','ratings','size','dressType','translations')
+        fields=('id','sku','product_name','price','description','stocks','image_url','ratings','size','dressType','selled_counts','translations')
 
     def get_translations(self, obj):
         lang = self.context.get("lang")

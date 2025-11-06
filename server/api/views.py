@@ -16,7 +16,7 @@ import paypalrestsdk
 from .paypal_config import paypalrestsdk
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.exceptions import ValidationError
-
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from .tasks import send_order_email
 
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -147,6 +147,7 @@ class CartView(generics.ListCreateAPIView):
         product = cart_item.product
         if product.stocks >= cart_item.quantity:
             product.stocks -= cart_item.quantity
+            product.selled_counts += cart_item.quantity
             product.save()
         else:
             cart_item.delete()
@@ -334,6 +335,15 @@ class UserBaseOrderListView(generics.ListAPIView):
     def get_queryset(self):
         user=self.request.user
         return Order.objects.filter(order_user=user)
+    
+class UserListToAdminView(generics.ListAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes=(IsAuthenticated,HasRole)
+    required_role = 'admin'
+    serializer_class=UserSerializer
+
+    def get_queryset(self):
+        return User.objects.filter(is_staff=False)
    
        
         

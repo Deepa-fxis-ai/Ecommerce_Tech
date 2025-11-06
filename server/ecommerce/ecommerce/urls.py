@@ -20,7 +20,7 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
-from api.views import RegisterView,LoginView,DashboardView,AdminDashboardView,ProductCreateView,ProductGetView,ProductUpdateDeleteView,CartView,CartDeleteView,CreatePayment,ExecutePayment,OrderView,CreateOrderView,UpdateDeleteView,PasswordResetRequestView,PasswordResetConfirmView,UserProfileView,UserBaseOrderListView
+from api.views import RegisterView,LoginView,DashboardView,AdminDashboardView,ProductCreateView,ProductGetView,ProductUpdateDeleteView,CartView,CartDeleteView,CreatePayment,ExecutePayment,OrderView,CreateOrderView,UpdateDeleteView,PasswordResetRequestView,PasswordResetConfirmView,UserProfileView,UserBaseOrderListView,UserListToAdminView
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -45,5 +45,6 @@ urlpatterns = [
     path("password-reset/",PasswordResetRequestView.as_view(),name="reset_password"),
     path("password-reset-confirm/",PasswordResetConfirmView.as_view(),name="reset_password_confirm"),
     path('user-profile/',UserProfileView.as_view(),name='user_profile'),
-    path('user-order-list/',UserBaseOrderListView.as_view(),name='user-order-list')
+    path('user-order-list/',UserBaseOrderListView.as_view(),name='user_order_list'),
+    path('get-user-list/',UserListToAdminView.as_view(),name='get_user_list')
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

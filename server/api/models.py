@@ -18,7 +18,7 @@ class UserRole(models.Model):
         unique_together=('user','role')
 
 class UserProfile(models.Model):
-    user=models.OneToOneField(User,on_delete=models.CASCADE)
+    user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='profile')
     phone=models.BigIntegerField(blank=True,null=True)
     address=models.TextField(blank=True,null=True)
     avatar=models.ImageField(upload_to='avatars/',blank=True,null=True)
@@ -42,6 +42,7 @@ class Product(models.Model):
     stocks=models.PositiveIntegerField(default=10)
     size=models.ManyToManyField(Size,blank=True)
     dressType=models.CharField(max_length=20,choices=[('C','Casual'),('F','Formal'),('P','Party'),('G','Gym',)],default=('C','Casual'))
+    selled_counts=models.PositiveIntegerField(default=0)
 
     def __str__(self):
            return self.sku

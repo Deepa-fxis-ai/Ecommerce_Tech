@@ -14,6 +14,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import TextField from '@mui/material/TextField'
 
+import TablePagination from '@mui/material/TablePagination';
+
 
 const OrderManage=()=>{
     const [orderList,setOrderList]=useState([])
@@ -21,13 +23,25 @@ const OrderManage=()=>{
     const [status,setStatus]=useState("pending")
     const [value, setValue] = useState(dayjs());
     const [allOrders,setAllOrders]=useState([])
+    const [dropDownValue,setDropDownValue]=useState("")
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
+
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    };
 
     const getOrderData=async ()=>{ 
         const url=`http://127.0.0.1:8000/order/`;
         const options={
             method:"GET",
             headers:{
-                "Content-Type":"application/json",
+              "Content-Type":"application/json",
             },
         }
         try{
@@ -53,14 +67,14 @@ const OrderManage=()=>{
         }    
     }
 
-    const getOrderUpdate=async(orderId)=>{
+    const getOrderUpdate=async(orderId,newStatus)=>{
       const url=`http://127.0.0.1:8000/order/update-delete/${orderId}`
       const options={
         method:"PUT",
         headers:{
           "Content-Type":"application/json",
         },
-        body:JSON.stringify({status})
+        body:JSON.stringify({status:newStatus})
       }
       const response=await fetch(url,options)
       if(response.ok){
@@ -73,34 +87,34 @@ const OrderManage=()=>{
       }
     }
    
-    const handleShipSuccessButtons=async (Id)=>{
+    const handleShipSuccessButtons = async (Id) => {
+        let newStatus = "";
+
         setOrderList((prevOrders) =>
             prevOrders.map((order) => {
-                if (order.id === Id) {
-                    if (!order.isShipped) {
-                        setStatus("shipped")
-                        return { ...order, isShipped: true,status: "shipped" };
-                    } else if (order.isShipped) {
-                        setStatus("success")
-                        return { ...order, isSuccess: true,status: "success"  }; 
-                    }
-                    else if (order.isSuccess) {
-                    return { ...order, status: "completed" }; 
-                   }
+            if (order.id === Id) {
+                if (order.status === "pending") {
+                newStatus = "shipped";
+                return { ...order, status: "shipped" };
+                } else if (order.status === "shipped") {
+                newStatus = "success";
+                return { ...order, status: "success" };
                 }
-                setOrderId(order.id)
-                return order;
+            }
+            return order;
             })
-         );
-        
-       await getOrderUpdate(Id)
-       
-    }
+        );
+
+        if (newStatus) {
+            await getOrderUpdate(Id, newStatus);
+        }
+    };
 
     const filterBasedOnDate=(newValue)=>{
       setValue(newValue)
       if (!newValue) {
       getOrderData();
+      setPage(0);
       return;
       }
       const formattedDate = newValue.format("YYYY-MM-DD");
@@ -109,33 +123,67 @@ const OrderManage=()=>{
         return orderDate === formattedDate;
         
       })
-
+  
       setOrderList(filterDataBasedDate)
+      setPage(0);
     }
 
     const resetDate=()=>{
         setValue(dayjs())
         setOrderList(allOrders)
+        setPage(0);
     }
 
     const fetchPending=()=>{
        const filter=allOrders.filter(each=>each.status==='pending')
+       console.log("Pending Orders:", filter);
        setOrderList(filter)
+       setPage(0);
     }
 
     const fetchShipped=()=>{
        const filter=allOrders.filter(each=>each.status==='shipped')
+       console.log("Shipped Orders:", filter);
        setOrderList(filter)
+       setPage(0);
     }
 
     const fetchCompleted=()=>{
        const filter=allOrders.filter(each=>each.status==='success')
        setOrderList(filter)
+       setPage(0);
     }
 
-    useEffect(()=>{getOrderData()
-        console.log(orderList)
-    },[]);
+    useEffect(()=>{getOrderData()},[]);
+
+    const startIndex=page*rowsPerPage
+    const lastIndex=Math.min(startIndex+rowsPerPage,orderList.length)
+    const paginatedOrder=orderList.slice(startIndex,lastIndex)
+
+    console.log("Order List:", orderList); 
+    console.log("Paginated Order:", paginatedOrder); 
+
+    const handleDropDownChange=(e)=>{
+       const selectedValue=e.target.value
+       setDropDownValue(selectedValue)
+
+       switch(selectedValue){
+        case "pending":
+            fetchPending();
+            break;
+        case "shipped":
+            fetchShipped();
+            break;
+        case "completed":
+            fetchCompleted();
+            break;
+        case "reset":
+            resetDate()
+            break;
+        default:
+            break;
+       }
+    }
 
     return(
         <div> 
@@ -147,21 +195,16 @@ const OrderManage=()=>{
                 format="DD-MM-YYYY"
                 renderInput={(params) => <TextField {...params} />}
                 />
-                <button onClick={fetchPending} className="button">
-                   Pending Orders
-                </button>
-                <button onClick={fetchShipped} className="button">
-                   Shipped Orders
-                </button>
-                <button onClick={fetchCompleted} className="button">
-                   Completed Orders
-                </button>
-                <button onClick={resetDate} className="button">
-                Reset
-                </button>
+                <select value={dropDownValue} className="button" onChange={handleDropDownChange}>
+                    <option value="" disabled>Select filters</option>
+                    <option value="pending">Pending Orders</option>
+                    <option value="shipped">Shipped Orders</option>
+                    <option value="completed">Completed Orders</option>
+                    <option value="reset">All Orders</option>
+                </select>
             </LocalizationProvider>
             <div>
-           <TableContainer component={Paper} sx={{width:'90vw',pl:'0px'}}>
+            <TableContainer component={Paper} sx={{width:'90vw',pl:'0px'}}>
             <Table sx={{ minWidth: 650}} size="small" aria-label="a dense table">
                 <TableHead>
                 <TableRow>
@@ -176,7 +219,7 @@ const OrderManage=()=>{
                 </TableRow>
                 </TableHead>
                 <TableBody>
-                {orderList.map((row) => (
+                {paginatedOrder.map((row) => (
                     <TableRow
                     key={row.id}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 },bgcolor: row.stocks===0?'red':'white'}}
@@ -216,6 +259,15 @@ const OrderManage=()=>{
                 </TableBody>
             </Table>
             </TableContainer>
+            <TablePagination
+                component="div"
+                count={orderList.length}
+                page={page}
+                onPageChange={handleChangePage}
+                rowsPerPage={rowsPerPage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                sx={{ml:'60%',width:'50vw'}}
+            />
           </div>
          
           

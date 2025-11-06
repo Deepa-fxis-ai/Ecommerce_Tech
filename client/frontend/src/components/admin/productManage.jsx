@@ -18,6 +18,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContentText from '@mui/material/DialogContentText';
 import { VscAdd } from "react-icons/vsc";
 import './productManage.css'
+import TablePagination from '@mui/material/TablePagination';
 
 const ProductManage=()=>{
     const [productList,setProductList]=useState([])
@@ -41,6 +42,17 @@ const ProductManage=()=>{
     const [addPType,setAddPType]=useState("")
     const [openDelete, setOpenDelete] =useState(false);
     const [deleteId,setDeleteId]=useState(null)
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
+
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    };
 
     const handleClickOpenDelete = (Id) => {
         setOpenDelete(true);
@@ -168,6 +180,15 @@ const ProductManage=()=>{
             alert('Updated Successfully')
             setAddOpen(false)
             getProductData();
+            setAddPSku("")
+            setAddPName("")
+            setAddPPrice(0)
+            setAddPdesc("")
+            setAddPImage("")
+            setAddPStock(0)
+            setAddPRatings(0)
+            setAddPSize([])
+            setAddPType("")
         }
         else{
             console.log("DRF validation error:", data);  
@@ -176,6 +197,11 @@ const ProductManage=()=>{
     }
 
     useEffect(()=>{getProductData()},[]);
+
+    const startIndex=page*rowsPerPage
+    const lastIndex=Math.min(startIndex+rowsPerPage,productList.length)
+    const paginatedOrder=productList.slice(startIndex,lastIndex)
+
     return(
         <div className="productListContainer"> 
          {productList.length>0?
@@ -201,7 +227,7 @@ const ProductManage=()=>{
                 </TableRow>
                 </TableHead>
                 <TableBody>
-                {productList.map((row) => (
+                {paginatedOrder.map((row) => (
                     <TableRow
                     key={row.id}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 },bgcolor: row.stocks===0?'red':'white'}}
@@ -224,6 +250,15 @@ const ProductManage=()=>{
                 </TableBody>
             </Table>
             </TableContainer>
+            <TablePagination
+                component="div"
+                count={productList.length}
+                page={page}
+                onPageChange={handleChangePage}
+                rowsPerPage={rowsPerPage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                sx={{ml:'60%',width:'50vw'}}
+            />
             {/* for update product */}
             <Dialog
                 open={open}
@@ -280,8 +315,8 @@ const ProductManage=()=>{
                     <TextField id="standard-basic" label="Stocks" variant="standard" value={addPStock} onChange={(e)=>{setAddPStock(e.target.value)}}/>
                     <TextField id="standard-basic" label="Image Url" variant="standard" value={addPImage} onChange={(e)=>{setAddPImage(e.target.value)}}/>
                     <TextField id="standard-basic" label="Rating" variant="standard" value={addPRatings} onChange={(e)=>{setAddPRatings(e.target.value)}}/>
-                    <TextField id="standard-basic" label="Size" variant="standard" value={Array.isArray(AddPSize) ? AddPSize.join(", ") : AddPSize} onChange={(e) => setAddPSize(e.target.value.split(",").map(s => s.trim()))}/>
-                    <TextField id="standard-basic" label="Dress Type" variant="standard" value={addPType} onChange={(e)=>{setAddPType(e.target.value)}}/>
+                    <TextField id="standard-basic" label="Size (Eg:1,2,3)" variant="standard" value={Array.isArray(AddPSize) ? AddPSize.join(", ") : AddPSize} onChange={(e) => setAddPSize(e.target.value.split(",").map(s => s.trim()))}/>
+                    <TextField id="standard-basic" label="Dress Type(Eg:C for casual)" variant="standard" value={addPType} onChange={(e)=>{setAddPType(e.target.value)}}/>
                     
                 </Box>
                 </DialogContent>

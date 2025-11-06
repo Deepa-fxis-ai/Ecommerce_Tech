@@ -9,6 +9,7 @@ import { styled } from '@mui/material/styles';
 
 import ProductManage from "./productManage";
 import OrderManage from "./orderManage";
+import Analytics from "./Analytics";
 
 import { MdCancel } from "react-icons/md";
 import './dashboard.css'
@@ -28,6 +29,7 @@ const Dashboard=()=>{
     const [cancelButton,setCancelButton]=useState(false)
     const [product,setProduct]=useState(false)
     const [order,setOrder]=useState(false)
+    const [analyticView,setAnalyticView]=useState(false)
 
     const handleCancle=()=>{
          setCancelButton(prev=>!prev)
@@ -36,12 +38,21 @@ const Dashboard=()=>{
     const handleOrder=()=>{
         setProduct(false)
         setOrder(true)
+        setAnalyticView(false)
         setCancelButton(prev=>!prev)
     }
 
     const handleProduct=()=>{
         setProduct(true)
         setOrder(false)
+        setAnalyticView(false)
+        setCancelButton(prev=>!prev)
+    }
+
+    const handleAnalytics=()=>{
+        setProduct(false)
+        setOrder(false)
+        setAnalyticView(true)
         setCancelButton(prev=>!prev)
     }
 
@@ -69,6 +80,7 @@ const Dashboard=()=>{
                         <Stack spacing={2}>
                             <Item onClick={handleProduct} sx={{bgcolor:'black',color:'white',borderWidth:'0px'}}>Product</Item>
                             <Item onClick={handleOrder} sx={{bgcolor:'black',color:'white',borderWidth:'0px'}}>Order</Item>
+                            <Item onClick={handleAnalytics} sx={{bgcolor:'black',color:'white',borderWidth:'0px'}}>View Analytics</Item>
                         </Stack>
                     </Box>
                 </div>:
@@ -80,6 +92,7 @@ const Dashboard=()=>{
                 <h1 className="welcomeHeading">WELCOME TO ADMIN DASHBOARD!!</h1>
                 {product&&<ProductManage/>}
                 {order && <OrderManage/>}
+                {analyticView && <Analytics/>}
             </div>
         </div>
     )
