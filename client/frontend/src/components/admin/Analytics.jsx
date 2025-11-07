@@ -3,12 +3,33 @@ import Cookies from 'js-cookie'
 import { PieChart } from '@mui/x-charts/PieChart';
 import { BarChart } from '@mui/x-charts/BarChart';
 import './Analytics.css'
+import 'react-date-range/dist/styles.css'; // main style file
+import 'react-date-range/dist/theme/default.css'; // theme css file
+import { DateRangePicker } from 'react-date-range';
+import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { YearCalendar } from '@mui/x-date-pickers/YearCalendar';
+import { MonthCalendar } from '@mui/x-date-pickers/MonthCalendar';
 
 const Analytics=()=>{
     const [userData,setUserData]=useState([])
     const [orderData,setOrderData]=useState([])
     const [productData,setProductData]=useState([])
+    const [selectionRange,setSelectionRange]=useState({
+       startDate: new Date(),
+       endDate: new Date(),
+       key: 'selection',
+    })
+    const [monthCalendar,setMonthCalendar]=useState(false)
+    const [yearCalendar,setYearCalendar]=useState(false)
     const token=Cookies.get('jwt_token')
+
+    const handleSelect=(ranges)=>{
+    console.log(ranges);
+    setSelectionRange(ranges.selection)
+    console.log(selectionRange)
+  }
 
     const handleuserData=async()=>{
        const url=`http://127.0.0.1:8000/get-user-list/`
@@ -59,12 +80,17 @@ const Analytics=()=>{
         setProductData(data)
        }
     }
-
+    
+    const handleMonthCalender=()=>{
+        setMonthCalendar(prev=>!prev)
+    }
+    const handleYearCalender=()=>{
+        setYearCalendar(prev=>!prev)
+    }
     //Calculate Total Sum of products
     let totalSum=0
     const sumArray=productData.user?productData.user.map(each=>each.price*each.stocks):[]
     totalSum=sumArray.reduce((acc,i)=>acc+i,0)
-    console.log(totalSum)
 
     //for order status
     const pendingOrders=orderData.orders?orderData.orders.filter(each=>each.status==='pending'):0
@@ -108,7 +134,35 @@ const Analytics=()=>{
         gym: { count: 0, price: 0 },
         other:{count: 0, price: 0}  //initial accumulator
      }):{}
-    console.log(categoryArray)
+    
+     //for Date Range analysis
+     const dateArray=[]
+     const startRange=new Date(selectionRange.startDate)
+     const endRange=new Date(selectionRange.endDate) 
+     let currentDate=new Date(startRange)
+     currentDate.setDate(currentDate.getDate()+1) //set start value 
+     endRange.setDate(endRange.getDate()+1) //set add value
+     while(currentDate<=endRange){
+        dateArray.push(currentDate.toISOString().split("T")[0])
+        currentDate.setDate(currentDate.getDate()+1)
+     }
+     
+     const orderDataBasedOnDateRange=dateArray.map(k=>{
+        if(!orderData.orders){
+            return "date required to view analytics"
+        }
+        const count=orderData.orders.reduce((acc,val)=>{
+            return acc+(val.order_date===k?1:0)
+        },0)
+        return count
+     })
+
+     console.log(orderDataBasedOnDateRange)
+     
+     const displayCheck=orderDataBasedOnDateRange.filter(each=>each!==0)
+    //line view representation of date range
+     console.log(displayCheck)
+       
     
     useEffect(()=>{
         handleuserData()
@@ -150,7 +204,7 @@ const Analytics=()=>{
                             cy: 150,
                             }
                         ]}
-                        width={300}
+                        width={400}
                         height={300}
                     />
                 </div>
@@ -164,7 +218,8 @@ const Analytics=()=>{
                             scaleType: 'band',
                             label: 'Products',
                             tickLabelStyle: {
-                                angle: -45,         
+                                display:'none',
+                                angle: -15,         
                                 textAnchor: 'end',  
                                 fontSize: 12,
                                 width: 100,         
@@ -203,8 +258,73 @@ const Analytics=()=>{
                             },
                         ]}
                         height={200}
-                        width={200}
+                        width={300}
                     />
+                </div>
+                <div className="dateToDateRangeContainer">
+                    <DateRangePicker
+                        ranges={[selectionRange]}
+                        onChange={handleSelect}
+                        className="dateRangePicker"
+                    />
+                    <div>
+                     <h2 className="orderStatusHeading">Date range representation for order</h2>
+                     {displayCheck.length>0?
+                     (
+                        <BarChart
+                        xAxis={[
+                            {
+                            id: 'barCategories',
+                            data: dateArray,
+                            scaleType: 'band',
+                            label: 'Date Range',
+                            tickLabelStyle: {
+                                display:'none',
+                                angle: -15,         
+                                textAnchor: 'end',  
+                                fontSize: 12,
+                                width: 100,         
+                                overflow: 'hidden', 
+                            },
+                            },
+                        ]}
+                        yAxis={[
+                            {
+                            min: 0,     // start Y-axis at 0
+                            max: 100,  // end Y-axis at 1200
+                            tickInterval: 20, 
+                            label: 'orders',
+                            },
+                        ]}
+                        series={[
+                            {
+                            data: orderDataBasedOnDateRange,
+                            },
+                        ]}
+                        height={400}
+                        width={400}
+                    /> 
+                     ):<p>No data available based on this date range</p>
+                     }
+                    
+                    </div>
+                </div>
+                <div className="monthBasedAnalytics">
+                    <h2 className="orderStatusHeading">Yearly and Monthly Basis of order</h2>
+                    <div>
+                        <button type='button' onClick={handleMonthCalender}>Month</button>
+                        <button type='button' onClick={handleYearCalender}>Year</button>
+                    </div>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DemoContainer components={['YearCalendar', 'MonthCalendar']}>
+                            <DemoItem label="YearCalendar">
+                            <YearCalendar />
+                            </DemoItem>
+                            <DemoItem label="MonthCalendar">
+                            <MonthCalendar />
+                            </DemoItem>
+                        </DemoContainer>
+                    </LocalizationProvider>
                 </div>
             </div>
         </div>

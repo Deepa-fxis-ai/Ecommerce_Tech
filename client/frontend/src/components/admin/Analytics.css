@@ -28,6 +28,10 @@
     border: 1px solid black;
     border-radius: 10px;
     margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
 }
 .orderStatusHeading{
     text-decoration: underline;
@@ -44,3 +48,35 @@
     flex-direction: column;
     justify-content: space-around;
 }
+.dateToDateRangeContainer{
+    width: 90vw;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding:10px;
+}
+.calenderIconForDateRange{
+    align-self: flex-start;
+    border-width: 0px;
+}
+.calenderIconForDateRange:hover{
+    align-self: flex-start;
+    border-width: 0px;
+}
+.monthBasedAnalytics{
+    width: 50vw;
+    height: 40vh;
+    overflow: scroll;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+
