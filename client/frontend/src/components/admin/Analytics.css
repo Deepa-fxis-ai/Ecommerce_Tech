@@ -47,9 +47,10 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    align-items: center;
 }
 .dateToDateRangeContainer{
-    width: 90vw;
+    width: 92vw;
     border: 1px solid black;
     border-radius: 10px;
     margin: 10px;
@@ -67,16 +68,26 @@
     align-self: flex-start;
     border-width: 0px;
 }
-.monthBasedAnalytics{
-    width: 50vw;
-    height: 40vh;
-    overflow: scroll;
+.monthBasedAnalytics,.yearBasedAnalytics{
+    width: 46vw;
+    height: 70vh;
+    overflow: hidden;
     border: 1px solid black;
     border-radius: 10px;
     margin: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    align-items: center;
 }
-
-
+.monthCalendar,.yearCalendar{
+    background-color: white;
+    position: absolute;
+    z-index: 1000;
+    pointer-events: all;
+}
+.monthCalendar.hide,.yearCalendar.hide {
+  display: none;
+}
+.monthCalendar.show,.yearCalendar.show{
+  display: block;
+}

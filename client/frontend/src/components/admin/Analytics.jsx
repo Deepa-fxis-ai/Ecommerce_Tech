@@ -11,6 +11,9 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { YearCalendar } from '@mui/x-date-pickers/YearCalendar';
 import { MonthCalendar } from '@mui/x-date-pickers/MonthCalendar';
+import { FaRegCalendarAlt } from "react-icons/fa";
+import { LineChart } from '@mui/x-charts/LineChart';
+import dayjs from "dayjs";
 
 const Analytics=()=>{
     const [userData,setUserData]=useState([])
@@ -21,8 +24,10 @@ const Analytics=()=>{
        endDate: new Date(),
        key: 'selection',
     })
-    const [monthCalendar,setMonthCalendar]=useState(false)
-    const [yearCalendar,setYearCalendar]=useState(false)
+    const [month,setMonth]=useState(dayjs())
+    const [year,setYear]=useState(dayjs())
+    const [monthStatus,setMonthStatus]=useState(false)
+    const [yearStatus,setYearStatus]=useState(false)
     const token=Cookies.get('jwt_token')
 
     const handleSelect=(ranges)=>{
@@ -81,12 +86,6 @@ const Analytics=()=>{
        }
     }
     
-    const handleMonthCalender=()=>{
-        setMonthCalendar(prev=>!prev)
-    }
-    const handleYearCalender=()=>{
-        setYearCalendar(prev=>!prev)
-    }
     //Calculate Total Sum of products
     let totalSum=0
     const sumArray=productData.user?productData.user.map(each=>each.price*each.stocks):[]
@@ -146,7 +145,6 @@ const Analytics=()=>{
         dateArray.push(currentDate.toISOString().split("T")[0])
         currentDate.setDate(currentDate.getDate()+1)
      }
-     
      const orderDataBasedOnDateRange=dateArray.map(k=>{
         if(!orderData.orders){
             return "date required to view analytics"
@@ -156,14 +154,75 @@ const Analytics=()=>{
         },0)
         return count
      })
-
-     console.log(orderDataBasedOnDateRange)
-     
      const displayCheck=orderDataBasedOnDateRange.filter(each=>each!==0)
-    //line view representation of date range
-     console.log(displayCheck)
-       
-    
+
+     //month based filtering
+     const handleMonth=(newValue)=>{
+        if(newValue){
+            setMonth(newValue)
+            setMonthStatus(false)//eg:11 for nov
+        }
+     }
+     const handleMonthStatus=()=>{
+         setMonthStatus(prev=>!prev)
+     }
+     
+     const orderDataBasedOnMonth=orderData.orders?orderData.orders.filter(each=>{
+        const orderMonth=dayjs(each.order_date).format("MM")
+        return orderMonth===month.format("MM")
+     }):[]
+     // Group orders by date within the selected month
+    const orderCountByDate = {};
+
+    orderDataBasedOnMonth.forEach(order => {
+    const date = order.order_date;
+    orderCountByDate[date] = (orderCountByDate[date] || 0) + 1;
+    });
+
+    // Prepare dataset for month LineChart
+    const monthChartData = Object.entries(orderCountByDate).map(([date, count]) => ({
+    date,
+    count,
+    }));
+
+     //year based filtering
+     const handleYear=(newValue)=>{
+        if(newValue){
+            setYear(newValue)
+            console.log(newValue.format("YYYY"))
+            setYearStatus(false)
+        }
+     }
+
+
+     const handleYearStatus=()=>{
+         setYearStatus(prev=>!prev)
+     }
+
+     const orderDataBasedOnYear=orderData.orders?orderData.orders.filter(each=>{
+        const orderYear=dayjs(each.order_date).format("YYYY")
+        return orderYear===year.format("YYYY")
+     }):[]
+
+     const orderCountByMonth={}
+      
+     orderDataBasedOnYear.forEach(order => {
+  const monthKey = dayjs(order.order_date).format("MMM"); 
+  orderCountByMonth[monthKey] = (orderCountByMonth[monthKey] || 0) + 1;
+});
+
+
+const allMonths = [
+  "Jan","Feb","Mar","Apr","May","Jun",
+  "Jul","Aug","Sep","Oct","Nov","Dec"
+];
+
+const yearChartData = allMonths.map(month => ({
+  month,
+  count: orderCountByMonth[month] || 0,
+}));
+
+         
     useEffect(()=>{
         handleuserData()
         handleOrderData() 
@@ -253,7 +312,7 @@ const Analytics=()=>{
                             data:Object.entries(categoryArray).map(([key,val],i)=>({
                                 id:i,
                                 value:val.price,
-                                label: `${key} - ${val.count}`
+                                label: `${key}`
                             })),
                             },
                         ]}
@@ -310,21 +369,92 @@ const Analytics=()=>{
                     </div>
                 </div>
                 <div className="monthBasedAnalytics">
-                    <h2 className="orderStatusHeading">Yearly and Monthly Basis of order</h2>
+                    <h2 className="orderStatusHeading">Monthly Basis of order</h2>
                     <div>
-                        <button type='button' onClick={handleMonthCalender}>Month</button>
-                        <button type='button' onClick={handleYearCalender}>Year</button>
+                         <div>
+                           <span>{month.format("MM")}</span>
+                           <button type="button" onClick={handleMonthStatus}><FaRegCalendarAlt/></button>
+                         </div>
+                          <div className={`monthCalendar ${monthStatus ? 'show' : 'hide'}`}>
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <DemoContainer components={['YearCalendar', 'MonthCalendar']}>
+                                    <DemoItem>
+                                    <MonthCalendar value={month} onChange={handleMonth}/>
+                                    </DemoItem>
+                                </DemoContainer>
+                            </LocalizationProvider>
+                          </div>
+                           <LineChart
+                                dataset={monthChartData}
+                                xAxis={[
+                                    {
+                                    dataKey: 'date',
+                                    label: 'Date',
+                                    scaleType: 'band',
+                                    tickLabelStyle: { fontSize: 10, angle: -90, textAnchor: 'end' },
+                                    },
+                                ]}
+                                series={[
+                                    {
+                                    dataKey: 'count',
+                                    },
+                                ]}
+                                yAxis={[
+                                    {
+                                    label: 'Number of Orders',
+                                    min: 0,
+                                    tickCount: 6,
+                                    },
+                                ]}
+                                width={400}
+                                height={300}
+                                grid={{ vertical: true, horizontal: true }}
+                            />
                     </div>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DemoContainer components={['YearCalendar', 'MonthCalendar']}>
-                            <DemoItem label="YearCalendar">
-                            <YearCalendar />
-                            </DemoItem>
-                            <DemoItem label="MonthCalendar">
-                            <MonthCalendar />
-                            </DemoItem>
-                        </DemoContainer>
-                    </LocalizationProvider>
+                </div>
+                <div className="yearBasedAnalytics">
+                    <h2 className="orderStatusHeading">Yearly Basis of order</h2>
+                    <div>
+                        <div>
+                            <span>{year.format("YYYY")}</span>
+                            <button type="button" onClick={handleYearStatus}><FaRegCalendarAlt/></button>
+                        </div>
+                        <div className={`yearCalendar ${yearStatus ? 'show' : 'hide'}`}>
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <DemoContainer components={['YearCalendar', 'MonthCalendar']}>
+                                    <DemoItem>
+                                    <YearCalendar value={year} onChange={handleYear}/>
+                                    </DemoItem>
+                                </DemoContainer>
+                            </LocalizationProvider>
+                        </div>
+                         <LineChart
+                                dataset={yearChartData}
+                                xAxis={[
+                                    {
+                                    dataKey: 'month',
+                                    label: 'Date',
+                                    scaleType: 'band',
+                                    tickLabelStyle: { fontSize: 10, angle: -90, textAnchor: 'end' },
+                                    },
+                                ]}
+                                series={[
+                                    {
+                                    dataKey: 'count',
+                                    },
+                                ]}
+                                yAxis={[
+                                    {
+                                    label: 'Number of Orders',
+                                    min: 0,
+                                    tickCount: 6,
+                                    },
+                                ]}
+                                width={400}
+                                height={300}
+                                grid={{ vertical: true, horizontal: true }}
+                            />
+                   </div>
                 </div>
             </div>
         </div>
