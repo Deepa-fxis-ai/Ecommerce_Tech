@@ -14,6 +14,14 @@ import { MonthCalendar } from '@mui/x-date-pickers/MonthCalendar';
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { LineChart } from '@mui/x-charts/LineChart';
 import dayjs from "dayjs";
+import Box from '@mui/material/Box';
+import { useLegend } from '@mui/x-charts/hooks';
+import { ChartDataProvider } from '@mui/x-charts/ChartDataProvider';
+import { ChartsSurface } from '@mui/x-charts/ChartsSurface';
+import { BarPlot } from '@mui/x-charts/BarChart';
+import { ChartsXAxis } from '@mui/x-charts/ChartsXAxis';
+import { ChartsYAxis } from '@mui/x-charts/ChartsYAxis';
+import { useMediaQuery } from '@mui/material';
 
 const Analytics=()=>{
     const [userData,setUserData]=useState([])
@@ -29,6 +37,7 @@ const Analytics=()=>{
     const [monthStatus,setMonthStatus]=useState(false)
     const [yearStatus,setYearStatus]=useState(false)
     const token=Cookies.get('jwt_token')
+    const isMobile = useMediaQuery('(max-width:767px)');
 
     const handleSelect=(ranges)=>{
     console.log(ranges);
@@ -205,22 +214,35 @@ const Analytics=()=>{
      }):[]
 
      const orderCountByMonth={}
-      
-     orderDataBasedOnYear.forEach(order => {
-  const monthKey = dayjs(order.order_date).format("MMM"); 
-  orderCountByMonth[monthKey] = (orderCountByMonth[monthKey] || 0) + 1;
-});
+        
+    orderDataBasedOnYear.forEach(order => {
+    const monthKey = dayjs(order.order_date).format("MMM"); 
+    orderCountByMonth[monthKey] = (orderCountByMonth[monthKey] || 0) + 1;
+    });
 
+    const allMonths = [
+    "Jan","Feb","Mar","Apr","May","Jun",
+    "Jul","Aug","Sep","Oct","Nov","Dec"
+    ];
 
-const allMonths = [
-  "Jan","Feb","Mar","Apr","May","Jun",
-  "Jul","Aug","Sep","Oct","Nov","Dec"
-];
+    const yearChartData = allMonths.map(month => ({
+    month,
+    count: orderCountByMonth[month] || 0,
+    }));
 
-const yearChartData = allMonths.map(month => ({
-  month,
-  count: orderCountByMonth[month] || 0,
-}));
+    //product profit and loss 
+    //product names are available
+    const profitCalculation=productData.user?productData.user.map(each=>each.selled_counts*each.price):[]
+    console.log(profitCalculation)
+    const lossCalculation=productData.user?productData.user.map(each=>each.stocks*each.price):[]
+    console.log(lossCalculation)
+
+    const maxProfit=profitCalculation.length>0? Math.max(...profitCalculation):0
+    console.log(maxProfit)
+    const maxloss=lossCalculation.length>0? Math.max(...lossCalculation):0
+    console.log(maxloss)
+    const maxProfitOrLoss=Math.max(maxProfit,maxloss)
+    console.log(maxProfitOrLoss)
 
          
     useEffect(()=>{
@@ -230,7 +252,7 @@ const yearChartData = allMonths.map(month => ({
     },[])
 
     return(
-        <div>
+        <div className="analytic">
             <div className="count">
                 <div className="countContainer">
                 <h2>User:{userData.length}</h2> 
@@ -254,17 +276,17 @@ const yearChartData = allMonths.map(month => ({
                                 { id: 2, value: completedOrders.length, label: 'Completed',color:'green' },
                             ],
                             innerRadius: 30,
-                            outerRadius: 100,
+                            outerRadius: isMobile?80:100,
                             paddingAngle: 5,
                             cornerRadius: 5,
                             startAngle: -105,
                             endAngle: 225,
-                            cx: 150,
-                            cy: 150,
+                            cx: isMobile?90:150,
+                            cy: isMobile?90:150,
                             }
                         ]}
-                        width={400}
-                        height={300}
+                        width={isMobile?200:300}
+                        height={isMobile?200:300}
                     />
                 </div>
                 <div className="sellingContainer">
@@ -300,6 +322,7 @@ const yearChartData = allMonths.map(month => ({
                             },
                         ]}
                         height={300}
+                        width={isMobile?200:300}
                     /> 
                 </div>
                 <div className="categoryContainer">
@@ -317,7 +340,7 @@ const yearChartData = allMonths.map(month => ({
                             },
                         ]}
                         height={200}
-                        width={300}
+                        width={isMobile?200:300}
                     />
                 </div>
                 <div className="dateToDateRangeContainer">
@@ -326,7 +349,7 @@ const yearChartData = allMonths.map(month => ({
                         onChange={handleSelect}
                         className="dateRangePicker"
                     />
-                    <div>
+                    <div className="dateRangeBar">
                      <h2 className="orderStatusHeading">Date range representation for order</h2>
                      {displayCheck.length>0?
                      (
@@ -361,7 +384,7 @@ const yearChartData = allMonths.map(month => ({
                             },
                         ]}
                         height={400}
-                        width={400}
+                        width={isMobile?300:400}
                     /> 
                      ):<p>No data available based on this date range</p>
                      }
@@ -371,7 +394,7 @@ const yearChartData = allMonths.map(month => ({
                 <div className="monthBasedAnalytics">
                     <h2 className="orderStatusHeading">Monthly Basis of order</h2>
                     <div>
-                         <div>
+                         <div className="calendarIcon">
                            <span>{month.format("MM")}</span>
                            <button type="button" onClick={handleMonthStatus}><FaRegCalendarAlt/></button>
                          </div>
@@ -406,7 +429,7 @@ const yearChartData = allMonths.map(month => ({
                                     tickCount: 6,
                                     },
                                 ]}
-                                width={400}
+                                width={isMobile?300:400}
                                 height={300}
                                 grid={{ vertical: true, horizontal: true }}
                             />
@@ -415,7 +438,7 @@ const yearChartData = allMonths.map(month => ({
                 <div className="yearBasedAnalytics">
                     <h2 className="orderStatusHeading">Yearly Basis of order</h2>
                     <div>
-                        <div>
+                        <div className="calendarIcon">
                             <span>{year.format("YYYY")}</span>
                             <button type="button" onClick={handleYearStatus}><FaRegCalendarAlt/></button>
                         </div>
@@ -429,32 +452,69 @@ const yearChartData = allMonths.map(month => ({
                             </LocalizationProvider>
                         </div>
                          <LineChart
-                                dataset={yearChartData}
-                                xAxis={[
-                                    {
-                                    dataKey: 'month',
-                                    label: 'Date',
-                                    scaleType: 'band',
-                                    tickLabelStyle: { fontSize: 10, angle: -90, textAnchor: 'end' },
-                                    },
-                                ]}
-                                series={[
-                                    {
-                                    dataKey: 'count',
-                                    },
-                                ]}
-                                yAxis={[
-                                    {
-                                    label: 'Number of Orders',
-                                    min: 0,
-                                    tickCount: 6,
-                                    },
-                                ]}
-                                width={400}
-                                height={300}
-                                grid={{ vertical: true, horizontal: true }}
-                            />
+                            dataset={yearChartData}
+                            xAxis={[
+                                {
+                                dataKey: 'month',
+                                label: 'Date',
+                                scaleType: 'band',
+                                tickLabelStyle: { fontSize: 10, angle: -90, textAnchor: 'end' },
+                                },
+                            ]}
+                            series={[
+                                {
+                                dataKey: 'count',
+                                },
+                            ]}
+                            yAxis={[
+                                {
+                                label: 'Number of Orders',
+                                min: 0,
+                                tickCount: 6,
+                                },
+                            ]}
+                            width={isMobile?300:400}
+                            height={300}
+                            grid={{ vertical: true, horizontal: true }}
+                        />
                    </div>
+                </div>
+                <div className="profitAndLoss">
+                   <h2 className="orderStatusHeading">Profit And Loss Analysis</h2>
+                   <Box sx={{ height: 400,width: isMobile?300:400, display: 'flex', flexDirection: 'column' }}>
+                        <div>
+                            <div className="markings">
+                              <div className="profitMarking"></div>
+                              <span>Profit</span>
+                            </div>
+                            <div className="markings">
+                              <div className="lossMarking"></div>
+                              <span>Loss</span>
+                            </div>
+                        </div>
+                        <ChartDataProvider
+                            series={[
+                            { label: 'First Series', type: 'bar', data: profitCalculation },
+                            { label: "second series", type: 'bar', data: lossCalculation },
+                            ]}
+                            width={isMobile?300:400}
+                            xAxis={[{ data: productNames, scaleType: 'band', id: 'x-axis',tickLabelStyle: { fontSize: 10, angle: -90, textAnchor: 'end' }, }]}
+                            yAxis={[
+                            {
+                            min: 0,     // start Y-axis at 0
+                            max: maxProfitOrLoss,  // end Y-axis at 1200
+                            //tickInterval: 20, 
+                            label: 'Price of Products',
+                            },
+                        ]}
+                        >
+                            <ChartsSurface>
+                            <BarPlot />
+                            <ChartsXAxis axisId="x-axis" />
+                            <ChartsYAxis />
+                            </ChartsSurface>
+                        </ChartDataProvider>
+                    </Box>
                 </div>
             </div>
         </div>

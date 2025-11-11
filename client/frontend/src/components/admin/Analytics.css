@@ -22,6 +22,7 @@
     border: 1px solid black;
     border-radius: 10px;
     margin: 10px;
+    overflow: hidden;
 }
 .sellingContainer{
     width: 30vw;
@@ -70,7 +71,7 @@
 }
 .monthBasedAnalytics,.yearBasedAnalytics{
     width: 46vw;
-    height: 70vh;
+    height: auto;
     overflow: hidden;
     border: 1px solid black;
     border-radius: 10px;
@@ -91,3 +92,141 @@
 .monthCalendar.show,.yearCalendar.show{
   display: block;
 }
+.profitAndLoss{
+    width: 95vw;
+    height: auto;
+    overflow: hidden;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.markings{
+    display: flex;
+
+}
+.profitMarking{
+    height: 12px;
+    width: 12px;
+    background-color: blue;
+    margin: 7px;
+}
+.lossMarking{
+    height: 12px;
+    width: 12px;
+    background-color: rgb(255, 238, 0);
+    margin: 7px;
+}
+
+@media screen and (max-width:767px){
+ .analytic{
+    width: 90vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+ }
+.countContainer{
+    font-size: 7px;
+}
+.orderStatusContainer{
+    width: 100vw;
+    overflow-x: auto;
+}
+.sellingContainer{
+    width: 100vw;
+    overflow-x: auto;
+}
+.orderStatusHeading{
+    font-size: 15px;
+}
+.categoryContainer{
+    width: 100vw;
+}
+.dateToDateRangeContainer{
+    width: 100vw;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: none;
+    align-items: center;
+    padding:0px;
+}
+.dateRangePicker {
+  transform: scale(0.6);   
+  transform-origin: top left; 
+  bottom: 0px;
+}
+
+.dateRangePicker .rdrCalendarWrapper,
+.dateRangePicker .rdrDateRangeWrapper,
+.dateRangePicker .rdrMonths,
+.dateRangePicker .rdrMonth {
+  width: 200px !important; 
+  max-width: 100% !important;
+}
+
+.dateRangePicker .rdrMonth {
+  flex: none !important;
+}
+.dateRangeBar{
+    margin-top: 0;
+}
+.monthBasedAnalytics,.yearBasedAnalytics{
+    width: 100vw;
+    height: auto;
+    overflow: hidden;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.calendarIcon{
+    margin-left:70px;
+}
+.monthCalendar,.yearCalendar{
+    background-color: white;
+    position: absolute;
+    z-index: 1000;
+    pointer-events: all;
+}
+.monthCalendar.hide,.yearCalendar.hide {
+  display: none;
+}
+.monthCalendar.show,.yearCalendar.show{
+  display: block;
+}
+.profitAndLoss{
+    width: 95vw;
+    height: auto;
+    overflow: hidden;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.markings{
+    display: flex;
+    margin-left: 70px;
+}
+.profitMarking{
+    height: 12px;
+    width: 12px;
+    background-color: blue;
+    margin: 7px;
+}
+.lossMarking{
+    height: 12px;
+    width: 12px;
+    background-color: rgb(255, 238, 0);
+    margin: 7px;
+}
+}
+
